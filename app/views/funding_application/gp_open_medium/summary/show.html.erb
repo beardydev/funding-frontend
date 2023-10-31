@@ -26,16 +26,6 @@
 
   <%=
     render(
-      partial: 'partials/funding_application/summary/main_purpose',
-      locals: {
-        model_object: @funding_application.organisation,
-        change_link: funding_application_gp_open_medium_main_purpose_of_organisation_path
-      }
-    )
-  %>
-
-  <%=
-    render(
       partial: 'partials/funding_application/summary/board_members_or_trustees',
       locals: {
         model_object: @funding_application.organisation,
@@ -62,36 +52,6 @@
         change_link: funding_application_gp_open_medium_vat_registered_path
       }
     ) if @funding_application.organisation.vat_number.present?
-  %>
-
-  <%=
-    render(
-      partial: 'partials/funding_application/summary/social_media',
-      locals: {
-        model_object: @funding_application.organisation,
-        change_link: funding_application_gp_open_medium_social_media_path
-      }
-    )
-  %>
-
-  <%=
-    render(
-      partial: 'partials/funding_application/summary/spend_last_year',
-      locals: {
-        model_object: @funding_application.organisation,
-        change_link: funding_application_gp_open_medium_spend_last_year_path
-      }
-    )
-  %>
-
-  <%=
-    render(
-      partial: 'partials/funding_application/summary/unrestricted_funds',
-      locals: {
-        model_object: @funding_application.organisation,
-        change_link: funding_application_gp_open_medium_unrestricted_funds_path
-      }
-    )
   %>
 
   <%=

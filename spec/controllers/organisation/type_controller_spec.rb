@@ -88,8 +88,7 @@ RSpec.describe Organisation::TypeController do
       }
 
       expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(:organisation_numbers)
-
+      expect(response).to redirect_to(organisation_org_description_path)
       expect(assigns(:organisation).errors.empty?).to eq(true)
       expect(assigns(:organisation).org_type).to eq("local_authority")
 

@@ -32,19 +32,14 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_custom_org_type
   attr_accessor :validate_address
   attr_accessor :validate_mission
-  attr_accessor :validate_main_purpose_and_activities
   attr_accessor :validate_board_members_or_trustees
   attr_accessor :validate_vat_registered
   attr_accessor :validate_vat_number
   attr_accessor :validate_company_number
   attr_accessor :validate_charity_number
-  attr_accessor :validate_social_media_info
-  attr_accessor :validate_spend_in_last_financial_year
-  attr_accessor :validate_unrestricted_funds
 
   validates :org_type, presence: true, if: :validate_org_type?
   validates :custom_org_type, presence: true, if: :validate_custom_org_type?
-  validate :validate_mission_array, if: :validate_mission?
   validates :name, presence: true, if: :validate_name?
   validates :name, length: { maximum: 255 }
   validates :name, presence: true, if: :validate_address?
@@ -52,7 +47,6 @@ class Organisation < ApplicationRecord
   validates :townCity, presence: true, if: :validate_address?
   validates :county, presence: true, if: :validate_address?
   validates :postcode, presence: true, if: :validate_address?
-  validates :main_purpose_and_activities, presence: true, if: :validate_main_purpose_and_activities?
   validates :board_members_or_trustees, numericality: {
     greater_than: -1,
     less_than: 2147483648,
@@ -60,28 +54,9 @@ class Organisation < ApplicationRecord
   }, if: :validate_board_members_or_trustees?
   validates_inclusion_of :vat_registered, in: [true, false], if: :validate_vat_registered?
   validates :vat_number, length: { minimum: 9, maximum: 12 }, if: :validate_vat_number?
-  validates :spend_in_last_financial_year, numericality: { greater_than: 0, allow_nil: true }, if: :validate_spend_in_last_financial_year?
-  validates :unrestricted_funds, numericality: { greater_than: 0, allow_nil: true }, if: :validate_unrestricted_funds?
   validates :company_number, length: { maximum: 20 }, if: :validate_company_number?
   validates :charity_number, length: { maximum: 20 }, if: :validate_charity_number?
   
-
-  validate do
-
-    validate_length(
-      :main_purpose_and_activities,
-      500,
-      I18n.t('activerecord.errors.models.organisation.attributes.main_purpose_and_activities.too_long', word_count: 500)
-    ) if validate_main_purpose_and_activities?
-
-    validate_length(
-      :social_media_info,
-      500,
-      I18n.t('activerecord.errors.models.organisation.attributes.social_media_info.too_long', word_count: 500)
-    ) if validate_social_media_info?
-
-  end
-
   def validate_name?
     validate_name == true
   end
@@ -96,14 +71,6 @@ class Organisation < ApplicationRecord
 
   def validate_address?
     validate_address == true
-  end
-
-  def validate_mission?
-    validate_mission == true
-  end
-
-  def validate_main_purpose_and_activities?
-    validate_main_purpose_and_activities == true
   end
 
   def validate_board_members_or_trustees?
@@ -126,36 +93,6 @@ class Organisation < ApplicationRecord
     validate_vat_registered == true
   end
 
-  def validate_social_media_info?
-    validate_social_media_info == true
-  end
-
-  def validate_spend_in_last_financial_year?
-    validate_spend_in_last_financial_year == true
-  end
-  
-  def validate_unrestricted_funds?
-    validate_unrestricted_funds == true
-  end
-
-  # Custom validator to determine whether any of the items in the incoming mission array
-  # are not included in the expected list of options
-  def validate_mission_array
-    if mission.present?
-      mission.each do |m|
-        if !["black_or_minority_ethnic_led",
-             "disability_led",
-             "lgbt_plus_led",
-             "female_led",
-             "young_people_led",
-             "mainly_catholic_community_led",
-             "mainly_protestant_community_led"].include? m
-          errors.add(:mission, m + " is not a valid selection")
-        end
-      end
-    end
-  end
-
   # Equality function.
   # Compares two organisation based on the attributes that FFE would normally
   # consider mandatory when capturing organisation information before applying
@@ -169,7 +106,6 @@ class Organisation < ApplicationRecord
     self.townCity&.strip&.downcase == other.townCity&.strip&.downcase &&
     self.county&.strip&.downcase == other.county&.strip&.downcase &&
     self.postcode&.strip&.downcase == other.postcode&.strip&.downcase &&
-    self.mission == other.mission &&
     self.company_number&.strip&.downcase == other.company_number&.strip&.downcase &&
     self.charity_number&.strip&.downcase == other.charity_number&.strip&.downcase
   end

@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe Organisation, type: :model do
   subject {build(:organisation)}
   let(:valid_organisation) { build(:organisation, :organisation_model, :valid_organisation) }
-  let(:invalid_mission_organisation) { build(:organisation, :organisation_model, :invalid_organisation, :invalid_mission) }
   let(:blank_organisation) { build(:organisation, :organisation_model, :blank_organisation) }
   let(:not_vat_registered_org) { build(:organisation, :organisation_model, vat_registered: false, validate_vat_registered: true) }
   let(:invalid_vat_registered_org) { build(:organisation, :organisation_model, vat_registered: nil, validate_vat_registered: true) }
@@ -139,68 +138,7 @@ RSpec.describe Organisation, type: :model do
     end
   end  
 
-  # mission tests - here we test the validate_mission_array method
-  describe "Validation of mission and mission_array" do
-    it 'validates the mission with the correct value ' do
-      expect(valid_organisation.mission).to eq(["black_or_minority_ethnic_led"])
-      expect(invalid_mission_organisation.valid?).to be(false)
-    end
-
-    it 'adds no error when mission contains only valid values' do
-      valid_organisation.mission = ["black_or_minority_ethnic_led", "female_led"]
-      valid_organisation.valid?
-      expect(valid_organisation.errors[:mission]).to be_empty
-    end
-    
-    it "adds an error when mission contains an invalid value" do
-      invalid_mission_organisation.valid?
-      expect(invalid_mission_organisation.errors[:mission]).to include("invalid_value1 is not a valid selection")
-    end
-    
-    it "adds multiple errors when mission contains multiple invalid values" do
-      invalid_mission_organisation = Organisation.new(
-        mission: ["invalid_value1", "invalid_value2"],
-        validate_mission: true
-      )
-      invalid_mission_organisation.valid?
-      expect(invalid_mission_organisation.errors[:mission]).to include("invalid_value1 is not a valid selection", "invalid_value2 is not a valid selection")
-    end
-    
-    it 'adds no errors when mission is nil' do
-      expect(blank_organisation.errors[:mission]).to be_empty
-    end
-    
-    it 'adds no errors when mission is an empty array' do
-      blank_organisation.mission = []
-      blank_organisation.valid?
-      expect(blank_organisation.errors[:mission]).to be_empty
-    end
-  end
-
-  # More complex tests to assert the validate_length methods work
-  # via a loop
-  describe "Test the validate_length methods" do
-    [
-      [:main_purpose_and_activities, 'activerecord.errors.models.organisation.attributes.main_purpose_and_activities.too_long'],
-      [:social_media_info, 'activerecord.errors.models.organisation.attributes.social_media_info.too_long']
-    ].each do |attribute, translation_key|
-      it "validates the length of #{attribute}, must be 500 characters or fewer" do
-        subject.send("validate_#{attribute}=", true)
-        subject.send("#{attribute}=", "A " * 501)
-        subject.valid?
-        
-        expect(subject.errors[attribute]).to include(
-          I18n.t(
-            translation_key,
-            word_count: 500
-          )
-        )
-      end
-    end
-  end
-
-  # tests for board_members_or_trustees, main_purpose_and_activities
-  # spend_in_last_financial_year and unrestricted_funds
+  # tests for board_members_or_trustees
   # Iterate through each set of test data for different attributes.
   # Each set of test data consists of an attribute and an array of test cases.
   describe "More complex validations for attributes" do
@@ -215,31 +153,6 @@ RSpec.describe Organisation, type: :model do
           { value: nil, error: nil }
         ]
       },
-      {
-        attribute: :main_purpose_and_activities,
-        cases: [
-          { value: nil, error: "Enter your organisation's main purpose or activities" },
-          { value: "Some Activities", error: nil }
-        ]
-      },
-      {
-        attribute: :spend_in_last_financial_year,
-        cases: [
-          { value: 0, error: "Enter an amount greater than 0" },
-          { value: "Ninety Pound", error: "Must be a number, like 500" },
-          { value: nil, error: nil },
-          { value: 900000, error: nil }
-        ]
-      },
-      {
-        attribute: :unrestricted_funds,
-        cases: [
-          { value: 0, error: "Enter an amount greater than 0" },
-          { value: "Ninety Thousand Pounds", error: "Level of unrestricted funds must be a number" },
-          { value: nil, error: nil },
-          { value: 900000, error: nil }
-        ]
-      }
     ].each do |test_data|
       attribute = test_data[:attribute]
       cases = test_data[:cases]
@@ -312,16 +225,11 @@ RSpec.describe Organisation, type: :model do
       :org_type,
       :custom_org_type,
       :address,
-      :mission,
-      :main_purpose_and_activities,
       :board_members_or_trustees,
       :vat_registered,
       :vat_number,
       :company_number,
       :charity_number,
-      :social_media_info,
-      :spend_in_last_financial_year,
-      :unrestricted_funds
     ]
   
     fields_to_validate.each do |field|

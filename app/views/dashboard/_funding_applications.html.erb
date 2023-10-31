@@ -97,7 +97,7 @@
                   link_to_unless(
                     funding_application.submitted_on.present?,
                     funding_application.open_medium&.project_title.present? ? funding_application.open_medium&.project_title : t('dashboard.funding_applications.untitled'),
-                    funding_application_gp_open_medium_main_purpose_of_organisation_path(application_id: funding_application.id),
+                    funding_application_gp_open_medium_advice_path(application_id: funding_application.id),
                     class: 'govuk-link govuk-link--no-visited-state',
                     aria: {describedby: funding_application.id}
                   ) do |name|

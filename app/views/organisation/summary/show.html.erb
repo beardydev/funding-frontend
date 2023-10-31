@@ -7,7 +7,8 @@
 %>
 
 <h1 class="govuk-heading-xl">
-  <%= t('organisation.summary.page_heading') %>
+  Organisation Summary Page
+  <%# t('organisation.summary.page_heading') %>
 </h1>
 
 <dl class="govuk-summary-list">
@@ -49,7 +50,7 @@
     </dd>
 
     <dd class="govuk-summary-list__actions">
-      <%=
+      <%#
         link_to "#{t('generic.change')}<span class='govuk-visually-hidden'>
         #{t('organisation.summary.change_links.company_number')}</span>".html_safe,
                 :organisation_numbers,
@@ -72,7 +73,7 @@
     </dd>
 
     <dd class="govuk-summary-list__actions">
-      <%=
+      <%#
         link_to "#{t('generic.change')}<span class='govuk-visually-hidden'>
         #{t('organisation.summary.change_links.charity_number')}</span>".html_safe,
                 :organisation_numbers,
@@ -169,30 +170,8 @@
       <%= t('organisation.summary.list_keys.mission') %>
     </dt>
 
-    <dd class="govuk-summary-list__value">
-      <ul class="govuk-list">
+ 
 
-        <% unless @organisation.mission.present? %>
-          <%= t('generic.not_answered') %>
-        <% else %>
-          <% @organisation.mission.each do |mission| %>
-            <li>
-              <%= t("organisation.mission.labels.#{mission}") %>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
-    </dd>
-
-    <dd class="govuk-summary-list__actions">
-      <%=
-        link_to "#{t('generic.change')}<span class='govuk-visually-hidden'>
-        #{t('organisation.summary.change_links.mission')}</span>".html_safe,
-                :organisation_mission,
-                organisation_id: @organisation.id,
-                class: "govuk-link govuk-link--no-visited-state"
-      %>
-    </dd>
 
   </div>
 
@@ -211,7 +190,7 @@
 <%=
   render(
     ButtonComponent.new(
-      href: start_an_application_url,
+      href: root_url,
       element: "a",
       text: t("buttons.labels.default")
     )

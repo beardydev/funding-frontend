@@ -52,7 +52,7 @@ class AddressController < ApplicationController
           end
 
         else
-          redirect_to organisation_mission_path(params['id'])
+          redirect_to org_description_path(params['id'])
         end
 
       elsif @type == 'preapplication'
@@ -102,13 +102,14 @@ class AddressController < ApplicationController
       elsif @type == 'gp-open-medium'
 
         redirect_to funding_application_gp_open_medium_description_path(@model_object.funding_application.id)
-
+      
       elsif @type == 'user'
 
         # Caters to a situation where original applicants have no person assigned to the user.
         check_and_set_person_address(@model_object) if @model_object.person.present?
-
-        redirect_to :authenticated_root
+      
+        # Redirect to capture the organization's name
+        redirect_to organisation_organisation_name_path(organisation_id: current_user.organisations.first.id, type: 'organisation')
 
       end
 

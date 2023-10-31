@@ -152,17 +152,14 @@ module ImportSalesforceApi
     def retrieve_existing_account_info(name, postcode, org_id)
       query = "SELECT " \
       "Name, BillingStreet, BillingCity, BillingState, BillingPostalCode, " \
-        "Company_Number__c, Charity_Number__c, Charity_Number_NI__c, Id, "\
+        "Company_Number__c, Charity_Number__c, Id, "\
           "Organisation_Type__c, Organisation_s_Mission_and_Objectives__c, " \
             "Are_you_VAT_registered_picklist__c, VAT_number__c, "\
-              "Organisation_s_Main_Purpose_Activities__c, " \
-                "Number_Of_Board_members_or_Trustees__c, "\
-                  "Social_Media__c, Amount_spent_in_the_last_financial_year__c, " \
-                    "level_of_unrestricted_funds__c " \
-                      "FROM Account " \
-                        "where Name = '#{name}' and " \
-                          "BillingPostalCode = '#{postcode}' " \
-                            "order by LastModifiedDate desc"
+              "Number_Of_Board_members_or_Trustees__c "\
+                "FROM Account " \
+                  "where Name = '#{name}' and " \
+                    "BillingPostalCode = '#{postcode}' " \
+                      "order by LastModifiedDate desc"
 
     restforce_response = run_salesforce_query(
       query,

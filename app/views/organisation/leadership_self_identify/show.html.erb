@@ -1,0 +1,4 @@
+<h1>leadership_self_identify</h1>
+<%= form_for @organisation, url: organisation_leadership_self_identify_path(@organisation), method: :put do |f| %>
+  <%= render(ButtonComponent.new(element: 'input')) %>
+<% end %>

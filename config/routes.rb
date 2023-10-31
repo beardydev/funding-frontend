@@ -82,37 +82,49 @@ Rails.application.routes.draw do
   # Organisation section of the service
   namespace :organisation do
     scope '/:organisation_id' do
+      get '/organisation-name', to: 'organisation_name#show'
+      put '/organisation-name', to: 'organisation_name#update'
       get '/type', to: 'type#show'
       put '/type', to: 'type#update'
-      get '/numbers', to: 'numbers#show'
-      put '/numbers', to: 'numbers#update'
-      get '/mission', to: 'mission#show'
-      put '/mission', to: 'mission#update'
+      get '/org-description', to: 'org_description#show'
+      put '/org-description', to: 'org_description#update'
+      get '/communities-that-org-serve', to: 'communities_that_org_serve#show'
+      put '/communities-that-org-serve', to: 'communities_that_org_serve#update' 
+      get '/leadership-self-identify', to: 'leadership_self_identify#show'
+      put '/leadership-self-identify', to: 'leadership_self_identify#update'
+      get '/charity-number', to: 'charity_number#show'
+      put '/charity-number', to: 'charity_number#update'
+      get '/company-number', to: 'company_number#show'
+      put '/company-number', to: 'company_number#update'
+      get '/vat-registered', to: 'vat_registered#show'
+      put '/vat-registered', to: 'vat_registered#update'
+      get '/board-members-or-trustees', to: 'board_members_or_trustees#show'
+      put '/board-members-or-trustees', to: 'board_members_or_trustees#update'
+      get '/number-of-employees', to: 'number_of_employees#show'
+      put '/number-of-employees', to: 'number_of_employees#update'
+      get '/number-of-volunteers', to: 'number_of_volunteers#show'
+      put '/number-of-volunteers', to: 'number_of_volunteers#update'
+      get '/volunteer-work-description', to: 'volunteer_work_description#show'
+      put '/volunteer-work-description', to: 'volunteer_work_description#update'
+      get '/governing-documents', to: 'governing_documents#show'
+      put '/governing-documents', to: 'governing_documents#update'
+      get '/governing-documents-question', to: 'governing_documents#question_show'
+      put '/governing-documents-question', to: 'governing_documents#question_update'      
       get '/summary', to: 'summary#show'
       get '/existing-organisations-error', to: 'existing_organisations_error#show', constraints: lambda { Flipper.enabled?(:import_existing_account_enabled) }
     end
+
   end
 
   # Pre-application section of the service
   scope '/pre-application', module: 'pre_application', as: :pre_application do
 
-    scope '/:pre_application_id' do
+      # where  scope '/:pre_application_id' do was
 
-      scope '/organisation', module: 'org', as: :organisation do
+      # scope '/organisation', module: 'org', as: :organisation do
 
-        scope '/:organisation_id' do
-
-          get 'type', to: 'type#show'
-          put 'type', to: 'type#update'
-          get 'mission', to: 'mission#show'
-          put 'mission', to: 'mission#update'
-
-        end
-
-      end
-
-    end
-    
+      #   scope '/:organisation_id' do
+     
     scope 'project-enquiry', module: 'project_enquiry', as: :project_enquiry do
 
       post 'start', to: 'start#update'
@@ -528,23 +540,8 @@ Rails.application.routes.draw do
       post 'start', to: 'start#update'
 
       scope '/:application_id' do
-
-        scope 'org', module: 'org' do
-
-          get 'main-purpose-of-organisation', to: 'main_purpose_and_activities#show'
-          put 'main-purpose-of-organisation', to: 'main_purpose_and_activities#update'
-          get 'board-members-or-trustees', to: 'board_members_or_trustees#show'
-          put 'board-members-or-trustees', to: 'board_members_or_trustees#update'
-          get 'vat-registered', to: 'vat_registered#show'
-          put 'vat-registered', to: 'vat_registered#update'
-          get 'social-media', to: 'social_media#show'
-          put 'social-media', to: 'social_media#update'
-          get 'spend-last-year', to: 'spend_last_year#show'
-          put 'spend-last-year', to: 'spend_last_year#update'
-          get 'unrestricted-funds', to: 'unrestricted_funds#show'
-          put 'unrestricted-funds', to: 'unrestricted_funds#update'
-
-        end
+        
+        # where scope 'org', module: 'org' do was
 
         get 'advice', to: 'received_advice#show'
         put 'advice', to: 'received_advice#update'

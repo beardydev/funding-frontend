@@ -214,10 +214,6 @@ RSpec.feature 'Project', type: :feature do
 
       click_save_and_continue_button
 
-      expect(page).to have_text "Upload your organisation's governing document"
-
-      click_save_and_continue_button
-
       expect(page).to have_text "Upload your organisation's accounts"
 
       click_save_and_continue_button

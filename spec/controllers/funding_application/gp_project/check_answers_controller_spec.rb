@@ -147,7 +147,7 @@ RSpec.describe FundingApplication::GpProject::CheckAnswersController do
 
       expect(response).to have_http_status(:redirect)
       expect(response)
-          .to redirect_to(:funding_application_gp_project_governing_documents)
+          .to redirect_to(:funding_application_gp_project_accounts)
 
       expect(assigns(:funding_application).project.errors.empty?).to eq(true)
 
@@ -156,4 +156,3 @@ RSpec.describe FundingApplication::GpProject::CheckAnswersController do
   end
 
 end
-

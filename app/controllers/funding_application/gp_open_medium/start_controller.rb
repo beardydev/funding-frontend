@@ -14,7 +14,7 @@ class FundingApplication::GpOpenMedium::StartController < ApplicationController
     OpenMedium.create(funding_application_id: @application.id, user: current_user)
 
     redirect_to(
-      funding_application_gp_open_medium_main_purpose_of_organisation_path(
+      funding_application_gp_open_medium_advice_path(
         @application.id
       )
     )

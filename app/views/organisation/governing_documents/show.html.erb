@@ -1,0 +1,58 @@
+<h1>governing_document</h1>
+<%= form_for @organisation, url: organisation_governing_documents_path(@organisation), method: :put do |f| %>
+  <%= render(ButtonComponent.new(element: 'input')) %>
+<% end %>
+
+<%#
+  render(
+    partial: 'partials/page_title',
+    locals: {
+      model_object: @organisation.governing_document,
+      page_title: t('governing_document.page_title')
+    }
+  )
+%>
+
+<%# content_for :secondarycontent do %>
+  <%# 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: organisation_summary_path
+    } 
+  %>
+<%# end %>
+
+<%# <noscript><%# no_js = true %></noscript> %>
+
+<%# <div id="summary-errors"></div> %>
+
+<%#
+  render(
+    partial: 'partials/summary_errors',
+    locals: {
+      form_object: @funding_application.project,
+      first_form_element: :project_governing_document_file
+    }
+  ) if @organisation.errors.any?
+%>
+
+<%#
+  form_with model: @organisation,
+  url: :organisation_governing_documents,
+  method: :put,
+  local: no_js ? true : false do |f|
+%>
+
+  <%#
+    render(
+      partial: 'partials/organisation/governing_documents_question',
+      locals: {
+        model_object: @organisation,
+        model_object_name: 'organisation',
+        form_object: f
+      }
+    )
+  %>
+
+<%# end %>
+
+<%# render(ButtonComponent.new(element: 'input')) %>

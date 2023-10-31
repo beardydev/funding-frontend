@@ -17,23 +17,26 @@ class FundingApplication::GpProject::CheckAnswersController < ApplicationControl
       logger.info "All mandatory fields completed for project ID: " \
                   "#{@funding_application.project.id}"
 
-      if current_user.organisations.first.org_type == "registered_company" ||
-        current_user.organisations.first.org_type ==
-            "individual_private_owner_of_heritage"
+      # if current_user.organisations.first.org_type == "registered_company" ||
+      #   current_user.organisations.first.org_type ==
+      #       "individual_private_owner_of_heritage"
 
-        logger.info "Organisation is either a registered company or an " \
-                    "individual private owner of heritage, redirecting to " \
-                    "accounts page"
+      #   logger.info "Organisation is either a registered company or an " \
+      #               "individual private owner of heritage, redirecting to " \
+      #               "accounts page"
 
-        redirect_to :funding_application_gp_project_accounts
+      #   redirect_to :funding_application_gp_project_accounts
 
-      else
+      # else
 
-        logger.info "Redirecting to governing documents page"
+      #   logger.info "Redirecting to governing documents page"
 
-        redirect_to :funding_application_gp_project_governing_documents
+      #   redirect_to :funding_application_gp_project_governing_documents
 
-      end
+      # end
+
+              redirect_to :funding_application_gp_project_accounts
+
 
     else
 

@@ -2849,16 +2849,10 @@
         BillingPostalCode: organisation.postcode,
         Company_Number__c: organisation.company_number,
         Charity_Number__c: organisation.charity_number,
-        Charity_Number_NI__c: organisation.charity_number_ni,
         Organisation_Type__c: get_organisation_type_for_salesforce(organisation),
-        Organisation_s_Mission_and_Objectives__c: convert_to_salesforce_mission_types(organisation.mission),
         Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
         VAT_number__c: organisation.vat_number,
-        Organisation_s_Main_Purpose_Activities__c: organisation.main_purpose_and_activities,
-        Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees, 
-        Social_Media__c: organisation.social_media_info,
-        Amount_spent_in_the_last_financial_year__c:	organisation.spend_in_last_financial_year,
-        level_of_unrestricted_funds__c: organisation.unrestricted_funds
+        Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees
       )
     end
 
@@ -2887,15 +2881,9 @@
         BillingPostalCode: organisation.postcode,
         Company_Number__c: organisation.company_number,
         Charity_Number__c: organisation.charity_number,
-        Charity_Number_NI__c: organisation.charity_number_ni,
-        Organisation_s_Mission_and_Objectives__c: convert_to_salesforce_mission_types(organisation.mission),
         Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
         VAT_number__c: organisation.vat_number,
-        Organisation_s_Main_Purpose_Activities__c: organisation.main_purpose_and_activities,
-        Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees, 
-        Social_Media__c: organisation.social_media_info,
-        Amount_spent_in_the_last_financial_year__c:	organisation.spend_in_last_financial_year,
-        level_of_unrestricted_funds__c: organisation.unrestricted_funds
+        Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees
       )
     end
 
@@ -3076,46 +3064,6 @@
         'Other organisation type'
       else
         'Unknown organisation type'
-      end
-
-    end
-
-    # Rails stores mission types as a comma delimited set of strings.
-    # Salesforce requires these to be a semi-colon delimited string.
-    #
-    # @param [Array] an array of mission strings for an Organisation
-    #
-    # @return [Array] A re-mapped array of missions formatted for Salesforce
-    def convert_to_salesforce_mission_types(mission)
-
-      salesforce_mission_array = mission.map { |mission_type| translate_mission_type_for_salesforce(mission_type) }
-
-      salesforce_mission_array.compact.join(';')
-        
-    end
-
-    # Function to change an Organisation's mission type to a Salesforce equivalent
-    #
-    # @param [String] mission_type for an Organisation
-    #
-    # @return [String] the mission string re-formatted for Saleforce
-    def translate_mission_type_for_salesforce(mission_type)
-
-      formatted_mission_value = case mission_type
-      when 'black_or_minority_ethnic_led'
-        'Black or minority ethnic-led'
-      when 'disability_led'
-        'Disability-led'
-      when 'lgbt_plus_led'
-        'LGBT+-led'
-      when 'female_led'
-        'Female-led'
-      when 'young_people_led'
-        'Young people-led'
-      when 'mainly_catholic_community_led'
-        'Mainly led by people from Catholic communities'
-      when 'mainly_protestant_community_led'
-        'Mainly led by people from Protestant communities'
       end
 
     end

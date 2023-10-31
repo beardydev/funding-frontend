@@ -16,21 +16,6 @@ RSpec.describe PreApplication::ExpressionOfInterest::PreviousContactNameControll
 
   describe 'GET #show' do
 
-    it 'should redirect if an incomplete organisation is found' do
-
-      get :show,
-          params: { pre_application_id: pre_application.id }
-
-      expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(
-        pre_application_organisation_type_path(
-          organisation_id: subject.current_user.organisations.first.id,
-          pre_application_id: pre_application.id
-        )
-      )
-
-    end
-
     it 'should render the page successfully for a valid pre_application ' \
        'with a complete organisation' do
 

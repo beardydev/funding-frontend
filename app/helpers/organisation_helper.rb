@@ -220,26 +220,14 @@ module OrganisationHelper
       client = OrganisationSalesforceApi.new
       sf_details = client.retrieve_existing_sf_org_details(organisation.salesforce_account_id)
 
-      organisation.main_purpose_and_activities =
-        sf_details.Organisation_s_Main_Purpose_Activities__c
-
-      organisation.spend_in_last_financial_year =
-        sf_details.Amount_spent_in_the_last_financial_year__c
-
-      organisation.unrestricted_funds =
-        sf_details.level_of_unrestricted_funds__c
-
       organisation.board_members_or_trustees =
-        sf_details.Number_Of_Board_members_or_Trustees__c
+      sf_details.Number_Of_Board_members_or_Trustees__c
 
       organisation.vat_registered =
         convert_vat_registered_picklist(sf_details.Are_you_VAT_registered_picklist__c)
 
       organisation.vat_number =
         sf_details.VAT_number__c
-
-      organisation.social_media_info =
-        sf_details.Social_Media__c
 
       organisation.save!
 
@@ -378,47 +366,6 @@ module OrganisationHelper
     end
   end
 
-  # Method to convert salesforce mission/objective type to FFE type
-  # aligning FFE with any salesforce changes.
-  #
-  # @param [String] mission_objective_type A string containing a collection of
-  #                              mission/objectives, in the salesforce format.
-  #
-  # @return [Array<string> ] missions_list String array of FFE mission/objectives  
-  #                                         to add against organisation. 
-  def convert_mission_objective_type(mission_objective_type)
-
-    missions_list = []
-
-    if mission_objective_type.present?
-
-      mission_objective_type = mission_objective_type.split(";")
-
-      mission_objective_type.each do | mission |
-        case mission
-        when 'Black or minority ethnic-led'
-          missions_list.append('black_or_minority_ethnic_led')
-        when 'Disability-led'
-          missions_list.append('disability_led')
-        when 'LGBT+-led'
-          missions_list.append('lgbt_plus_led')
-        when 'Female-led'
-          missions_list.append('female_led')
-        when 'Young people-led'
-          missions_list.append('young_people_led')
-        when 'Mainly led by people from Catholic communities'
-          missions_list.append('mainly_catholic_community_led')
-        when 'Mainly led by people from Protestant communities'
-          missions_list.append('mainly_protestant_community_led')
-        end
-      end
-
-    end
-
-    missions_list
-
-  end
-
   # Method to convert salesforce vat registered picklist value to FFE type
   #
   # @param [String] picklist_type A string containing a picklist value
@@ -494,10 +441,6 @@ module OrganisationHelper
     org.postcode = restforce_org&.BillingPostalCode
     org.company_number = restforce_org&.Company_Number__c
     org.charity_number = restforce_org&.Charity_Number__c
-    org.charity_number_ni = restforce_org&.Charity_Number_NI__c
-    org.mission = convert_mission_objective_type(
-      restforce_org&.Organisation_s_Mission_and_Objectives__c
-    )
 
     #Currently not used as org_types in SF and FFE do not align
     # organisation.org_type = convert_org_type(restforce_org.Organisation_Type__c)
@@ -518,17 +461,11 @@ def clear_org_data(org)
   org.postcode = nil
   org.company_number = nil
   org.charity_number = nil
-  org.charity_number_ni = nil
   org.name = nil
   org.org_type = nil
-  org.mission = {}
   org.salesforce_account_id = nil
   org.custom_org_type = nil
-  org.main_purpose_and_activities = nil
-  org.spend_in_last_financial_year = nil
-  org.unrestricted_funds = nil
   org.board_members_or_trustees = nil
   org.vat_registered = nil
-  org.social_media_info = nil
   org.save!
 end

@@ -1,0 +1,221 @@
+<%# <div class="govuk-form-group">
+
+  <fieldset class="govuk-fieldset">
+
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
+      <h1 class="govuk-fieldset__heading">
+        <%# t('governing_document.page_heading') %>
+      </h1>
+    </legend>
+
+    <p class="govuk-body">
+      <%# t('governing_document.before_we_assess') %>
+    </p>
+
+    <details class="govuk-details" data-module="govuk-details">
+
+      <summary class="govuk-details__summary">
+
+        <span class="govuk-details__summary-text">
+          <%# t('governing_document.what_is_a_governing_document') %>
+        </span>
+
+      </summary>
+
+      <div class="govuk-details__text">
+
+        <p class="govuk-body">
+          <%# t('governing_document.what_is_para_1') %>
+        </p>
+
+        <p class="govuk-body">
+          <%# t('governing_document.what_is_para_2') %>
+        </p>
+
+        <p class="govuk-body">
+          <%# t('governing_document.what_is_para_3') %>
+        </p>
+
+        <p class="govuk-body">
+          <%# t('governing_document.what_is_para_4') %>
+        </p>
+
+        <p class="govuk-body">
+          <%# t('governing_document.the_charity_commission') %> 
+          <%# 
+            link_to(
+              t('governing_document.guidance_href_text'),
+              "#{I18n.locale == :cy ? 'https://www.gov.uk/guidance/how-to-write-your-charitys-governing-document.cy' :  'https://www.gov.uk/guidance/how-to-write-your-charitys-governing-document'}",
+              target: '_blank'
+            )
+          %>.
+        </p>
+
+      </div>
+
+    </details>   
+
+    <p class="govuk-heading-s">
+      <%# t('governing_document.we_do_not_need') %>
+    </p>
+
+    <ul class="govuk-list govuk-list--bullet">
+
+      <li>
+        <%# t('governing_document.a_public_org') %>
+      </li>
+
+      <li>
+        <%# t('governing_document.a_charity') %>
+      </li>
+
+      <%#
+        if current_user.organisations.first.org_type == "faith_based_organisation" ||
+          current_user.organisations.first.org_type == "church_organisation"
+      %>
+
+        <li>
+
+          <%# t('governing_document.one_of_the_following') %>
+
+          <ul class="govuk-list govuk-list--bullet nlhf-list--dash">
+
+            <li><%# t('governing_document.church_types.baptist_church') %></li>
+            <li><%# t('governing_document.church_types.church_in_wales') %></li>
+            <li><%# t('governing_document.church_types.church_of_england') %></li>
+            <li><%# t('governing_document.church_types.church_of_scotland') %></li>
+            <li><%# t('governing_document.church_types.methodist_church') %></li>
+            <li><%# t('governing_document.church_types.roman_catholic_church') %></li>
+            <li><%# t('governing_document.church_types.scottish_episcopal_church') %></li>
+            <li><%# t('governing_document.church_types.united_reformed_church') %></li>
+
+          </ul>
+
+        </li>
+
+      <%# end %>
+
+    </ul>
+
+    <p class="govuk-body">
+      <%# t('governing_document.no_signed_copy') %>
+    </p>
+
+    <div class="govuk-warning-text">
+      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+      <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive"><%# t('governing_document.warning') %></span>
+        <%# t('governing_document.warning_text') %>
+      </strong>
+    </div>
+
+    <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
+
+      <div class="govuk-form-group <%# "govuk-form-group--error" if
+        model_object.errors.any? %>" id="governing_document_file-form-group" data-form-group="file">
+
+        <%#
+          render(
+            partial: 'partials/form_group_errors',
+            locals: {
+              form_object: model_object
+            }
+          ) if model_object.errors.any?
+        %>
+
+        <div class="govuk-form-group">
+
+          <%#
+            form_object.label :governing_document_file,
+            t('governing_document.labels.add_your_governing_doc'),
+            class: "govuk-heading-m nlhf-content-highlight__title"
+          %>
+
+          <div id="governing_document_file-errors"></div>
+
+          <%#
+            form_object.file_field :governing_document_file,
+            multiple: false,
+            direct_upload: true,
+            class: "govuk-file-upload #{"govuk-file-upload--error" if
+              model_object.errors.any?}",
+            'data-input-identifier': 'file',
+            'data-attribute': :governing_document_file,
+            'data-model': model_object_name,
+            'autocomplete' => 'off'
+          %>
+
+        </div>
+
+        <%# See https://blog.yorkxin.org/2014/02/06/ajax-with-formdata-is-broken-on-ie10-ie11.html
+        for the reasoning behind this workaround %>
+        <input type="hidden" name="ieworkaround">
+
+        <div class#"govuk-form-group">
+
+          <%#
+            render(
+              ButtonComponent.new(
+                text: t('governing_document.buttons.add_governing_doc'),
+                classes: 'govuk-button--secondary',
+              )
+            )
+          %>
+
+        </div>
+
+      </div>
+
+      <%# unless model_object.governing_document_file.attached? %>
+
+        <p class="govuk-body">
+          <%# t('governing_document.no_governing_document') %>
+        </p>
+
+      <%# else %>
+
+        <table class="govuk-table">
+
+          <thead class="govuk-table__head">
+
+            <tr class="govuk-table__row">
+
+              <th scope="col" class="govuk-table__header">
+                <%# t('governing_document.governing_document_file') %>
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody class="govuk-table__body">
+
+            <tr class="govuk-table__row">
+
+              <td class="govuk-table__cell">
+
+                <%#
+                  link_to(
+                    model_object.governing_document_file.blob.filename,
+                    rails_blob_path(
+                      model_object.governing_document_file,
+                      disposition: 'attachment'
+                    )
+                  )
+                %>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      <%# end %>
+
+    </div>
+
+  </fieldset>
+
+</div> %>

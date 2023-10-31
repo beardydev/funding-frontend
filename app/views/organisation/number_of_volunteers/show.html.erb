@@ -1,0 +1,4 @@
+<h1>Number of Volunteers</h1>
+<%= form_for @organisation, url: organisation_number_of_volunteers_path(@organisation), method: :put do |f| %>
+  <%= render(ButtonComponent.new(element: 'input')) %>
+<% end %>
