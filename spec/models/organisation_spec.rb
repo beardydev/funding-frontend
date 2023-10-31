@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Organisation, type: :model do
   subject {build(:organisation)}
+  let(:organisation) { create(:organisation) }
   let(:valid_organisation) { build(:organisation, :organisation_model, :valid_organisation) }
   let(:blank_organisation) { build(:organisation, :organisation_model, :blank_organisation) }
   let(:not_vat_registered_org) { build(:organisation, :organisation_model, vat_registered: false, validate_vat_registered: true) }
@@ -87,6 +88,39 @@ RSpec.describe Organisation, type: :model do
     end
   end
 
+  describe 'new organisation strategy attributes' do
+
+    it 'allows organisation_description' do
+      organisation.organisation_description = 'Sample Description'
+      expect(organisation.organisation_description).to eq('Sample Description')
+    end
+
+    it 'allows communities_that_org_serve' do
+      organisation.communities_that_org_serve = ['Community A', 'Community B']
+      expect(organisation.communities_that_org_serve).to eq(['Community A', 'Community B'])
+    end
+
+    it 'allows leadership_self_identify' do
+      organisation.leadership_self_identify = ['Leader A', 'Leader B']
+      expect(organisation.leadership_self_identify).to eq(['Leader A', 'Leader B'])
+    end
+
+    it 'allows number_of_employees' do
+      organisation.number_of_employees = 10
+      expect(organisation.number_of_employees).to eq(10)
+    end
+
+    it 'allows number_of_volunteers' do
+      organisation.number_of_volunteers = 20
+      expect(organisation.number_of_volunteers).to eq(20)
+    end
+
+    it 'allows volunteer_work_description' do
+      organisation.volunteer_work_description = 'Test Volunteer Work'
+      expect(organisation.volunteer_work_description).to eq('Test Volunteer Work')
+    end
+  end
+
   # org_type tests
   describe "validation or org_type" do
     it 'has a valid org type' do 
@@ -104,8 +138,8 @@ RSpec.describe Organisation, type: :model do
       expect(valid_org_type.org_type).to eq("community_interest_company")
     end
     
-    it 'should allow organization types within the range 0 to 11' do
-      (0..11).each do |org_type|
+    it 'should allow organization types within the range 0 to 17' do
+      (0..17).each do |org_type|
         valid_org = build(:organisation, org_type: org_type)
         expect(valid_org.valid?).to be(true), "Expected organization type #{org_type} to be valid, but got errors: #{valid_org.errors[:org_type].join(', ')}"
       end
@@ -113,7 +147,7 @@ RSpec.describe Organisation, type: :model do
   
     # We are testing an enum, so should recieve an ArgumentError.
     it 'should raise an ArgumentError for invalid organization types' do
-        invalid_org_types = [-1, 12, 200, "invalid"]
+        invalid_org_types = [-1, 18, 200, "invalid"]
           invalid_org_types.each do |org_type|
             expect { subject.org_type = org_type }.to raise_error(ArgumentError), "Expected an ArgumentError to be raised for org_type #{org_type.inspect}, but it wasn't."
           end      

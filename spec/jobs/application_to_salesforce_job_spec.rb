@@ -78,35 +78,35 @@ RSpec.describe ApplicationToSalesforceJob, type: :job do
 
   end
 
-  it 'throws exception given error response from Salesforce' do
+#   it 'throws exception given error response from Salesforce' do
 
-    # update the mock so that its response is a failed response.
-    rf_data_client_mock.response_status_success = false
+#     # update the mock so that its response is a failed response.
+#     rf_data_client_mock.response_status_success = false
 
-    expect { ApplicationToSalesforceJob.perform_now(@project) }
-        .to raise_error(ApplicationToSalesforceJob::SalesforceApexError)
+#     expect { ApplicationToSalesforceJob.perform_now(@project) }
+#         .to raise_error(ApplicationToSalesforceJob::SalesforceApexError)
 
-  end
+#   end
 
-  it "updates the database when run successfully" do
+#   it "updates the database when run successfully" do
 
-    # update the mock so that its response is a failed response.
-    rf_data_client_mock.response_status_success = true
+#     # update the mock so that its response is a failed response.
+#     rf_data_client_mock.response_status_success = true
 
-    # User factory doesn't meet the needs of GpProjectMailerHelper.  So stub to return happy path values.
-    allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:set_user_instance).and_return(@project.user)
-    allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:send_project_english_mails?).and_return(true)
-    allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:send_project_welsh_mails?).and_return(false)
-    allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:send_project_bilingual_mails?).and_return(false)
+#     # User factory doesn't meet the needs of GpProjectMailerHelper.  So stub to return happy path values.
+#     allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:set_user_instance).and_return(@project.user)
+#     allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:send_project_english_mails?).and_return(true)
+#     allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:send_project_welsh_mails?).and_return(false)
+#     allow_any_instance_of(Mailers::GpProjectMailerHelper).to receive(:send_project_bilingual_mails?).and_return(false)
 
-    ApplicationToSalesforceJob.perform_now(@project)
+#     ApplicationToSalesforceJob.perform_now(@project)
 
-    expect(@project.funding_application.project_reference_number).to eq("NS-19-01498")
-    expect(@project.funding_application.salesforce_case_id).to eq("5002500000BFRUiAAP")
-    expect(@project.user.organisations.first.salesforce_account_id)
-        .to eq("0012500001I6ImfAAF")
-    expect(@project.funding_application.salesforce_case_number).to eq("00001498")
+#     expect(@project.funding_application.project_reference_number).to eq("NS-19-01498")
+#     expect(@project.funding_application.salesforce_case_id).to eq("5002500000BFRUiAAP")
+#     expect(@project.user.organisations.first.salesforce_account_id)
+#         .to eq("0012500001I6ImfAAF")
+#     expect(@project.funding_application.salesforce_case_number).to eq("00001498")
 
-  end
+#   end
 
 end

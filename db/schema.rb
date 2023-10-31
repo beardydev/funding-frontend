@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_11_110507) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_30_145958) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -457,21 +457,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_11_110507) do
     t.string "postcode"
     t.string "company_number"
     t.string "charity_number"
-    t.integer "charity_number_ni"
     t.string "name"
     t.string "line2"
     t.string "line3"
     t.integer "org_type"
-    t.string "mission", default: [], array: true
     t.string "salesforce_account_id"
     t.string "custom_org_type"
-    t.text "main_purpose_and_activities"
-    t.decimal "spend_in_last_financial_year"
-    t.decimal "unrestricted_funds"
     t.integer "board_members_or_trustees"
     t.boolean "vat_registered"
     t.string "vat_number"
-    t.text "social_media_info"
+    t.string "organisation_description"
+    t.text "communities_that_org_serve", array: true
+    t.text "leadership_self_identify", array: true
+    t.integer "number_of_employees"
+    t.integer "number_of_volunteers"
+    t.string "volunteer_work_description"
   end
 
   create_table "organisations_org_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -37,6 +37,12 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_vat_number
   attr_accessor :validate_company_number
   attr_accessor :validate_charity_number
+  attr_accessor :organisation_description
+  attr_accessor :communities_that_org_serve
+  attr_accessor :leadership_self_identify
+  attr_accessor :number_of_employees
+  attr_accessor :number_of_volunteers
+  attr_accessor :volunteer_work_description
 
   validates :org_type, presence: true, if: :validate_org_type?
   validates :custom_org_type, presence: true, if: :validate_custom_org_type?
@@ -93,6 +99,26 @@ class Organisation < ApplicationRecord
     validate_vat_registered == true
   end
 
+  def validate_organisation_description 
+    validate_organisation_description == true
+  end
+
+  def validate_communities_that_org_serve
+    validate_communities_that_org_serve == true
+  end
+
+  def validate_number_of_employees
+    validate_number_of_employees == true
+  end
+
+  def validate_number_of_volunteers
+    validate_number_of_volunteers == true
+  end
+
+  def validate_volunteer_work_description
+    validate_volunteer_work_description == true
+  end
+
   # Equality function.
   # Compares two organisation based on the attributes that FFE would normally
   # consider mandatory when capturing organisation information before applying
@@ -143,7 +169,13 @@ class Organisation < ApplicationRecord
       individual_private_owner_of_heritage: 8,
       other: 9,
       other_public_sector_organisation: 10,
-      unknown: 11
+      unknown: 11,
+      public_or_private_company: 12,
+      charitable_incorporated_organisation: 13,
+      partnership_or_llp: 14,
+      cooperative_industrial_provident_registered_society: 15,
+      trust: 16,
+      other_constituted_unincorporated_club_or_society: 17
   }
 
 end

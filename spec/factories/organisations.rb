@@ -20,12 +20,17 @@ FactoryBot.define do
     org_type { 0 }
     company_number { "COMP12345" }
     charity_number { "CHAR12345" }
-    charity_number_ni { 7890 }
     salesforce_account_id { "sf-123456789" }
     custom_org_type { "CustomType" }
     board_members_or_trustees { 5 }
     vat_registered { true }
     vat_number { "GB123456789" }
+    organisation_description { "Sample Description" }
+    communities_that_org_serve { ["Community A", "Community B"] }
+    leadership_self_identify { ["Leader A", "Leader B"] }
+    number_of_employees { 10 }
+    number_of_volunteers { 20 }
+    volunteer_work_description { "Test Volunteer Work" }
    end
 
       # A trait to allow testing of blank attributes 
