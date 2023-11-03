@@ -26,14 +26,10 @@ en-GB:
       new:
         sub_heading: "Get advice for a project idea between £10,000 and £250,000"
         sub_content: "Submit a Project Enquiry Form for a project idea between £10,000 and £250,000 to get advice before you start a full application."
-        project_enquiries_applications: "Project enquiries and applications for National Lottery Grants for Heritage from £10,000–£250,000 under our current Strategic Funding Framework will close at 12 noon on 3rd of November, reopening in January with new "
-        strategy_href: "Heritage 2033"
-        strategy_post_link: "(opens in a new tab)"
-        guidance: "guidance."
+        project_enquiries_applications: "Project enquires and applications for National Lottery Grants for Heritage from £10,000–£250,000 under our current Strategic Funding Framework are now closed and will reopen in January with new Heritage 2033 guidance."
         Please_check: "Please check our website later in the year for updates."
-        for_the_following: "Applicants for the following programmes will still be able to use this page after 3rd of November but must start their project title with the appropriate hashtag:"
+        for_the_following: "Applications for the following programmes only will be accepted during this time. You must start the title of your project with the appropriate hashtag:"
         woodland_investment: "The Woodland Investment Grant programme #COED2"
-        local_places_nature: "Local Places for Nature #NATUR" 
         heritage_places_strategic: "Heritage Places Strategic Initiative #HP"
         buttons:
           start: "Start a Project Enquiry"
