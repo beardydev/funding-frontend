@@ -1,5 +1,6 @@
 module PreApplicationHelper
   include SalesforceApi
+  include OrganisationSalesforceApi
   include Mailers::PefMailerHelper
   include Mailers::EoiMailerHelper
   
@@ -56,6 +57,8 @@ module PreApplicationHelper
 
   end
 
+
+
   # Method to orchestrate sending a pre-application to Salesforce
   # Determines whether the pre-application is an project enquiry or expression of interest,
   # then takes specific actions for them
@@ -68,7 +71,12 @@ module PreApplicationHelper
   def send_pre_application_to_salesforce(pre_application, user, organisation)
 
     salesforce_api_client = SalesforceApiClient.new
- 
+    
+    organisation_api_client = OrganisationSalesforceApi.new
+
+    organisation_api_client.create_organisation_in_salesforce(organisation)
+
+
     if pre_application.pa_project_enquiry.present?
 
       salesforce_references = salesforce_api_client.create_project_enquiry(

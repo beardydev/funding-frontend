@@ -467,5 +467,17 @@ def clear_org_data(org)
   org.custom_org_type = nil
   org.board_members_or_trustees = nil
   org.vat_registered = nil
+  org.description = nil
+  org.communities_that_org_serve = nil
+  org.leadership_self_identity = nil
+  org.number_of_employees = nil
+  org.number_of_volunteers = nil
+  org.volunteer_work_description = nil
   org.save!
+end
+
+def upload_org_to_salesforce(organisation)
+  client = OrganisationSalesforceApi.new
+
+  client.create_organisation_in_salesforce(organisation)
 end

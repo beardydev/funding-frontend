@@ -340,9 +340,7 @@
 
       begin
 
-        salesforce_account_id = create_organisation_in_salesforce(organisation)
-
-        salesforce_contact_id = upsert_contact_in_salesforce(user, organisation, salesforce_account_id)
+        salesforce_contact_id = upsert_contact_in_salesforce(user, organisation)
 
         salesforce_expression_of_interest_id = @client.upsert!(
           'Expression_Of_Interest__c',
@@ -360,7 +358,7 @@
           Overall_cost__c: expression_of_interest.overall_cost,
           Likely_Submission_Description__c: expression_of_interest.likely_submission_description,
           Contact__c: salesforce_contact_id,
-          Name_of_your_organisation__c: salesforce_account_id,
+          Name_of_your_organisation__c: organisation.salesforce_account_id,
           RecordTypeId: get_salesforce_record_type_id('H33_EOI_v1', 'Expression_Of_Interest__c')
         )
 
@@ -370,7 +368,7 @@
         )
 
         {
-          salesforce_account_id: salesforce_account_id,
+          salesforce_account_id: organisation.salesforce_account_id,
           salesforce_contact_id: salesforce_contact_id,
           salesforce_expression_of_interest_id: salesforce_expression_of_interest_id,
           salesforce_expression_of_interest_reference: get_salesforce_expression_of_interest_reference(expression_of_interest)
@@ -434,9 +432,8 @@
 
       begin
         
-        salesforce_account_id = create_organisation_in_salesforce(organisation)
 
-        salesforce_contact_id = upsert_contact_in_salesforce(user, organisation, salesforce_account_id)
+        salesforce_contact_id = upsert_contact_in_salesforce(user, organisation)
 
         salesforce_project_enquiry_id = @client.upsert!(
           'Project_Enquiry__c',
@@ -454,7 +451,7 @@
           Timescales__c: project_enquiry.project_timescales, 
           Project_Title__c: project_enquiry.working_title,
           Contact__c: salesforce_contact_id,
-          Name_of_your_organisation__c: salesforce_account_id
+          Name_of_your_organisation__c: organisation.salesforce_account_id
         )
  
         Rails.logger.info(
@@ -462,7 +459,7 @@
         )
 
         {
-          salesforce_account_id: salesforce_account_id,
+          salesforce_account_id: organisation.salesforce_account_id,
           salesforce_contact_id: salesforce_contact_id,
           salesforce_project_enquiry_id: salesforce_project_enquiry_id,
           salesforce_project_enquiry_reference: get_salesforce_salesforce_project_enquiry_reference(project_enquiry)
@@ -506,6 +503,8 @@
 
     end
 
+    # Small grant applications will be deprecated soon. 
+    # Creation of org has been extracted into organisation salesforce api 
     def create_project(funding_application, user, organisation)
 
       Rails.logger.info(
@@ -2804,88 +2803,9 @@
 
     end
 
-    # Method to upsert a Salesforce Organisation record. Calling function
-    # should handle exceptions/retries.
-    #
-    # @param [Organisation] organisation An instance of an Organisation object
-    #
-    # @return [String] A salesforce id for the Account (Organisation is an alias of Account)
-    def create_organisation_in_salesforce(organisation)
 
-      salesforce_account_id = find_matching_account_for_organisation(organisation)
+    
 
-      if salesforce_account_id.nil?
-        salesforce_account_id = upsert_account_by_organisation_id(organisation)
-      else
-        upsert_account_by_salesforce_id(organisation, salesforce_account_id)    
-      end
-
-      Rails.logger.info(
-        "Upserted an Account record in Salesforce with reference: #{salesforce_account_id}"
-      )
-
-      salesforce_account_id
-
-    end
-
-    # Upserts to an Account record in Salesforce using the organisation.id
-    # Calling function should handle exceptions/retries
-    #
-    # Upsert org types when a brand new org.
-    #
-    # @param [Organisation] organisation An instance of a Organisation object
-    #
-    # @return [String] salesforce_account_id A Salesforce Account Id for the Organisation
-    def upsert_account_by_organisation_id(organisation)
-
-      @client.upsert!(
-        'Account',
-        'Account_External_ID__c', 
-        Name: organisation.name,
-        Account_External_ID__c: organisation.id,
-        BillingStreet: [organisation.line1, organisation.line2, organisation.line3].compact.join(', '),
-        BillingCity: organisation.townCity,
-        BillingState: organisation.county,
-        BillingPostalCode: organisation.postcode,
-        Company_Number__c: organisation.company_number,
-        Charity_Number__c: organisation.charity_number,
-        Organisation_Type__c: get_organisation_type_for_salesforce(organisation),
-        Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
-        VAT_number__c: organisation.vat_number,
-        Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees
-      )
-    end
-
-    # Upserts to an Account record in Salesforce using the salesforce Account Id
-    # Calling function should handle exceptions/retries
-    #
-    # Do not upsert org type. To preserve any existing Salesforce org type.
-    # At some point consider where we should upload anything to Salesforce when we
-    # know the account id.  As FFE has no method to update org - whereas SF does.
-    #
-    # @param [Organisation] organisation An instance of a Organisation object
-    # @param [String] salesforce_account_id A salesforce Account Id 
-    #                                       for the User's organisation
-    #
-    # @return [String] salesforce_account_id A Salesforce Account Id for the Organisation
-    def upsert_account_by_salesforce_id(organisation, salesforce_account_id)
-      @client.upsert!(
-        'Account',
-        'Id', 
-        Id: salesforce_account_id,
-        Name: organisation.name,
-        Account_External_ID__c: organisation.id,
-        BillingStreet: [organisation.line1, organisation.line2, organisation.line3].compact.join(', '),
-        BillingCity: organisation.townCity,
-        BillingState: organisation.county,
-        BillingPostalCode: organisation.postcode,
-        Company_Number__c: organisation.company_number,
-        Charity_Number__c: organisation.charity_number,
-        Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
-        VAT_number__c: organisation.vat_number,
-        Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees
-      )
-    end
 
     # Method to orchestrate upserting a Salesforce Contact record. 
     # Tries to find an existing Contact record in Salesforce first.
@@ -3531,59 +3451,7 @@
 
     end
 
-    # Method check Salesforce for existing Account (Organisation) records for the passed 
-    # Organisation instance.
-    # Firstly checks if an Account record exists with an external ID matching the organisation.id
-    # If no match found, then tries to find a Account record with a matching 
-    # organisation name and postcode combination.  
-    # A Salesforce Id for the Account record is returned if a match is made.  Otherwise nil.
-    # Calling function should handle exceptions/retries.
-    #
-    # @param [Organisation] organisation An instance of Organisation which is the 
-    # organisation for the current user.
-    #
-    # @return [String] Account_salesforce_id A string representing Salesforce Id 
-    #                                        for the Account record, or nil
-    def find_matching_account_for_organisation(organisation)
-      
-      begin
-
-        if organisation.salesforce_account_id.present?
-          Rails.logger.info("FFE already has salesforce account id: "\
-            "#{organisation.salesforce_account_id}, for organisation: #{organisation.id} ")  
-          return organisation.salesforce_account_id
-        end
-
-        account_salesforce_id =  @client.find(
-          'Account',
-          organisation.id,
-          'Account_External_ID__c'
-        ).Id
-
-      rescue Restforce::NotFoundError
-        Rails.logger.info("Unable to find account with external id #{organisation.id} " \
-          "will attempt to find account using a name and postcode match")  
-      end
-      
-      unless account_salesforce_id 
-        
-        # Ruby unusual in its approach to escaping.  This is the regex approach other devs adopt: 
-        # https://github.com/restforce/restforce/issues/314
-        escaped_org_name = organisation.name.gsub(/[']/,"\\\\'")
     
-        account_collection_from_salesforce = 
-          @client.query("select Id from Account where name = '#{escaped_org_name}' and BillingPostalCode = '#{organisation.postcode}'")
-
-        account_salesforce_id = account_collection_from_salesforce&.first&.Id
-
-      end
-
-      Rails.logger.info("Unable to find account with matching name and postcode for "\
-        "organisation id #{organisation.id}") if account_salesforce_id.nil?
-      
-      account_salesforce_id
-
-    end
 
    
     # Method to upsert a Form record in Salesforce with fields
