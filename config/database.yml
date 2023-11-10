@@ -6,12 +6,36 @@
 #
 default: &default
   adapter: postgresql
-  database: funding_frontend_development
+  database: <%= ENV.fetch("RAILS_DATABASE") {"funding_frontend"} %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  host: <%= ENV.fetch("RAILS_PG_HOST") { "localhost" } %>
+  username: <%= ENV.fetch("RAILS_PG_USERNAME") { "postgres" } %>
+  password: <%= ENV.fetch("RAILS_PG_PASSWORD") { "postgres" } %>
 
 development:
   <<: *default
+  database: funding_frontend_development
+
+production:
+  <<: *default
+  database: funding_frontend
+
+staging:
+  <<: *default
+  database: funding_frontend_staging
+
+uat:
+  <<: *default
+  database: funding_frontend_uat
+
+training:
+  <<: *default
+  database: funding_frontend_training
+
+research:
+  <<: *default
+  database: funding_frontend_research
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -19,6 +43,3 @@ development:
 test:
   <<: *default
   database: funding_frontend_test
-
-production:
-  <<: *default

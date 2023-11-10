@@ -29,13 +29,14 @@
 
 /public/packs
 /public/packs-test
-# /node_modules
+/node_modules
 /node_modules/.cache/
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
 # Credentials
 .env
+.dockersenv
 
 # Ignore Mac specific files
 .DS_Store
