@@ -278,3 +278,52 @@ Update a `flipper_gates` row by running a SQL statement such as (after running
 ```postgresql
 UPDATE flipper_gates SET value = true WHERE feature_key = '<key_name>';   
 ```
+
+---
+
+## Docker
+
+If you are building the image locally, you need to change the `database.yml` file
+so that `host:localhost` is commented out for the development environment:
+
+```
+development:
+  <<: *default
+  # comment out line below if you want to build the docker container locally.
+  # host: localhost
+```
+
+Build a docker image with:
+
+```
+docker build -t [IMAGE NAME] --build-arg RAILS_RUNNING_USER=[USER NAME] .
+```
+If you want to push to Docker Hub, the name should be repo followed by description, then tag.  So
+[IMAGE NAME] above could be myreponame/myappname:1 (where 1 is the tag).
+
+The username must have a corresponding username on the database.
+
+Run the image with:
+
+```
+docker run --env-file [ENV FILE FOR DOCKER] -p 3000:3000 [IMAGE NAME]
+
+```
+
+Docker is slightly stricter when parsing env files.
+
+* .dockerignore
+* .gitignore
+
+will ignore a file called .dockersenv if you want a separate env
+file for your docker container.
+
+If you want to push the image to Docker Hub, ensure env files are not included, and use:
+
+```
+docker login
+```
+
+```
+docker push [IMAGE NAME]
+```

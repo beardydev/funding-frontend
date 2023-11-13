@@ -26,14 +26,10 @@ cy:
       new:
         sub_heading: "Mynnu cyngor ar gyfer syniad prosiect rhwng £10,000 a £250,000"
         sub_content: "Cyflwyno Ffurflen Ymholiad Prosiect ar gyfer syniad prosiect rhwng £10,000 a £250,000 i gael cyngor cyn i chi ddechrau cais llawn."
-        project_enquiries_applications: "Bydd ymholiadau am brosiectau a cheisiadau am Grantiau Treftadaeth y Loteri Genedlaethol rhwng £10,000–£250,000 dan ein Fframwaith Ariannu Strategol presennol yn cau am 12 hanner dydd ar 3 Tachwedd, gan ailagor ym mis Ionawr â chanllawiau newydd"
-        strategy_href: "Treftadaeth 2023."
-        strategy_post_link: "(yn agor mewn tab newydd)"
-        guidance: "chanllawiau."
+        project_enquiries_applications: "Erbyn hyn, mae ymholiadau am brosiectau a cheisiadau am Grantiau Treftadaeth y Loteri Genedlaethol rhwng £10,000–£250,000 dan ein Fframwaith Ariannu Strategol presennol wedi cau a byddant yn ailagor ym mis Ionawr â chanllawiau newydd Treftadaeth 2023."
         Please_check: "Ewch i’n gwefan yn ddiweddarach yn y flwyddyn i gael y newyddion diweddaraf."
-        for_the_following: "Bydd ymgeiswyr ar gyfer y rhaglenni canlynol yn gallu defnyddio’r dudalen hon o hyd ar ôl 3 Tachwedd, ond rhaid iddynt ddechrau teitl eu prosiect â’r hashnod priodol:"
+        for_the_following: "Ceisiadau ar gyfer y rhaglenni canlynol yn unig fydd yn cael eu derbyn yn ystod y cyfnod hwn. Rhaid i chi ddechrau teitl eich prosiect â’r hashnod priodol:"
         woodland_investment: "Rhaglen Grant Buddsoddi mewn Coetir #COED2   "
-        local_places_nature: "Lleoedd Lleol ar gyfer Natur #NATUR" 
         heritage_places_strategic: "Menter Strategol Lleoedd Treftadaeth #HP"
         buttons:
           start: "Dechrau Ymholiad Prosiect"

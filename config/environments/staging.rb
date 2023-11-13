@@ -54,7 +54,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   config.cache_store = :redis_cache_store, {
-      url: CF::App::Credentials.find_by_service_label('redis')['uri'],
+      url: "rediss://:#{ENV["REDIS_PASSWORD"]}@#{ENV["REDIS_URL"]}:#{ENV["REDIS_PORT"]}",
       connect_timeout:    30,
       read_timeout:       0.2,
       write_timeout:      0.2,
@@ -96,6 +96,15 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  config.logger = ActiveSupport::TaggedLogging.new(
+    RemoteSyslogLogger.new(
+      ENV["PAPERTRAIL_DESTINATION_URI"], 
+      ENV["PAPERTRAIL_DESTINATION_PORT"],
+      program: "FFE-#{ENV["RAILS_ENV"]}",
+      local_hostname: "#{ENV["HOST_URI"]}"
+    )
+  )
+
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.active_storage.service = :staging
@@ -121,30 +130,30 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   # Send emails via notify
-  config.action_mailer.default_url_options = { host: "https://#{JSON.parse(ENV['VCAP_APPLICATION'])['application_uris'][0]}" }
+  config.action_mailer.default_url_options = { host: "https://#{ENV["HOST_URI"]}" }
   config.action_mailer.delivery_method = :notify
   config.action_mailer.notify_settings = {
       api_key: ENV.fetch("NOTIFY_API_KEY")
   }
 
-  config.x.ideal_postcodes.api_key = ENV.fetch("IDEAL_POSTCODES_API_KEY")
-  config.x.salesforce.username = ENV.fetch("SALESFORCE_USERNAME")
-  config.x.salesforce.password = ENV.fetch("SALESFORCE_PASSWORD")
-  config.x.salesforce.security_token = ENV.fetch("SALESFORCE_SECURITY_TOKEN")
-  config.x.salesforce.client_id = ENV.fetch("SALESFORCE_CLIENT_ID")
-  config.x.salesforce.client_secret = ENV.fetch("SALESFORCE_CLIENT_SECRET")
+  config.x.ideal_postcodes.api_key = ENV["IDEAL_POSTCODES_API_KEY"]
+  config.x.salesforce.username = ENV["SALESFORCE_USERNAME"]
+  config.x.salesforce.password = ENV["SALESFORCE_PASSWORD"]
+  config.x.salesforce.security_token = ENV["SALESFORCE_SECURITY_TOKEN"]
+  config.x.salesforce.client_id = ENV["SALESFORCE_CLIENT_ID"]
+  config.x.salesforce.client_secret = ENV["SALESFORCE_CLIENT_SECRET"]
   config.x.salesforce.host = "test.salesforce.com"
-
-  config.x.payment_encryption_key = ENV.fetch("PAYMENT_ENCRYPTION_KEY")
-  config.x.payment_encryption_salt = ENV.fetch("PAYMENT_ENCRYPTION_SALT")
-
-  config.x.support_email_address = ENV.fetch("SUPPORT_EMAIL_ADDRESS")
-  config.x.reply_email_guid = ENV.fetch("REPLY_EMAIL_GUID")
-  config.x.no_reply_email_address = ENV.fetch("NO_REPLY_EMAIL_ADDRESS")
-
+  
+  config.x.payment_encryption_key = ENV["PAYMENT_ENCRYPTION_KEY"]
+  config.x.payment_encryption_salt = ENV["PAYMENT_ENCRYPTION_SALT"]
+  
+  config.x.support_email_address = ENV["SUPPORT_EMAIL_ADDRESS"]
+  config.x.reply_email_guid = ENV["REPLY_EMAIL_GUID"]
+  config.x.no_reply_email_address = ENV["NO_REPLY_EMAIL_ADDRESS"]
+  
   config.lograge.enabled = true
   config.assets.quiet = true
-  config.x.consumer.username = ENV.fetch("CONSUMER_USERNAME")
-  config.x.consumer.password = ENV.fetch("CONSUMER_PASSWORD")
+  config.x.consumer.username = ENV["CONSUMER_USERNAME"]
+  config.x.consumer.password = ENV["CONSUMER_PASSWORD"]
 
 end

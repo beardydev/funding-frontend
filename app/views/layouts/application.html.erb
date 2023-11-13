@@ -18,7 +18,7 @@
   <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
   <%= render "partials/cookie_banner" %>
 
-  <% if ENV.fetch("RAILS_ENV").exclude?('production') %>
+  <% unless ['production'].include?(ENV.fetch("RAILS_ENV")) %>
     <div class="govuk-phase-banner govuk-width-container">
       <p class="govuk-phase-banner__content">
         <strong class="govuk-tag govuk-phase-banner__content__tag">
@@ -30,7 +30,6 @@
       </p>
     </div>
   <%end%>
-
 
   <%= render "partials/header" %>
   <%= render "partials/toolbar" %>

@@ -1,0 +1,107 @@
+name: Build, test & deploy to Azure Training
+
+env:
+  AZURE_WEBAPP_NAME: funding-frontend-training
+
+on: [workflow_dispatch]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:11-alpine
+        ports: ['5432:5432']
+        env:
+          POSTGRES_DB: funding_frontend_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 15s
+          --health-retries 5
+      redis:
+        image: redis
+        ports: ['6379:6379']
+        options: --entrypoint redis-server
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.1
+      - uses: actions/setup-node@v2-beta
+        with:
+          node-version: '16.20.2'
+      - run: npm install -g yarn
+      - uses: nanasess/setup-chromedriver@master
+
+      - name: Build and run tests
+        env:
+          DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/funding_frontend_test'
+          BUNDLER_VERSION: 2.3.11
+          DOCKER_TLS_CERTDIR: ''
+        run: |
+          sudo apt update
+          sudo apt-get -yqq install postgresql postgresql-client libpq-dev xvfb unzip libcurl4 libcurl3-gnutls libcurl4-openssl-dev
+          gem install bundler
+          gem update --system && gem update bundler
+          yarn install
+          bundle install --jobs 4 --retry 3
+          RAILS_ENV=test bundle exec rake db:setup
+          RAILS_ENV=test RAILS_DISABLE_TEST_LOG=true bundle exec rspec
+
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    needs: [test]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login via Azure CLI
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build and push image
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - run: |
+          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_TRAINING }}
+          images: ${{ secrets.REGISTRY_LOGIN_SERVER }}/${{ env.AZURE_WEBAPP_NAME }}:${{ github.sha }}
