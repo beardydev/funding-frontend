@@ -138,7 +138,7 @@ module OrganisationHelper
   # @param [String] Salesforce Account ID
   # @return [RestforceResponse] Organisation details found
   def retrieve_existing_salesforce_organisation(salesforce_account_id)
-    client = OrganisationSalesforceApi.new
+    client = OrganisationSalesforceApiClient.new
     return client.retrieve_existing_sf_org_details(salesforce_account_id)
   end
   
@@ -159,7 +159,7 @@ module OrganisationHelper
 
     begin
 
-      client = OrganisationSalesforceApi.new
+      client = OrganisationSalesforceApiClient.new
       sf_details = client.retrieve_existing_sf_org_details(organisation.salesforce_account_id)
 
       populate_organisation_from_restforce_object(organisation, sf_details)
@@ -217,7 +217,7 @@ module OrganisationHelper
 
     begin
 
-      client = OrganisationSalesforceApi.new
+      client = OrganisationSalesforceApiClient.new
       sf_details = client.retrieve_existing_sf_org_details(organisation.salesforce_account_id)
 
       organisation.board_members_or_trustees =
@@ -385,6 +385,14 @@ module OrganisationHelper
 
   end
 
+  # upserts organisation to salesforce
+  # @param [organisation] organisation object
+  def upload_org_to_salesforce(organisation)
+    client = OrganisationSalesforceApiClient.new
+  
+   return client.create_organisation_in_salesforce(organisation)
+  end
+
   # Takes an array of Organisations.  Returns true if all match using the
   # Organisation model's equality function (def == (other)).
   # @param [orgs_array] Array An array of Organisation objects.
@@ -476,8 +484,5 @@ def clear_org_data(org)
   org.save!
 end
 
-def upload_org_to_salesforce(organisation)
-  client = OrganisationSalesforceApi.new
 
-  client.create_organisation_in_salesforce(organisation)
-end
+

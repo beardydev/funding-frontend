@@ -72,7 +72,7 @@ module PreApplicationHelper
 
     salesforce_api_client = SalesforceApiClient.new
     
-    organisation_api_client = OrganisationSalesforceApi.new
+    organisation_api_client = OrganisationSalesforceApiClient.new
 
     organisation_api_client.create_organisation_in_salesforce(organisation)
 

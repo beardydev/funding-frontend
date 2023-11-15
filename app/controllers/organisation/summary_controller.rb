@@ -3,6 +3,9 @@ class Organisation::SummaryController < ApplicationController
   include OrganisationContext
 
   def update
-    redirect_to dashboard_path
+
+    redirect_to :authenticated_root
+        
   end
+
 end

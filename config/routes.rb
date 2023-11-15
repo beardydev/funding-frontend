@@ -111,6 +111,7 @@ Rails.application.routes.draw do
       get '/governing-documents-question', to: 'governing_documents#question_show'
       put '/governing-documents-question', to: 'governing_documents#question_update'      
       get '/summary', to: 'summary#show'
+      put '/summary', to: 'summary#update'
       get '/existing-organisations-error', to: 'existing_organisations_error#show', constraints: lambda { Flipper.enabled?(:import_existing_account_enabled) }
     end
 

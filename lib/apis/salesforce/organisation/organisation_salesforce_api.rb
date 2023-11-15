@@ -1,7 +1,8 @@
 module OrganisationSalesforceApi
 
-  class OrganisationSalesforceApi
+  class OrganisationSalesforceApiClient
     include SalesforceApiHelper
+    include OrganisationHelper
 
     # Overrides the .new() method, allowing us to initialise a Restforce client
     # when the class is instantiated
@@ -203,12 +204,12 @@ module OrganisationSalesforceApi
         Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
         VAT_number__c: organisation.vat_number,
         Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees,
-        organisation_description__c: organisation.description,
+        Organisation_s_Main_Purpose_Activities__c: organisation.organisation_description,
         Communities_that_org_serves__c: organisation.communities_that_org_serve,
-        leadership_self_identify__c: organissation.leadership_self_identity,
+        leadership_self_identify__c: organisation.leadership_self_identify,
         NumberOfEmployees: organisation.number_of_employees,
         Number_of_volunteers__c: organisation.number_of_volunteers,
-        Volunteer_work_description__c: organisation.nolunteer_work_description
+        Volunteer_work_description__c: organisation.volunteer_work_description
       )
     end
 
@@ -242,14 +243,67 @@ module OrganisationSalesforceApi
         Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
         VAT_number__c: organisation.vat_number,
         Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees,
-        organisation_description__c: organisation.description,
+        Organisation_s_Main_Purpose_Activities__c: organisation.organisation_description,
         Communities_that_org_serves__c: organisation.communities_that_org_serve,
-        leadership_self_identify__c: organissation.leadership_self_identity,
+        leadership_self_identify__c: organisation.leadership_self_identify,
         NumberOfEmployees: organisation.number_of_employees,
         Number_of_volunteers__c: organisation.number_of_volunteers,
-        Volunteer_work_description__c: organisation.nolunteer_work_description
+        Volunteer_work_description__c: organisation.volunteer_work_description
       )
     end
+
+    # Uses an organisation's org_type to create the salesforce equivalent
+    # Use 'Other' in event of non match to so applicant not impacted.
+    #
+    # @param [Organisation] instance of Organisation
+    #
+    # @return [String] A salesforce version of an org type
+    def get_organisation_type_for_salesforce(organisation)
+
+      formatted_org_type_value = case organisation.org_type
+      when 'registered_charity'
+        'Registered charity'
+      when 'local_authority'
+        'Local authority'
+      when 'registered_company', 'community_interest_company'
+        'Registered company or Community Interest Company (CIC)'
+      when 'faith_based_organisation', 'church_organisation'
+        'Faith based or church organisation'
+      when 'community_group', 'voluntary_group'
+        'Community of Voluntary group' # Typo is present in Salesforce API name
+      when 'individual_private_owner_of_heritage'
+        'Private owner of heritage'
+      when 'other_public_sector_organisation'
+        'Other public sector organisation'
+      when 'other'
+        'Other organisation type'
+      else
+        'Unknown organisation type'
+      end
+
+    end
+
+    
+    # Method to translate vat_registered attribute into it's
+    # Salesforce equivalent
+    #
+    # @param [Boolean] vat_registered A Boolean representation of
+    #                                 whether an org is VAT registred
+    # @return [String] A string representation that maps to the correct
+    #                  picklist value in Salesforce
+    def translate_vat_registered_for_salesforce(vat_registered)
+
+      vat_registered_salesforce = case vat_registered
+      when true
+        'Yes'
+      when false
+        'No'
+      else
+        'N/A'
+      end
+
+    end
+
 
   end
 
