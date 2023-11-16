@@ -37,8 +37,7 @@ RSpec.describe Organisation::TypeController do
       expect(assigns(:organisation).errors.empty?).to eq(false)
       expect(
           assigns(:organisation).errors.messages[:org_type][0]
-      ).to eq("Select the type of organisation that will be running your " \
-              "project")
+      ).to eq("Select which option best describes your organisation's type")
 
     end
 
@@ -60,8 +59,7 @@ RSpec.describe Organisation::TypeController do
       expect(assigns(:organisation).errors.empty?).to eq(false)
       expect(
           assigns(:organisation).errors.messages[:org_type][0]
-      ).to eq("Select the type of organisation that will be running your " \
-              "project")
+      ).to eq("Select which option best describes your organisation's type")
 
     end
 
@@ -88,7 +86,7 @@ RSpec.describe Organisation::TypeController do
       }
 
       expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(organisation_org_description_path)
+      expect(response).to redirect_to(organisation_organisation_description_path)
       expect(assigns(:organisation).errors.empty?).to eq(true)
       expect(assigns(:organisation).org_type).to eq("local_authority")
 

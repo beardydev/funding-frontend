@@ -1,0 +1,15 @@
+en-GB:
+  governing_documents_question:
+    page_title: "About your organisation"
+    page_heading: "Your organisation's governing document"
+    table_caption: "Files added"
+    no_documents: "You have not added a governing document"
+    question: "Do you want to upload another document?"
+    options:
+      no_number: 'No, I do nnot need to upload another document.'
+      yes_number: 'Yes, I need to upload another document.'
+    hints:
+      tell_us: 'Tell us how many staff your organisation employs'
+    errors:
+      blank: "Select if your organisation employs any staff"
+      text_field_blank: "Choose if you want to upload a document"

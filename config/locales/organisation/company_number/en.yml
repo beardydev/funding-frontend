@@ -1,0 +1,13 @@
+en-GB:
+  company_number:
+    page_title: "About your organisation"
+    page_heading: "Does your organisation have a company number?"
+    options:
+      no_number: 'No, we do not have a company number.'
+      yes_number: 'Yes, we do have a company number.'
+    hints:
+      tell_us: 'Enter your company number'
+    errors:
+      blank: "Select if your organisation has a company number"
+      text_field_blank: "Enter your organisation's company number"
+      too_long: "Company number must be 20 characters or fewer"

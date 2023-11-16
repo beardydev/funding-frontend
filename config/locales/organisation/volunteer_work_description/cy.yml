@@ -1,0 +1,8 @@
+cy:
+  volunteer_work_description:
+    page_title: "About your organisation"
+    page_heading: "Tell us about the work your volunteers do"
+    page_heading_caption: "About your organisation"
+    error_too_many: "The work your volunteers do must be 500 words or fewer"
+    error_blank: "Enter the work your volunteers do"
+  

@@ -19,12 +19,19 @@ RSpec.describe Organisation, type: :model do
   # of errors.
   describe "Validation of mandatory fields" do
     fields_with_presence_errors = {
-      name: 'Enter the name of your organisation',
+      name: "Please enter your organisation's name",
       line1: "Enter the first line of your organisation's address",
       townCity: "Enter the town or city where your organisation is located",
       county: "Enter the county where your organisation is located",
       postcode: "Enter the postcode where your organisation is located",
-      org_type: "Select the type of organisation that will be running your project"
+      org_type: "Select which option best describes your organisation's type", 
+      communities_that_org_serve: "Select the community that your organisation is dedicated to serving",
+      leadership_self_identify: "Select the community that more that 75% of your organisation's leadership and staff self-identify as",
+      company_number: "Select if your organisation has a company number",
+      charity_number: "Select if your organisation has a charity number",
+      vat_registered: "Select if your organisation is VAT registered",
+      number_of_employees: "Enter your how many staff your organisation employs",
+      number_of_volunteers: "Enter your how many volunteers your organisation has"
     }
 
     # Loop through each field to check they have an error
@@ -43,8 +50,6 @@ RSpec.describe Organisation, type: :model do
   describe "Validation of length for relevant fields" do
     length_fields = {
       name: [255, "Organisation name must be 255 characters or fewer"],
-      company_number: [20, "Company number must be 20 characters or fewer"],
-      charity_number: [20, "Charity number must be 20 characters or fewer. For example 1234567 in England and Wales, SC000123 in Scotland, or 10000-0 in Northern Ireland"],
       vat_number: [[9, 12], "Enter the VAT number of your organisation in the correct format"]
     }
     
@@ -71,22 +76,42 @@ RSpec.describe Organisation, type: :model do
           expect(too_short.valid?).to be(false)
           expect(too_long.errors[field]).to include(message)
           expect(too_short.errors[field]).to include(message)
-          
-        else
-          too_long = build(:organisation, field => 'A' * (max_length + 1))
-
-          if field == :company_number
-            too_long.validate_company_number = true
-          elsif field == :charity_number
-            too_long.validate_charity_number = true
-          end         
-    
-          expect(too_long.valid?).to be(false)
-          expect(too_long.errors[field]).to include(message)
         end
       end
     end
   end
+
+  describe "Validation of length for company_number" do
+    let(:max_length) { 20 }
+    let(:error_message) { "Company number must be 20 characters or fewer" }
+  
+    it "validates length of company_number to be within valid constraints" do
+      too_long = build(:organisation, company_number: 'A' * (max_length + 1), has_company_number: 'yes')
+  
+      # Trigger the validation for company_number
+      too_long.validate_company_number = true
+  
+      expect(too_long.valid?(:company_number_update)).to be(false)
+      expect(too_long.errors[:company_number]).to include(error_message)
+    end
+  end
+
+  
+  describe "Validation of length for charity_number" do
+    let(:max_length) { 20 }
+    let(:error_message) { "Charity number must be 20 characters or fewer. For example 1234567 in England and Wales, SC000123 in Scotland, or 10000-0 in Northern Ireland" }
+  
+    it "validates length of charity_number to be within valid constraints" do
+      too_long = build(:organisation, charity_number: 'A' * (max_length + 1), has_charity_number: 'yes')
+  
+      # Trigger the validation for charity_number
+      too_long.validate_charity_number = true
+  
+      expect(too_long.valid?(:charity_number_update)).to be(false)
+      expect(too_long.errors[:charity_number]).to include(error_message)
+    end
+  end
+  
 
   describe 'new organisation strategy attributes' do
 
@@ -125,12 +150,12 @@ RSpec.describe Organisation, type: :model do
   describe "validation or org_type" do
     it 'has a valid org type' do 
       expect(valid_organisation.valid?).to be(true)
-      expect(blank_organisation.errors[:org_type]).to include("Select the type of organisation that will be running your project")
+      expect(blank_organisation.errors[:org_type]).to include("Select which option best describes your organisation's type")
     end
 
     it 'validates the presence of org_type when org_type is blank' do
       expect(blank_organisation.valid?).to be(false)
-      expect(blank_organisation.errors[:org_type]).to include("Select the type of organisation that will be running your project")
+      expect(blank_organisation.errors[:org_type]).to include("Select which option best describes your organisation's type")
     end
     
     it 'validates the org_type with the correct enum' do
@@ -141,9 +166,18 @@ RSpec.describe Organisation, type: :model do
     it 'should allow organization types within the range 0 to 17' do
       (0..17).each do |org_type|
         valid_org = build(:organisation, org_type: org_type)
-        expect(valid_org.valid?).to be(true), "Expected organization type #{org_type} to be valid, but got errors: #{valid_org.errors[:org_type].join(', ')}"
+        valid_org.custom_org_type = 'Some Custom Type' if org_type == 9
+        expect(valid_org.valid?).to be(true), "Expected organization type #{org_type} to be valid, but got errors: #{valid_org.errors.full_messages.join(', ')}"
       end
     end
+    
+
+    it 'should allow organization type 9 (other) to be valid' do
+      org_type = 9
+      valid_org = Organisation.new(org_type: org_type, custom_org_type: 'Some Custom Type')
+      expect(valid_org.valid?).to be(true), "Expected organization type #{org_type} to be valid, but got errors: #{valid_org.errors.full_messages.join(', ')}"
+    end
+
   
     # We are testing an enum, so should recieve an ArgumentError.
     it 'should raise an ArgumentError for invalid organization types' do
@@ -160,10 +194,12 @@ RSpec.describe Organisation, type: :model do
       expect(valid_organisation.valid?).to be(true)
     end
 
+    # For the custom_org_type test
     it 'fails validation if custom_org_type is blank when validate_custom_org_type is true' do
+      blank_organisation = Organisation.new(org_type: 9)
       blank_organisation.validate_custom_org_type = true
       expect(blank_organisation.valid?).to be(false)
-      expect(blank_organisation.errors[:custom_org_type]).to include("Specify your organisation type")
+      expect(blank_organisation.errors[:custom_org_type]).to include("Enter your organisation's type")
     end
 
     it 'passes validation regardless of custom_org_type value when validate_custom_org_type is false' do
@@ -172,42 +208,60 @@ RSpec.describe Organisation, type: :model do
     end
   end  
 
-  # tests for board_members_or_trustees
+  # tests for board_members_or_trustees,organisation_description
+  # and volunteer_work_description
   # Iterate through each set of test data for different attributes.
   # Each set of test data consists of an attribute and an array of test cases.
   describe "More complex validations for attributes" do
     [
       {
-        attribute: :board_members_or_trustees,  # The attribute to be tested
+        attribute: :board_members_or_trustees,
         cases: [
-          # Array of test cases, each containing a value to test and the expected error message.
           { value: -1, error: "Enter an amount greater than -1" },
           { value: "Twenty One", error: "Number of board members or trustees must be a number" },
           { value: 2147483648, error: "Enter an amount less than 2147483648" },
-          { value: nil, error: nil }
+        ]
+      },
+      {
+        attribute: :organisation_description,
+        cases: [
+          { value: nil, error: "Enter the work your organisation does" },
+          { value: "Some work", error: nil },
+          { value: "Some work" * 500, error: "Description of your organisation and the work your organisation does must be 500 words or fewer" }
+        ]
+      },
+      {
+        attribute: :volunteer_work_description,
+        cases: [ 
+          { value: nil, error: "Enter the work your volunteers do" },
+          { value: "Some work", error: nil },
+          { value: "Some work" * 500, error: "The work your volunteers do must be 500 words or fewer" }
+
         ]
       },
     ].each do |test_data|
       attribute = test_data[:attribute]
       cases = test_data[:cases]
-
-      # Testing when the corresponding validate flag for the attribute is true
-      context "when validate_#{attribute} is true" do
-        before { subject.send("validate_#{attribute}=", true) }
-
-        # Iterate through each case and apply the test
+  
+      context "when validate_#{attribute} is true and #{attribute}_required? is true" do
+        before do
+          allow(subject).to receive(:validate_board_members_or_trustees?).and_return(true)
+          allow(subject).to receive(:board_members_or_trustees_required?).and_return(true)
+          allow(subject).to receive(:validate_organisation_description?).and_return(true)
+          allow(subject).to receive(:validate_volunteer_work_description?).and_return(true)
+          subject.valid? 
+        end
+  
         cases.each do |test_case|
-          it "handles value: #{test_case[:value]}" do
+          it "validates #{attribute} with value: #{test_case[:value]}" do
             subject.send("#{attribute}=", test_case[:value])
-
-            # Validate the subject and compare with the expected outcome
-            expect(subject.valid?).to eq(test_case[:error].nil?)
-
-            # Check for error messages if any are expected
-            if test_case[:error]
-              expect(subject.errors[attribute]).to include(test_case[:error])
+            subject.valid?  
+  
+            
+            if test_case[:error].nil?
+              expect(subject.errors[attribute]).to be_empty, -> { "expected no errors for #{attribute} but got: #{subject.errors[attribute].join(', ')}" }
             else
-              expect(subject.errors[attribute]).to be_empty
+              expect(subject.errors[attribute]).to include(test_case[:error]), -> { "expected error '#{test_case[:error]}' for #{attribute}, but got: #{subject.errors[attribute].join(', ')}" }
             end
           end
         end
@@ -235,7 +289,7 @@ RSpec.describe Organisation, type: :model do
   describe "VAT Registered Validations" do
     it 'fails validation if vat_registered is neither true or false when validate_vat_registered is true' do
       expect(invalid_vat_registered_org.valid?).to be(false)
-      expect(invalid_vat_registered_org.errors[:vat_registered]).to include("Select an option to tell us whether your organisation is VAT registered")
+      expect(invalid_vat_registered_org.errors[:vat_registered]).to include("Select if your organisation is VAT registered")
     end
 
     it 'passes validation if vat_registered is true when validate_vat_registered is true' do
@@ -264,6 +318,14 @@ RSpec.describe Organisation, type: :model do
       :vat_number,
       :company_number,
       :charity_number,
+      :organisation_description,
+      :communities_that_org_serve,
+      :leadership_self_identify,
+      :number_of_employees,
+      :number_of_volunteers,
+      :volunteer_work_description,
+      :governing_documents,
+      :governing_document_file    
     ]
   
     fields_to_validate.each do |field|
@@ -360,6 +422,28 @@ RSpec.describe Organisation, type: :model do
   
       expect(valid_organisation.users).to include(user1, user2)
     end
-  end
+
+    # Test the governing document associations
+      let(:valid_organisation) { create(:organisation) }
+      let(:dummy_file) do
+        Rack::Test::UploadedFile.new(
+          Rails.root.join('spec', 'fixtures', 'files', 'test_document.pdf'),
+          'application/pdf'
+        )
+      end
+
+      it 'can exist without governing_document_files' do
+        expect(valid_organisation.governing_document_file).to be_empty
+      end
+
+      it 'can have many governing_document_files' do
+        valid_organisation.governing_document_file.attach(dummy_file)
+        valid_organisation.governing_document_file.attach(dummy_file)
+
+        expect(valid_organisation.governing_document_file.count).to eq(2)
+        expect(valid_organisation.governing_document_file.first).to be_an_instance_of(ActiveStorage::Attachment)
+        expect(valid_organisation.governing_document_file.first.blob).to be_an_instance_of(ActiveStorage::Blob)
+      end
+    end
 
 end

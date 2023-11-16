@@ -8,6 +8,14 @@
   )
 %>
 
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: organisation_summary_path
+    } 
+  %>
+<% end %>
+
 <%=
   render(
     partial: "partials/summary_errors",
@@ -35,6 +43,12 @@
     )
   %>
 
-  <%= render(ButtonComponent.new(element: 'input')) %>
+    <%= render(
+        ButtonComponent.new(
+        element: 'button',
+        is_start_button: false,
+        text: t('buttons.labels.default')
+        )
+      )%>
 
 <% end %>

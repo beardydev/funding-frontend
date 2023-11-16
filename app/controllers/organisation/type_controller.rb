@@ -4,7 +4,7 @@ class Organisation::TypeController < ApplicationController
   include ObjectErrorsLogger
 
   # This method updates the org_type attribute of an organisation,
-  # redirecting to :org_description if successful and re-rendering
+  # redirecting to :organisation_description if successful and re-rendering
   # :show method if unsuccessful
   def update
 
@@ -18,7 +18,7 @@ class Organisation::TypeController < ApplicationController
 
       logger.info "Finished updating org_type for organisation ID: #{@organisation.id}"
 
-      redirect_to organisation_org_description_path(organisation_id: @organisation.id)
+      redirect_to organisation_organisation_description_path(organisation_id: @organisation.id)
 
     else
 
@@ -34,6 +34,7 @@ class Organisation::TypeController < ApplicationController
   private
 
   def organisation_params
-    params.fetch(:organisation, {}).permit(:org_type)
+    params.fetch(:organisation, {}).permit(:org_type, :custom_org_type)
   end
+ 
 end

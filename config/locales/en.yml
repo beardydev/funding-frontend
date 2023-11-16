@@ -197,13 +197,21 @@ en-GB:
         organisation:
           attributes:
             org_type:
-              blank: "Select the type of organisation that will be running your project"
+              blank: "Select which option best describes your organisation's type"
             custom_org_type:
-              blank: "Specify your organisation type"
+              blank: "Enter your organisation's type"
+            organisation_description:
+              blank: "Enter the work your organisation does"
+              too_long: "Description of your organisation and the work your organisation does must be 500 words or fewer"
+            communities_that_org_serve:
+              blank: "Select the community that your organisation is dedicated to serving"
+              none_of_the_above: "Cannot select 'None of the above' with other options"  
+            leadership_self_identify: 
+              blank: "Select the community that more that 75% of your organisation's leadership and staff self-identify as" 
             company_number:
               not_a_number: "Company number must be a number, like 12345678"
             name:
-              blank: "Enter the name of your organisation"
+              blank: "Please enter your organisation's name"
               too_long: "Organisation name must be 255 characters or fewer"
             line1:
               blank: "Enter the first line of your organisation's address"
@@ -216,19 +224,30 @@ en-GB:
             main_purpose_and_activities:
               blank: "Enter your organisation's main purpose or activities"
               too_long: "Description of your organisation's main purpose or activities must be %{word_count} words or fewer"
+            governing_documents_question:
+              text_field_blank: "Please choose whether to upload a document"  
             board_members_or_trustees:
+              blank: "Select if your organisation has any Board members or Trustees"
               not_a_number: "Number of board members or trustees must be a number"
               greater_than: "Enter an amount greater than -1"
               less_than: "Enter an amount less than 2147483648"
             vat_registered:
-              inclusion: "Select an option to tell us whether your organisation is VAT registered"
+              inclusion: "Select if your organisation is VAT registered"
             vat_number:
+              blank: "Enter your organisation's VAT number"
               too_short: "Enter the VAT number of your organisation in the correct format"
               too_long: "Enter the VAT number of your organisation in the correct format"
             company_number:
               too_long: "Company number must be 20 characters or fewer"
+              blank: "Select if your organisation has a company number"
+              text_field_blank: "Enter your organisation's charity number"
             charity_number:
               too_long: "Charity number must be 20 characters or fewer. For example 1234567 in England and Wales, SC000123 in Scotland, or 10000-0 in Northern Ireland"
+              blank: "Select if your organisation has a charity number"
+              text_field_blank: "Enter your organisation's charity number"
+            volunteer_work_description:
+              blank: "Enter the work your volunteers do"
+              too_long: "The work your volunteers do must be 500 words or fewer" 
             social_media_info:
               too_long: "Description of your organisation's social media must be %{word_count} words or fewer"
             unrestricted_funds:

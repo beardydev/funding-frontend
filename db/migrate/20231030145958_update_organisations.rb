@@ -7,10 +7,10 @@ class UpdateOrganisations < ActiveRecord::Migration[7.0]
     add_column :organisations, :number_of_volunteers, :integer
     add_column :organisations, :volunteer_work_description, :string
     remove_column :organisations, :mission, :string, array: true
-    remove_column :organisations, :main_purpose_and_activities
-    remove_column :organisations, :social_media_info
-    remove_column :organisations, :unrestricted_funds
-    remove_column :organisations, :spend_in_last_financial_year
-    remove_column :organisations, :charity_number_ni
+    remove_column :organisations, :main_purpose_and_activities, :string
+    remove_column :organisations, :social_media_info, :text
+    remove_column :organisations, :unrestricted_funds, :decimal 
+    remove_column :organisations, :spend_in_last_financial_year, :decimal 
+    remove_column :organisations, :charity_number_ni, :integer 
   end
 end

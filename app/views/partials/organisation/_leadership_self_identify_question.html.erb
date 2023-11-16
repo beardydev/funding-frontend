@@ -1,0 +1,261 @@
+<div class="govuk-form-group <%= "govuk-form-group--error" if model_object.errors.any? %>">
+
+  <fieldset class="govuk-fieldset">
+    
+    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+
+      <%=
+        render(
+          partial: "partials/form_group_errors",
+          locals: {
+            form_object: model_object
+          }
+        ) if model_object.errors.any?
+      %>
+
+      <div class="govuk-checkboxes">
+
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :leadership_self_identify,
+            {
+              multiple: true,
+              id: :leadership_self_identify_communities_experiencing_ethnic_or_racial_inequity_discrimination_inequality,
+              class: "govuk-checkboxes__input"
+            },
+            "communities_experiencing_ethnic_or_racial_inequity_discrimination_inequality",
+            nil
+          %>
+
+          <%=
+            form_object.label :leadership_self_identify_communities_experiencing_ethnic_or_racial_inequity_discrimination_inequality,
+            t('labels.leadership_self_identify_communities_experiencing_ethnic_or_racial_inequity_discrimination_inequality'),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :leadership_self_identify,
+            {
+              multiple: true,
+              id: :leadership_self_identify_faith_communities,
+              class: "govuk-checkboxes__input"
+            },
+            "faith_communities",
+            nil
+          %>
+
+          <%=
+            form_object.label :leadership_self_identify_faith_communities,
+            t('labels.leadership_self_identify_faith_communities'),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :leadership_self_identify,
+            {
+              multiple: true,
+              id: :leadership_self_identify_people_who_have_migrated_and_or_have_experience_of_the_immigration_system,
+              class: "govuk-checkboxes__input"
+            },
+            "people_who_have_migrated_and_or_have_experience_of_the_immigration_system",
+            nil
+          %>
+
+          <%=
+            form_object.label :leadership_self_identify_people_who_have_migrated_and_or_have_experience_of_the_immigration_system,
+            t('labels.leadership_self_identify_people_who_have_migrated_and_or_have_experience_of_the_immigration_system'),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div> 
+        
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :leadership_self_identify,
+            {
+              multiple: true,
+              id: :leadership_self_identifyd_deaf_disabled_blind_partially_sighted_and_or_neurodivergent_people,
+              class: "govuk-checkboxes__input"
+            },
+            "deaf_disabled_blind_partially_sighted_and_or_neurodivergent_people",
+            nil
+          %>
+
+          <%=
+            form_object.label :leadership_self_identifyd_deaf_disabled_blind_partially_sighted_and_or_neurodivergent_people,
+            t('labels.leadership_self_identifyd_deaf_disabled_blind_partially_sighted_and_or_neurodivergent_people'),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :leadership_self_identify,
+            {
+              multiple: true,
+              id: :leadership_self_identify_older_people_65_and_over,
+              class: "govuk-checkboxes__input"
+            },
+            "older_people_65_and_over",
+            nil
+          %>
+
+          <%=
+            form_object.label :mainly_catholic_community_led,
+            t('labels.leadership_self_identify_older_people_65_and_over'),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+        
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :leadership_self_identify,
+            {
+              multiple: true,
+              id: :leadership_self_identify_young_people_led,
+              class: "govuk-checkboxes__input"
+            },
+            "young_people_led",
+            nil
+          %>
+
+          <%=
+            form_object.label :leadership_self_identify_young_people_led,
+            t('labels.leadership_self_identify_young_people_led'),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :leadership_self_identify,
+            {
+              multiple: true,
+              id: :leadership_self_identify_women_and_girls,
+              class: "govuk-checkboxes__input"
+            },
+            "women_and_girls",
+            nil
+          %>
+
+          <%=
+            form_object.label :leadership_self_identify_women_and_girls,
+            t('labels.leadership_self_identify_women_and_girls'),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :leadership_self_identify,
+            {
+              multiple: true,
+              id: :leadership_self_identify_lgbt_plus_led,
+              class: "govuk-checkboxes__input"
+            },
+            "lgbt_plus_led",
+            nil
+          %>
+
+          <%=
+            form_object.label :leadership_self_identify_lgbt_plus_led,
+            t('labels.leadership_self_identify_lgbt_plus_led'),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+        <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :leadership_self_identify,
+            {
+              multiple: true,
+              id: :leadership_self_identify_people_who_are_educationally_or_economically_disadvantaged,
+              class: "govuk-checkboxes__input"
+            },
+            "people_who_are_educationally_or_economically_disadvantaged",
+            nil
+          %>
+
+          <%=
+            form_object.label :leadership_self_identify_people_who_are_educationally_or_economically_disadvantaged,
+            t('labels.leadership_self_identify_people_who_are_educationally_or_economically_disadvantaged'),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+          <div class="govuk-checkboxes__item">
+
+          <%=
+            form_object.check_box :leadership_self_identify,
+            {
+              multiple: true,
+              id: :leadership_self_identify_specific_groups_that_are_not_included_already,
+              class: "govuk-checkboxes__input"
+            },
+            "specific_groups_that_are_not_included_already",
+            nil
+          %>
+
+          <%=
+            form_object.label :leadership_self_identify_specific_groups_that_are_not_included_already,
+            t('labels.leadership_self_identify_specific_groups_that_are_not_included_already'),
+            class: "govuk-label govuk-checkboxes__label"
+          %>
+
+        </div>
+
+        <div class="govuk-checkboxes__divider">or</div>
+
+        <div class="govuk-checkboxes__item">
+
+          <%= 
+            form_object.check_box :leadership_self_identify, 
+          { 
+            class: "govuk-checkboxes__input", 
+            multiple: true, 
+            id: "leadership_self_identify_none",
+            type:"checkbox",
+            value: "none", 
+            "data-behaviour" => "exclusive"
+          }, 
+            'None of the above', 
+            nil 
+          %>
+
+          <%= 
+            form_object.label :leadership_self_identify, 
+            'None of the above', 
+            for: "leadership_self_identify_none", 
+            class: "govuk-label govuk-checkboxes__label" 
+          %>
+          
+        </div>  
+
+      </div>
+
+    </div>  
+
+  </fieldset>
+
+</div>

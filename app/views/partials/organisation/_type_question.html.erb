@@ -45,10 +45,10 @@
       </div>
 
       <div class="govuk-radios__item">
-        <%= form_object.radio_button :org_type, "registered_company", class: "govuk-radios__input" %>
+        <%= form_object.radio_button :org_type, "public_or_private_company", class: "govuk-radios__input" %>
         <%=
-          form_object.label :org_type_registered_company,
-          t('organisation.type.labels.registered_company'),
+          form_object.label :org_type_public_or_private_companyy,
+          t('organisation.type.labels.public_or_private_company'),
           class: "govuk-label govuk-radios__label"
         %>
       </div>
@@ -63,70 +63,89 @@
       </div>
 
       <div class="govuk-radios__item">
-        <%= form_object.radio_button :org_type, "faith_based_organisation", class: "govuk-radios__input" %>
+        <%= form_object.radio_button :org_type, "charitable_incorporated_organisation", class: "govuk-radios__input" %>
         <%=
-          form_object.label :org_type_faith_based_organisation,
-          t('organisation.type.labels.faith_based_organisation'),
+          form_object.label :org_type_charitable_incorporated_organisation,
+          t('organisation.type.labels.charitable_incorporated_organisation'),
           class: "govuk-label govuk-radios__label"
         %>
       </div>
 
       <div class="govuk-radios__item">
-        <%= form_object.radio_button :org_type, "church_organisation", class: "govuk-radios__input" %>
+        <%= form_object.radio_button :org_type, "partnership_or_llp", class: "govuk-radios__input" %>
         <%=
-          form_object.label :org_type_church_organisation,
-          t('organisation.type.labels.church_organisation'),
+          form_object.label :org_type_partnership_or_llp,
+          t('organisation.type.labels.partnership_or_llp'),
           class: "govuk-label govuk-radios__label"
         %>
       </div>
 
       <div class="govuk-radios__item">
-        <%= form_object.radio_button :org_type, "community_group", class: "govuk-radios__input" %>
+        <%= form_object.radio_button :org_type, "private_owner_of_heritage", class: "govuk-radios__input" %>
         <%=
-          form_object.label :org_type_community_group,
-          t('organisation.type.labels.community_group'),
+          form_object.label :org_type_private_owner_of_heritage,
+          t('organisation.type.labels.private_owner_of_heritage'),
           class: "govuk-label govuk-radios__label"
         %>
       </div>
 
       <div class="govuk-radios__item">
-        <%= form_object.radio_button :org_type, "voluntary_group", class: "govuk-radios__input" %>
+        <%= form_object.radio_button :org_type, "cooperative_industrial_provident_registered_society", class: "govuk-radios__input" %>
         <%=
-          form_object.label :org_type_voluntary_group,
-          t('organisation.type.labels.voluntary_group'),
+          form_object.label :org_type_cooperative_industrial_provident_registered_society,
+          t('organisation.type.labels.cooperative_industrial_provident_registered_society'),
           class: "govuk-label govuk-radios__label"
         %>
       </div>
 
       <div class="govuk-radios__item">
-        <%= form_object.radio_button :org_type, "individual_private_owner_of_heritage", class: "govuk-radios__input" %>
+        <%= form_object.radio_button :org_type, "trust", class: "govuk-radios__input" %>
         <%=
-          form_object.label :org_type_individual_private_owner_of_heritage,
-          t('organisation.type.labels.individual_private_owner_of_heritage'),
+          form_object.label :org_type_trust,
+          t('organisation.type.labels.trust'),
           class: "govuk-label govuk-radios__label"
         %>
       </div>
+
+         <div class="govuk-radios__item">
+        <%= form_object.radio_button :org_type, "other_constituted_unincorporated_club_or_society", class: "govuk-radios__input" %>
+        <%=
+          form_object.label :org_type_other_constituted_unincorporated_club_or_society,
+          t('organisation.type.labels.other_constituted_unincorporated_club_or_society'),
+          class: "govuk-label govuk-radios__label"
+        %>
+      </div>
+      
+      <div class="govuk-checkboxes__divider">or</div>
 
       <div class="govuk-radios__item">
         <%=
           form_object.radio_button :org_type,
           "other",
           class: "govuk-radios__input",
-          "data-aria-controls" => "conditional-organisation_org_type_other"
+          "data-aria-controls" => "conditional-organisation_org_type_none_of_the_above"
         %>
         <%=
-          form_object.label :org_type_other,
-          t('organisation.type.labels.other'),
+          form_object.label :org_type_none_of_the_above,
+          t('organisation.type.labels.none_of_the_above'),
           class: "govuk-label govuk-radios__label"
         %>
       </div>
 
       <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
-        id="conditional-organisation_org_type_other">
+        id="conditional-organisation_org_type_none_of_the_above">
 
         <p class="govuk-body">
-          <%= t('organisation.type.other_criteria') %>
+          <%= t('organisation.type.describe_type') %>
         </p>
+
+        <%= 
+          form_object.text_field :custom_org_type,
+          class:"govuk-input #{'govuk-input--error' if
+            @organisation.errors[:custom_org_type].any?}",
+          "autocomplete" => "organisation type",
+          "spellcheck" => "false"
+        %>
 
       </div>
 

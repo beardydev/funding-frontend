@@ -1,0 +1,8 @@
+en-GB:
+  organisation_description:
+    org_page_title: "About your organisation"
+    org_page_heading: "Describe your organisation and the work your organisation does"
+    org_page_heading_caption: "About your organisation"
+    error_too_many: "Description of your organisation and the work your organisation does must be 500 words or fewer"
+    error_blank: "Enter the work your organisation does"
+  

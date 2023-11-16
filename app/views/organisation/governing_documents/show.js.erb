@@ -1,4 +1,4 @@
-<% if @funding_application.project.errors.any? %>
+<% if @organisation.errors.any? %>
 
     document.title = "Error: <%== I18n.t('governing_document.page_title') %>";
 
@@ -11,7 +11,7 @@
 
     var errorKeys = [];
 
-    <% @funding_application.project.errors.each do |error| %>
+    <% @organisation.errors.each do |error| %>
 
         errorKeys.push("<%= error.attribute.to_s %>");
 

@@ -1,4 +1,73 @@
-<h1>Organisation Name</h1>
-<%= form_for @organisation, url: organisation_organisation_name_url(@organisation), method: :put do |f| %>
-  <%= render(ButtonComponent.new(element: 'input')) %>
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @organisation,
+             page_title: t('details.page_title')
+         }
+%>
+
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: organisation_summary_path
+    } 
+  %>
+<% end %>
+
+<%= 
+  render partial: "partials/summary_errors",
+  locals: {
+    form_object: @organisation,
+    first_form_element: :name
+  } if @organisation.errors.any? 
+%>
+
+<h1 class="govuk-heading-xl">
+
+  <span class="govuk-caption-xl">
+    <%= t('name.page_heading_caption') %>
+  </span>
+
+  <%= t('name.page_heading') %>
+
+</h1>
+
+  <fieldset class="govuk-fieldset">
+    <%= 
+      form_with model: @organisation,
+      url: organisation_organisation_name_path,
+      method: :put,
+      local: true do |f| 
+    %>
+
+    <div class="govuk-form-group <%= "#{'govuk-form-group--error' if 
+        @organisation.errors[:name].any?}" %>">
+
+        <%=
+          render partial: "partials/form_input_errors",
+                locals: {
+                  form_object: @organisation,
+                  input_field_id: :name
+                  } if @organisation.errors[:name].any? 
+        %>
+
+        <%= 
+          f.text_field :name,
+          class:"govuk-input #{'govuk-input--error' if
+            @organisation.errors[:name].any?}",
+          "autocomplete" => "organisation name",
+          "spellcheck" => "false"
+        %>
+    </div>
+
+      <%= render(
+        ButtonComponent.new(
+        element: 'button',
+        is_start_button: false,
+        text: t('buttons.labels.default')
+        )
+      )%>
+    
+  </fieldset>
+  
 <% end %>

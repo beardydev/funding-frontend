@@ -1,5 +1,7 @@
 # require "rails_helper"
 
+# TODO - Alter and rewrite this file based on when governing docs are uploaded.
+
 # RSpec.describe Organisation::GoverningDocumentsController do
 
 #   login_user
@@ -131,75 +133,23 @@ RSpec.describe Organisation::GoverningDocumentsController do
 
   end
 
-  # describe "PUT #update" do
+    it "should successfully update if a valid param is passed" do
 
-  #   it "should re-render the show template if no params are passed" do
+      put :update, params: {
+          organisation_id: organisation.id,
+          organisation: {
+              governing_document_file: Rack::Test::UploadedFile.new(
+                  "#{Rails.root}/spec/fixtures/files/example.txt"
+              )
+          }
+      }
 
-  #     put :update,
-  #         params: { organisation_id: organisation.id }
+      expect(response).to have_http_status(:redirect)
+      expect(response).to redirect_to(organisation_governing_documents_question_path(organisation))
 
-  #     expect(response).to have_http_status(:success)
-  #     expect(response).to render_template(:show)
+      expect(assigns(:organisation).errors.empty?).to eq(true)
+      expect(organisation.reload.governing_document_file.present?).to eq(true)
 
-  #     expect(assigns(:organisation).errors.empty?).to eq(false)
-  #     expect(
-  #       assigns(:organisation).errors.messages[:governing_document_file][0]
-  #     ).to eq(I18n.t("activerecord.errors.models.organisation.attributes.governing_document_file.inclusion"))
-
-  #   end
-
-  #   it "should re-render the show template if an empty param is passed" do
-
-  #     put :update,
-  #         params: {
-  #             organisation_id: organisation.id,
-  #             organisation: {}
-  #         }
-
-  #     expect(response).to have_http_status(:success)
-  #     expect(response).to render_template(:show)
-
-  #     expect(assigns(:organisation).errors.empty?).to eq(false)
-  #     expect(
-  #       assigns(:organisation).errors.messages[:governing_document_file][0]
-  #     ).to eq(I18n.t("activerecord.errors.models.organisation.attributes.governing_document_file.inclusion"))
-
-  #   end
-
-  #   it "should raise an InvalidSignature exception if an empty " \
-  #      "governing_document_file param is passed" do
-
-  #     expect {
-  #       put :update,
-  #           params: {
-  #               organisation_id: organisation.id,
-  #               organisation: {
-  #                   governing_document_file: ""
-  #               }
-  #           }
-  #     }.to raise_error(ActiveSupport::MessageVerifier::InvalidSignature)
-
-  #   end
-
-  #   it "should successfully update if a valid param is passed" do
-
-  #     put :update, params: {
-  #         organisation_id: organisation.id,
-  #         organisation: {
-  #             governing_document_file: Rack::Test::UploadedFile.new(
-  #                 "#{Rails.root}/spec/fixtures/files/example.txt"
-  #             )
-  #         }
-  #     }
-
-  #     expect(response).to have_http_status(:redirect)
-  #     expect(response).to redirect_to(organisation_governing_documents_path(organisation))
-
-  #     expect(assigns(:organisation).errors.empty?).to eq(true)
-  #     expect(organisation.reload.governing_document_file.present?).to eq(true)
-
-  #   end
-
-  # end
+    end
 
 end

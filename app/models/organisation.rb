@@ -23,6 +23,9 @@ class Organisation < ApplicationRecord
   has_many :users_organisations, inverse_of: :organisation
   has_many :users, through: :users_organisations
 
+  has_many_attached :governing_document_file
+
+
   accepts_nested_attributes_for :organisations_org_types, allow_destroy: true
 
   attr_accessor :has_custom_org_type
@@ -31,38 +34,96 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_org_type
   attr_accessor :validate_custom_org_type
   attr_accessor :validate_address
-  attr_accessor :validate_mission
   attr_accessor :validate_board_members_or_trustees
   attr_accessor :validate_vat_registered
   attr_accessor :validate_vat_number
   attr_accessor :validate_company_number
   attr_accessor :validate_charity_number
-  attr_accessor :organisation_description
-  attr_accessor :communities_that_org_serve
-  attr_accessor :leadership_self_identify
-  attr_accessor :number_of_employees
-  attr_accessor :number_of_volunteers
-  attr_accessor :volunteer_work_description
+  attr_accessor :validate_organisation_description
+  attr_accessor :validate_communities_that_org_serve
+  attr_accessor :validate_leadership_self_identify
+  attr_accessor :validate_number_of_employees
+  attr_accessor :validate_number_of_volunteers
+  attr_accessor :validate_volunteer_work_description
+  attr_accessor :has_charity_number
+  attr_accessor :has_company_number
+  attr_accessor :has_board_members_or_trustees
+  attr_accessor :has_number_of_employees
+  attr_accessor :has_number_of_volunteers
+  attr_accessor :validate_governing_documents
+  attr_accessor :validate_governing_document_file
+  attr_accessor :wants_to_upload_document
 
   validates :org_type, presence: true, if: :validate_org_type?
-  validates :custom_org_type, presence: true, if: :validate_custom_org_type?
+  validates :custom_org_type, presence: true, if: -> { org_type == 'other' && :validate_custom_org_type? }
   validates :name, presence: true, if: :validate_name?
   validates :name, length: { maximum: 255 }
-  validates :name, presence: true, if: :validate_address?
+  validates :organisation_description, presence: true, if: :validate_organisation_description?
+  validates :communities_that_org_serve, presence: true, if: :validate_communities_that_org_serve?
+  validates :leadership_self_identify, presence: true, if: :validate_leadership_self_identify?
   validates :line1, presence: true, if: :validate_address?
   validates :townCity, presence: true, if: :validate_address?
   validates :county, presence: true, if: :validate_address?
   validates :postcode, presence: true, if: :validate_address?
+  validates :company_number, presence: { message: I18n.t('company_number.errors.text_field_blank') }, if: -> { company_number_required? && :validate_company_number? }
+  validates :charity_number, presence: { message: I18n.t('charity_number.errors.text_field_blank') }, if: -> { charity_number_required? && :validate_charity_number? }
+  validates :board_members_or_trustees, presence: true, if: :validate_board_members_or_trustees?
   validates :board_members_or_trustees, numericality: {
     greater_than: -1,
     less_than: 2147483648,
-    allow_nil: true
-  }, if: :validate_board_members_or_trustees?
+    allow_nil: true,
+  }, if: -> { :validate_board_members_or_trustees? && board_members_or_trustees_required?}
   validates_inclusion_of :vat_registered, in: [true, false], if: :validate_vat_registered?
   validates :vat_number, length: { minimum: 9, maximum: 12 }, if: :validate_vat_number?
-  validates :company_number, length: { maximum: 20 }, if: :validate_company_number?
-  validates :charity_number, length: { maximum: 20 }, if: :validate_charity_number?
-  
+  validates :company_number, length: { maximum: 20, message: I18n.t('company_number.errors.too_long') }, if: -> { company_number_required? && :validate_company_number? }
+  validates :charity_number, length: { maximum: 20, message: I18n.t('charity_number.errors.too_long') }, if: -> { charity_number_required? && :validate_charity_number? }
+  validates :number_of_employees, presence: { message: I18n.t('number_of_employees.errors.text_field_blank') }, if: -> { number_of_employees_required? && :validate_number_of_employees? }
+  validates :number_of_volunteers, presence: { message: I18n.t('number_of_volunteers.errors.text_field_blank') }, if: -> { number_of_volunteers_required? && :validate_number_of_volunteers? }
+  validates :volunteer_work_description, presence: true, if: :validate_volunteer_work_description?
+ 
+
+  validate do
+
+    validate_length(
+      :organisation_description,
+      500,
+      I18n.t('activerecord.errors.models.organisation.attributes.organisation_description.too_long', word_count: 500)
+    ) if validate_organisation_description?
+
+    validate_length(
+      :volunteer_work_description,
+      500,
+      I18n.t('activerecord.errors.models.organisation.attributes.volunteer_work_description.too_long', word_count: 500)
+    ) if validate_volunteer_work_description?
+
+  end
+
+  def custom_org_type_presence
+    if custom_org_type.blank?
+      errors.add(:custom_org_type, "can't be blank")
+    end
+  end
+
+  def charity_number_required?
+    has_charity_number == "yes"
+  end
+
+  def company_number_required?
+    has_company_number == "yes"
+  end
+
+  def board_members_or_trustees_required?
+    has_board_members_or_trustees == "yes"
+  end
+
+  def number_of_employees_required?
+    has_number_of_employees == "yes"
+  end
+
+  def number_of_volunteers_required?
+    has_number_of_volunteers == "yes"
+  end
+
   def validate_name?
     validate_name == true
   end
@@ -99,25 +160,38 @@ class Organisation < ApplicationRecord
     validate_vat_registered == true
   end
 
-  def validate_organisation_description 
+  def validate_organisation_description? 
     validate_organisation_description == true
   end
 
-  def validate_communities_that_org_serve
+  def validate_communities_that_org_serve?
     validate_communities_that_org_serve == true
   end
 
-  def validate_number_of_employees
+  def validate_leadership_self_identify?
+    validate_leadership_self_identify == true
+  end
+
+  def validate_number_of_employees?
     validate_number_of_employees == true
   end
 
-  def validate_number_of_volunteers
+  def validate_number_of_volunteers?
     validate_number_of_volunteers == true
   end
 
-  def validate_volunteer_work_description
+  def validate_volunteer_work_description?
     validate_volunteer_work_description == true
   end
+
+  def validate_governing_documents?
+    validate_governing_documents == true
+  end
+
+  def validate_governing_document_file?
+    validate_governing_document_file == true
+  end
+
 
   # Equality function.
   # Compares two organisation based on the attributes that FFE would normally

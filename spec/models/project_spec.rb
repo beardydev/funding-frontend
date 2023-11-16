@@ -1,5 +1,7 @@
 # require "rails_helper"
 
+#TODO - write new project spec with organisation upsert info
+
 # RSpec.describe Project, type: :model do
 #   describe "Project model" do
 
@@ -36,14 +38,14 @@
 #           :organisation,
 #           name: "Test Organisation",
 #           org_type: 5,
-#           mission: %w(young-people-led disability-led),
 #           charity_number: "12345",
 #           company_number: "54321",
 #           line1: "10 Downing Street",
 #           line2: "Westminster",
 #           townCity: "London",
 #           county: "LONDON",
-#           postcode: "SW1A 2AA"
+#           postcode: "SW1A 2AA",
+#           organisation_description: "We do charity based projects",
 #       )
 
 #       @project.user.organisations.append(organisation)
@@ -96,8 +98,6 @@
 #             .to eq("Test Organisation")
 #         expect(@project_salesforce_json['application']['organisationType'])
 #             .to eq("faith-based-or-church-organisation")
-#         expect(@project_salesforce_json['application']['organisationMission'])
-#             .to eq(%w(young-people-led disability-led))
 #         expect(@project_salesforce_json['application']['charityNumber'])
 #             .to eq("12345")
 #         expect(@project_salesforce_json['application']['companyNumber'])

@@ -1,0 +1,76 @@
+<div class="govuk-form-group">
+
+  <fieldset class="govuk-fieldset">
+
+    <div class="govuk-radios" data-module="govuk-radios">
+
+      <div class="govuk-radios__item">
+
+        <%= form_object.radio_button :has_number_of_employees, 
+        "no", id: "has_number_of_employees_no", value: "no", 
+        class: "govuk-radios__input", 
+        "data-aria-controls" => "conditional-number_of_employees" 
+        %>
+
+        <%= form_object.label :has_number_of_employees_no, 
+        t('number_of_employees.options.no_number'), 
+        class: "govuk-label govuk-radios__label" 
+        %>
+
+      </div>
+
+      <div class="govuk-radios__item">
+
+        <%= form_object.radio_button :has_number_of_employees, 
+        "yes", id: "has_number_of_employees_yes", 
+        class: "govuk-radios__input", 
+        "data-aria-controls" => "conditional-number_of_employees" 
+        %>
+
+        <%= form_object.label :has_number_of_employees_yes, 
+        t('number_of_employees.options.yes_number'), 
+        class: "govuk-label govuk-radios__label" 
+        %>
+
+      </div>
+
+      <div class="govuk-radios__conditional govuk-radios__conditional--hidden" 
+      id="conditional-number_of_employees"
+      >
+
+        <div class="govuk-form-group 
+        <%= 'govuk-form-group--error' if form_object.object.errors[:number_of_employees].any? %>">
+        
+          <%= form_object.label :number_of_employees, 
+          t('number_of_employees.hints.tell_us'), 
+          class: "govuk-label" 
+          %>
+
+          <% if form_object.object.errors[:number_of_employees].any? %>
+          
+            <span id="number_of_employees-error" class="govuk-error-message">
+
+              <span class="govuk-visually-hidden">Error:</span>
+
+              <%= form_object.object.errors[:number_of_employees].first %>
+
+            </span>
+
+          <% end %>
+
+          <%= form_object.text_field :number_of_employees,
+                id: "actual_number_of_employees", 
+                class: "govuk-input #{'govuk-input--error' if form_object.object.errors[:number_of_employees].any?}",
+                autocomplete: "off",
+                spellcheck: "false" 
+            %>
+
+        </div>
+
+      </div>
+      
+    </div>
+
+  </fieldset>
+  
+</div>

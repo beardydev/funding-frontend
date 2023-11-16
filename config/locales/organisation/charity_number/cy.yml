@@ -1,0 +1,22 @@
+cy:
+  charity_number:
+    page_title: "About your organisation"
+    page_heading: "Does your organisation have a charity number?"
+  options:
+    no: "No, we do not have a charity number"
+    yes: "Yes, we do have a charity number?"
+  hints:
+    tell_us: "Tell us your charity number"
+        
+
+# cy:
+#   organisation:
+#     charity_number:
+#       page_title: "Ynglŷn â'ch sefydliad"
+#       page_heading: "Ynglŷn â'ch sefydliad"
+#       labels:
+#         company_number: "Beth yw rhif eich cwmni?"
+#         charity_number: "Beth yw rhif eich elusen?"
+#       hints:
+#         company_number: "Os oes gennych rif cwmni, sy'n gysylltiedig â'r prosiect hwn, byddai'n ddefnyddiol pe baech yn ei ddarparu."
+#         charity_number: "Os oes gennych rif elusen, sy'n gysylltiedig â'r prosiect hwn, byddai'n ddefnyddiol pe baech yn ei ddarparu."

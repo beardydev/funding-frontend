@@ -1,0 +1,12 @@
+en-GB:
+  number_of_employees:
+    page_title: "About your organisation"
+    page_heading: "Does your organisation employ any staff?"
+    options:
+      no_number: 'No, we do not employ any staff.'
+      yes_number: 'Yes, we do employ staff.'
+    hints:
+      tell_us: 'Tell us how many staff your organisation employs'
+    errors:
+      blank: "Select if your organisation employs any staff"
+      text_field_blank: "Enter your how many staff your organisation employs"

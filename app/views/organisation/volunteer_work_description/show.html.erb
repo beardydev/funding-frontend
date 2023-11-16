@@ -1,4 +1,96 @@
-<h1>volunteer_work_description</h1>
-<%= form_for @organisation, url: organisation_volunteer_work_description_path(@organisation), method: :put do |f| %>
-  <%= render(ButtonComponent.new(element: 'input')) %>
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @organisation,
+             page_title: t('volunteer_work_description.page_title')
+         }
+%>
+
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: organisation_summary_path
+    } 
+  %>
 <% end %>
+
+<%= 
+  render partial: "partials/summary_errors",
+  locals: {
+    form_object: @organisation,
+    first_form_element: :volunteer_work_description
+  } if @organisation.errors.any? 
+%>
+
+<h1 class="govuk-heading-xl">
+
+  <span class="govuk-caption-xl">
+
+    <%= t('volunteer_work_description.page_heading_caption') %>
+
+  </span>
+
+  <%= t('volunteer_work_description.page_heading') %>
+
+</h1>
+
+<div class="govuk-character-count" data-module="govuk-character-count"
+      data-maxwords="500">
+
+
+  <fieldset class="govuk-fieldset">
+
+      <div class="govuk-character-count" data-module="govuk-character-count"
+            data-maxwords="500">
+
+        <%= form_with model: @organisation, 
+            url: organisation_volunteer_work_description_path,
+            method: :put, local: true do |f| 
+            %>
+
+          <div class="govuk-form-group <%= "#{'govuk-form-group--error' if 
+            @organisation.errors[:volunteer_work_description].any?}" %>">
+
+              <%=
+                  render partial: "partials/form_input_errors",
+                        locals: {
+                          form_object: @organisation,
+                          input_field_id: :volunteer_work_description
+                          } if @organisation.errors[:volunteer_work_description].any? 
+                %>
+                
+                <%= f.text_area :volunteer_work_description, 
+                      rows: 10, 
+                      id: 'volunteer_work_description', 
+                      class: "govuk-textarea #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+                      "#{'govuk-input--error' if @organisation.errors[:volunteer_work_description].any?}", 
+                      "aria-describedby" => "volunteer_work_description-info" 
+                  %>
+
+                <div id="volunteer_work_description-info"
+                      class="govuk-hint govuk-character-count__message"
+                      aria-live="polite">
+                  <%= t('generic.word_count', max_words: 500) %>
+                </div>
+
+          </div>
+
+          <%=
+          render(
+            ButtonComponent.new(
+              element: 'button',
+              is_start_button: false,
+              text: t('buttons.labels.default'),
+              name: "save_and_continue_button"
+              )
+            )
+          %>
+
+        <% end %>
+
+      <div>
+      		     
+
+  </fieldset>
+
+</div>

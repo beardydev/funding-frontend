@@ -43,6 +43,15 @@
     )
   %>
 
-<%= render(ButtonComponent.new(element: 'input')) %>
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+          name: "save_and_continue_button"
+        )
+      )
+	  %>
 
 <% end %>

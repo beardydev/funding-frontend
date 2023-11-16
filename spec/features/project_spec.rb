@@ -30,7 +30,9 @@ RSpec.feature 'Project', type: :feature do
           line2: "Westminster",
           townCity: "London",
           county: "London",
-          postcode: "SW1A 2AA"
+          postcode: "SW1A 2AA", 
+          organisation_description: "Sample Description"
+
       )
 
       login_as(user, scope: :user)

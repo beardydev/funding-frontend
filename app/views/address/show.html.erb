@@ -50,22 +50,6 @@
 
 <%= form_for @model_object, url: :address, method: :put do |f|  %>
 
-  <% if @type == "organisation" || @type == 'preapplication' %>
-    <div class="govuk-form-group <%= "#{'govuk-form-group--error'}" if
-                                         @model_object.errors[:name].any? %>">
-      <%= f.label :name, t('address_details.org_name'), class: "govuk-label" %>
-      <div class="govuk-hint">
-        <%= t('address.hints.1') %>
-      </div>
-      <%= render partial: "partials/form_input_errors",
-                 locals: {form_object: @model_object,
-                          input_field_id: :name} if @model_object.errors[:name].any? %>
-      <%= f.text_field :name,
-                       autocomplete: 'organization',
-                       class: "govuk-input govuk-input--width-20 #{'govuk-input--error' if @model_object.errors[:name].any?}" %>
-    </div>
-  <% end %>
-
     <div class="govuk-form-group <%= "#{'govuk-form-group--error'}" if
                                          @model_object.errors[:line1].any? %>">
       <%= f.label :line1, t('address_details.address_line_1'), class: "govuk-label" %>

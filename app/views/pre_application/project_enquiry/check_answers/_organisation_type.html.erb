@@ -8,19 +8,8 @@
     <%= @organisation.org_type.present? ? @organisation.org_type&.humanize : t('generic.not_answered') %>
   </dd>
 
-  <% if @organisation.salesforce_account_id.nil? %>
-    <%= render partial: 'pre_application/change_link/change_link',
-              locals: {
-                  link_url: pre_application_organisation_type_path(
-                          @pre_application.id,
-                          @organisation.id
-                      ),
-                  link_hidden_label: t('pa_project_enquiry.check_answers.change_links.org_type')
-              }
-    %>
-  <%else%>
     <dd class="govuk-summary-list__actions">
     </dd>
-  <%end%>
+
 
 </div>

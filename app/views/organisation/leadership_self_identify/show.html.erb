@@ -1,4 +1,70 @@
-<h1>leadership_self_identify</h1>
-<%= form_for @organisation, url: organisation_leadership_self_identify_path(@organisation), method: :put do |f| %>
-  <%= render(ButtonComponent.new(element: 'input')) %>
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @organisation,
+             page_title: t('leadership.page_title')
+         }
+%>
+
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: organisation_summary_path
+    } 
+  %>
+<% end %>
+
+<%= 
+  render partial: "partials/summary_errors",
+  locals: {
+    form_object: @organisation,
+    first_form_element: :organisation_leadership_self_identify_path
+  } if @organisation.errors.any? 
+%>
+
+<h1 class="govuk-heading-xl">
+
+  <span class="govuk-caption-xl">
+    <%= t('leadership.page_heading_caption') %>
+  </span>
+
+  <%= t('leadership.page_heading') %>
+
+  <span class="govuk-caption-xl">
+    <%= t('leadership.page_hint') %>
+  </span>
+
+</h1>
+
+  
+
+<%= 
+  form_with model: @organisation,
+  url: organisation_leadership_self_identify_path,
+  method: :put,
+  local: true do |f| 
+%>
+
+  <%=
+    render(
+      partial: 'partials/organisation/leadership_self_identify_question',
+      locals: {
+        model_object: @organisation,
+        model_object_name: 'organisation',
+        form_object: f
+      }
+    )
+  %>
+
+  <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+          name: "save_and_continue_button"
+        )
+      )
+		%>
+
 <% end %>

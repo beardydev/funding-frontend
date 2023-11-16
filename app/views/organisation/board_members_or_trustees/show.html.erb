@@ -1,11 +1,9 @@
-<%=
-  render(
-    partial: 'partials/page_title',
-    locals: {
-      model_object: @organisation,
-      page_title: t('board_members_or_trustees.page_title')
-    }
-  )
+<%= 
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @organisation,
+             page_title: t('board_members_or_trustees.page_title')
+         }
 %>
 
 <%= content_for :secondarycontent do %>
@@ -17,32 +15,40 @@
 <% end %>
 
 <%=
-  render(
-    partial: 'partials/summary_errors',
-    locals: {
+  render partial: "partials/summary_errors", locals: {
       form_object: @organisation,
-      first_form_element: :organisation_board_members_or_trustees
-    }
-  ) if @organisation.errors.any?
+      first_form_element: :organisation_company_number
+} if @organisation.errors.any?
 %>
 
-<%=
-  form_with model: @organisation,
-  url: :organisation_board_members_or_trustees,
-  method: :put,
-  local: true do |f|
+<h1 class="govuk-heading-xl">
+  <%= t('board_members_or_trustees.page_heading') %> 
+</h1> 
+
+<%= form_for @organisation, 
+    url: organisation_board_members_or_trustees_path(@organisation), 
+    method: :put do |f| 
 %>
 
-  <%=
-    render(
-      partial: 'partials/organisation/board_members_or_trustees_question',
-      locals: {
-        model_object: @organisation,
-        form_object: f
-      }
-    )
-  %>
+    <%=
+      render(
+        partial: 'partials/organisation/board_members_or_trustees_question',
+        locals: {
+          model_object: @organisation,
+          form_object: f
+        }
+      )
+    %>
 
-  <%= render(ButtonComponent.new(element: 'input')) %>
+    <%=
+      render(
+        ButtonComponent.new(
+          element: 'button',
+          is_start_button: false,
+          text: t('buttons.labels.default'),
+          name: "save_and_continue_button"
+        )
+      )
+	  %>
 
 <% end %>

@@ -1,32 +1,35 @@
-<h1>Charity Number</h1>
-<%= form_for @organisation, url: organisation_charity_number_path(@organisation), method: :put do |f| %>
-  <%= render(ButtonComponent.new(element: 'input')) %>
-<% end %>
-
-<%#
+<%= 
   render partial: "partials/page_title",
          locals: {
              model_object: @organisation,
-             page_title: t('organisation.numbers.page_title')
+             page_title: t('charity_number.page_title')
          }
 %>
 
-<%#
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: organisation_summary_path
+    } 
+  %>
+<% end %>
+
+<%=
   render partial: "partials/summary_errors", locals: {
       form_object: @organisation,
       first_form_element: :organisation_company_number
 } if @organisation.errors.any?
 %>
-<%# 
+
 <h1 class="govuk-heading-xl">
-  <%# t('organisation.numbers.page_heading') %>
-</h1> %>
+  <%= t('charity_number.page_heading') %> 
+</h1> 
 
-<%# form_with model: @organisation, url: :organisation_charity_number, method: :put, local: true do |f|  %>
+<%= form_for @organisation, url: organisation_charity_number_path(@organisation), method: :put do |f| %>
 
-  <%#
+  <%=
     render(
-      partial: 'partials/organisation/numbers_question',
+      partial: 'partials/organisation/charity_number_question',
       locals: {
         model_object: @organisation,
         form_object: f
@@ -34,6 +37,15 @@
     )
   %>
 
-  <%# render(ButtonComponent.new(element: 'input')) %>
+  <%=
+    render(
+      ButtonComponent.new(
+        element: 'button',
+        is_start_button: false,
+        text: t('buttons.labels.default'),
+        name: "save_and_continue_button"
+      )
+    )
+	%>
 
-<%# end %>
+<% end %>

@@ -1,4 +1,13 @@
 en-GB:
   board_members_or_trustees:
-    page_title: "How many board members or trustees does your organisation have?"
-    page_heading: "How many board members or trustees does your organisation have?"
+    page_title: "About your organisation"
+    page_heading: "Does your organisation have any Board members or Trustees?"
+    options:
+      no_number: 'No, we do not have any Board members or Trustees.'
+      yes_number: 'Yes, we do have Board members or Trustees.'
+    hints:
+      tell_us: 'Tell us how many Board members or Trustees your organisation has'
+    errors:
+      blank: "Select if your organisation has any Board members or Trustees"
+      text_field_blank: "Enter how many Board members or Trustees your organisation has"
+      

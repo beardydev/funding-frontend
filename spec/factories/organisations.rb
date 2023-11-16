@@ -40,19 +40,41 @@ FactoryBot.define do
       org.validate_name = true
       org.validate_address = true
       org.validate_org_type = true
+      org.validate_organisation_description = true
+      org.validate_communities_that_org_serve = true
+      org.validate_leadership_self_identify = true
+      org.validate_board_members_or_trustees = true
+      org.validate_charity_number = true
+      org.validate_company_number = true
+      org.validate_number_of_employees = true
+      org.validate_number_of_volunteers = true
+      org.validate_vat_registered = true
+      org.has_charity_number = "yes"
+      org.has_company_number = "yes"
+      org.has_number_of_employees = "yes"
+      org.has_number_of_volunteers = "yes"
       end
 
       org_type { nil }
+      organisation_description { nil }
       custom_org_type { nil }
       name { nil }
       line1 { nil }
       townCity { nil }
       county { nil }
       postcode { nil }
+      communities_that_org_serve { nil }
+      company_number { nil }
+      charity_number { nil }
+      number_of_employees { nil }
+      number_of_volunteers { nil }
+      vat_registered { nil }
     end
+    
 
     trait :valid_organisation do
       name { 'A' * 255 }
+      organisation_description { 'A' * 255 }
     end
 
     trait :invalid_organisation do

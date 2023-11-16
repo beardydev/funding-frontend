@@ -1,0 +1,19 @@
+en-GB:
+  communities:
+    page_title: "About your organisation"
+    page_heading: "Is there a specific community that your organisation is dedicated to serving?"
+    page_heading_caption: "About your organisation"
+    page_hint: "Select any that apply"
+    blank: "Enter the work your organisation does"
+    invalid_selection: "Select either specific communities or ‘None of the above’ not both."
+  labels:
+    communities_that_org_serve_communities_experiencing_ethnic_or_racial_inequity_discrimination_inequality: "Communities experiencing ethnic or racial inequity, discrimination or inequality"
+    communities_that_org_serve_faith_communities: "Faith communities"
+    communities_that_org_serve_people_who_have_migrated_and_or_have_experience_of_the_immigration_system: "People who have migrated and/or have experience of the immigration system"
+    communities_that_org_served_deaf_disabled_blind_partially_sighted_and_or_neurodivergent_people: "d/Deaf, Disabled, Blind, Partially Sighted and/or Neurodivergent People"
+    communities_that_org_serve_older_people_65_and_over: "Older People (65 and over)"
+    communities_that_org_serve_young_people_led: "Younger People (under 25)"
+    communities_that_org_serve_women_and_girls: "Women and girls"
+    communities_that_org_serve_lgbt_plus_led: "LGBTQ+ people"
+    communities_that_org_serve_people_who_are_educationally_or_economically_disadvantaged: "People who are educationally or economically disadvantaged"
+    communities_that_org_serve_specific_groups_that_are_not_included_already: "Specific groups that are not included already"

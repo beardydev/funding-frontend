@@ -200,6 +200,13 @@ cy:
                   blank: "Dewiswch y math o sefydliad a fydd yn cynnal eich prosiect"
                 custom_org_type:
                   blank: "Nodwch y math o sefydliad"
+                organisation_description:
+                  blank: "Enter the work your organisation does"
+                  too_long: "Description of your organisation and the work your organisation does must be 500 words or fewer"  
+                communities_that_org_serve:
+                  blank: "Select the community that your organisation is dedicated to serving"  
+                leadership_self_identify: 
+                  blank: "Select the community that more that 75% of your organisation's leadership and staff self-identify as" 
                 company_number:
                   not_a_number: "Mae'n rhaid i rif cwmni fod yn rhif, fel 12345678"
                 name:
@@ -216,7 +223,10 @@ cy:
                 main_purpose_and_activities:
                   blank: "Nodwch brif ddiben neu weithgareddau eich sefydliad" 
                   too_long: "Rhaid i ddisgrifiad o brif ddiben neu weithgareddau eich sefydliad fod yn %{word_count} gair neu lai" 
+                governing_documents_question:
+                  text_field_blank: "Please choose whether to upload a document" 
                 board_members_or_trustees:
+                  blank: "Select if your organisation has any Board members or Trustees"
                   not_a_number: "Mae'n rhaid i nifer aelodau'r bwrdd neu ymddiriedolwyr fod yn rif" 
                   greater_than: "Rhowch swm sy'n fwy na -1" 
                   less_than: "Nodwch swm sy'n llai na 2147483648" 
