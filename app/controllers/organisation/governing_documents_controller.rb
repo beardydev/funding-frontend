@@ -18,7 +18,10 @@ class Organisation::GoverningDocumentsController < ApplicationController
       "#{@organisation.id}"
     )
 
-    @organisation.update(organisation_params)
+    
+    @organisation.governing_document_file.attach(organisation_params[:governing_document_file])
+
+    @organisation.save
 
     @organisation.validate_governing_document_file = true
 
@@ -74,10 +77,6 @@ class Organisation::GoverningDocumentsController < ApplicationController
       render :question
     end
   end
-  
-  
-  
-  
 
   def question_show
     @organisation = Organisation.find(params[:organisation_id])

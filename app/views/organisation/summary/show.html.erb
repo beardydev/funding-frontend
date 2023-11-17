@@ -349,26 +349,33 @@
 
   </div>
 
-<%# double check below as it has a different upload style %>
   <div class="govuk-summary-list__row">
 
     <dt class="govuk-summary-list__key">
       <%= t('organisation.summary.list_keys.governing_document') %>
     </dt>
 
-<%#  TODO: governing doc section will be amended once merged with Jacks changes that include governing documents page %>
-
     <dd class="govuk-summary-list__value">
-      <%# <%= @organisation.governing_documents.present? ?
-              @organisation.governing_documents : t('generic.not_answered')
-              %> 
-     </dd> 
+      <% if @organisation.governing_document_file.present? %>
 
+      <tbody class="govuk-table__body">
+        <% @organisation.governing_document_file.each do |attachment| %>
+            <td class="govuk-table__cell">
+                <%= link_to attachment.blob.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), class: 'govuk-link' %>
+            </td>
+        <% end %>
+
+        <% else %>
+          <%= t('generic.not_answered')%> 
+        <% end %>
+
+    </dd> 
+          
     <dd class="govuk-summary-list__actions">
       <%=
         link_to "#{t('generic.change')}<span class='govuk-visually-hidden'>
         #{t('organisation.summary.change_links.governing_document')}</span>".html_safe,
-                :organisation_governing_documents,
+                :organisation_governing_documents_question,
                 organisation_id: @organisation.id,
                 class: "govuk-link govuk-link--no-visited-state"
       %>
@@ -378,7 +385,6 @@
 
 </dl>
 
-<%# design doesn't have this warning text do we still need it? %>
 
 <div class="govuk-warning-text">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>

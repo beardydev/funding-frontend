@@ -31,6 +31,14 @@ module OrganisationSalesforceApi
       Rails.logger.info(
         "Upserted an Account record in Salesforce with reference: #{salesforce_account_id}"
       )
+      
+      if organisation.governing_document_file.attached?
+          create_multiple_files_in_salesforce(
+            organisation.governing_document_file,
+            'Governing Document',
+            salesforce_account_id
+          )
+      end
 
       salesforce_account_id
 
@@ -178,6 +186,37 @@ module OrganisationSalesforceApi
     end
 
     private
+
+    # Method to orchestrate creation of multiple files in Salesforce
+    #
+    # @param [ActiveStorageBlob] files The files to upload
+    # @param [String] type The type of file to upload (e.g. 'accounts')
+    # @param [String] salesforce_project_reference The Salesforce Case reference
+    #                                              to link an uploaded file to
+    # @param [String] description A description of the file being uploaded
+    def create_multiple_files_in_salesforce(
+      files,
+      type,
+      salesforce_project_reference,
+      description = nil
+    )
+
+      Rails.logger.info("Creating #{type} files in Salesforce")
+
+      files.each_with_index do |file, i|
+
+        create_file_in_salesforce(
+          file,
+          "#{type} #{i + 1}",
+          salesforce_project_reference,
+          description
+        )
+
+      end
+
+      Rails.logger.info("Finished creating #{type} files in Salesforce")
+
+    end
 
     # Upserts to an Account record in Salesforce using the organisation.id
     # Calling function should handle exceptions/retries
