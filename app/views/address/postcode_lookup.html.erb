@@ -21,13 +21,13 @@
 
 <%# Determines H1 %>
 <% if @type == 'organisation' || @type == 'preapplication'%> 
-    <h1 class="govuk-heading-xl"> <%= t('postcode.find_your_organisation_address') %> </h1>
+    <h1 class="govuk-heading-xl govuk-!-margin-bottom-5"> <%= t('postcode.find_your_organisation_address') %> </h1>
   <%else%>
     <h1 class="govuk-heading-xl"> <%= t('postcode.find_your_address') %> </h1>
 <% end %> 
 
 <% if @type == "organisation" %>
-  <p class="govuk-body govuk-hint govuk-!-margin-bottom-8"> <%= t('postcode.based_in_uk_hint') %> </p>
+  <p class="govuk-body govuk-hint govuk-!-margin-bottom-5"> <%= t('postcode.based_in_uk_hint') %> </p>
 <% end %>
 
 <%= form_with(url: address_results_path, local: true) do |p| %>

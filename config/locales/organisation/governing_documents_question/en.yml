@@ -6,8 +6,8 @@ en-GB:
     no_documents: "You have not added a governing document"
     question: "Do you want to upload another document?"
     options:
-      no_number: 'No, I do nnot need to upload another document.'
-      yes_number: 'Yes, I need to upload another document.'
+      no_another: 'No, I do not need to upload another document.'
+      yes_another: 'Yes, I need to upload another document.'
     hints:
       tell_us: 'Tell us how many staff your organisation employs'
     errors:

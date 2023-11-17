@@ -20,40 +20,85 @@
   
 <%= form_for @organisation, url: organisation_governing_documents_question_path(@organisation), method: :patch do |f| %>
   <div class="govuk-form-group">
+
     <fieldset class="govuk-fieldset">
+
       <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
-        <h1 class="govuk-fieldset__heading">
+
+        <h1 class="govuk-fieldset__heading govuk-!-margin-bottom-5">
+
           <%= t('governing_documents_question.page_heading') %>
+
         </h1>
+
       </legend>
 
       <% if @organisation.governing_document_file.any? %>
+
         <table class="govuk-table">
+
           <caption class="govuk-table__caption govuk-table__caption--m">
+
           <%= t('governing_documents_question.table_caption') %>
+
           </caption>
+
           <tbody class="govuk-table__body">
+
             <% @organisation.governing_document_file.each do |attachment| %>
+
               <tr class="govuk-table__row">
+
                 <td class="govuk-table__cell">
+
                   <%= link_to attachment.blob.filename.to_s, rails_blob_path(attachment, disposition: 'attachment'), class: 'govuk-link' %>
+
                 </td>
                 <td class="govuk-table__cell">
+
                   <%= link_to 'Remove',
                             organisation_remove_governing_document_path(organisation_id: @organisation.id, id: attachment.id),
                             method: :delete,
                             data: { confirm: 'Are you sure?' },
                             class: 'govuk-link' %>
                 </td>
+
               </tr>
+
             <% end %>
+
           </tbody>
+
         </table>
+
       </div>
+      
       <% else %>
-        <p class="govuk-body">
-          <%= t('governing_documents_question.no_documents') %>
-        </p>
+
+       <table class="govuk-table border-bottom-0">
+
+          <caption class="govuk-table__caption govuk-table__caption--m">
+
+          <%= t('governing_documents_question.table_caption') %>
+
+          </caption>
+
+          <tbody class="govuk-table__body">
+
+              <tr class="govuk-table__row ">
+
+                <td class="govuk-table__cell govuk-heading-s govuk-!-margin-bottom-6">
+
+                  <%= t('governing_documents_question.no_documents') %>
+
+                 </td>
+
+               </tr>
+               
+          </tbody>
+
+        </table>
+        
       <% end %>
 
       <div class="govuk-form-group">
@@ -74,15 +119,35 @@
 
             <div class="govuk-radios__item">
 
-              <%= f.radio_button :wants_to_upload_document, 'yes', id: "wants_to_upload_document_yes", class: "govuk-radios__input" %>
-              <%= f.label :wants_to_upload_document_yes, "Yes, I want to upload another document", class: "govuk-label govuk-radios__label" %>
+              <%= 
+                f.radio_button :wants_to_upload_document, 
+                'yes', 
+                id: "wants_to_upload_document_yes", 
+                class: "govuk-radios__input" 
+              %>
+
+              <%= 
+                f.label :wants_to_upload_document_yes, 
+                t('governing_documents_question.options.yes_another'),
+                class: "govuk-label govuk-radios__label" 
+              %>
 
             </div>
 
             <div class="govuk-radios__item">
 
-              <%= f.radio_button :wants_to_upload_document, 'no', id: "wants_to_upload_document_no", class: "govuk-radios__input" %>
-              <%= f.label :wants_to_upload_document_no, "No, I do not need to upload another document", class: "govuk-label govuk-radios__label" %>
+              <%= 
+                f.radio_button :wants_to_upload_document, 
+                'no', 
+                id: "wants_to_upload_document_no", 
+                class: "govuk-radios__input" 
+              %>
+
+              <%= 
+                f.label :wants_to_upload_document_no, 
+                t('governing_documents_question.options.no_another'), 
+                class: "govuk-label govuk-radios__label" 
+              %>
 
             </div>
 
@@ -94,7 +159,16 @@
 
       <div class="govuk-form-group">
 
-        <%= render(ButtonComponent.new(element: 'input')) %>
+         <%=
+            render(
+             ButtonComponent.new(
+              element: 'button',
+              is_start_button: false,
+              text: t('buttons.labels.default'),
+              name: "save_and_continue_button"
+              )
+            )
+	        %>
 
       </div>
   

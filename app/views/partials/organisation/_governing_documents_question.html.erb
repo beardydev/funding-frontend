@@ -1,163 +1,107 @@
 <div class="govuk-form-group">
 
   <fieldset class="govuk-fieldset">
-
+    
     <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-!-margin-bottom-6">
-      <h1 class="govuk-fieldset__heading">
-        <%= t('governing_document.page_heading') %>
-      </h1>
+
+      <h1 class="govuk-fieldset__heading"><%= t('governing_document.page_heading') %></h1>
+
     </legend>
 
-    <p class="govuk-body">
-      <%= t('governing_document.before_we_assess') %>
-    </p>
+    <p class="govuk-body govuk-!-margin-bottom-6"><%= t('governing_document.you_must_provide') %></p>
 
-      <details class="govuk-details" data-module="govuk-details">
+    <div class="govuk-form-group govuk-!-margin-bottom-6">
 
-        <summary class="govuk-details__summary">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-3"><%= t('governing_document.this_should_include') %></h2>
 
-          <span class="govuk-details__summary-text">
-            <%= t('governing_document.what_is_a_governing_document') %>
-          </span>
+      <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-6">
 
-        </summary>
+        <li><%= t('governing_document.the_legal_name') %></li>
 
-        <div class="govuk-details__text">
+        <li><%= t('governing_document.statement_that_prevents') %></li>
 
-          <p class="govuk-body">
-            <%= t('governing_document.what_is_para_1') %>
-          </p>
+        <li><%= t('governing_document.statment_that_confirms') %></li>
 
-          <p class="govuk-body">
-            <%= t('governing_document.what_is_para_2') %>
-          </p>
+        <li><%= t('governing_document.adopted_date') %></li>
 
-          <p class="govuk-body">
-            <%= t('governing_document.what_is_para_3') %>
-          </p>
-
-          <p class="govuk-body">
-            <%= t('governing_document.what_is_para_4') %>
-          </p>
-
-          <p class="govuk-body">
-            <%= t('governing_document.the_charity_commission') %> 
-            <%= 
-              link_to(
-                t('governing_document.guidance_href_text'),
-                "#{I18n.locale == :cy ? 'https://www.gov.uk/guidance/how-to-write-your-charitys-governing-document.cy' :  'https://www.gov.uk/guidance/how-to-write-your-charitys-governing-document'}",
-                target: '_blank'
-              )
-            %>.
-          </p>
-
-        </div>
-
-      </details>   
-
-    <p class="govuk-heading-s">
-      <%= t('governing_document.we_do_not_need') %>
-    </p>
-
-    <ul class="govuk-list govuk-list--bullet">
-
-      <li>
-        <%= t('governing_document.a_public_org') %>
-      </li>
-
-      <li>
-        <%= t('governing_document.a_charity') %>
-      </li>
-
-      <%
-        if current_user.organisations.first.org_type == "faith_based_organisation" ||
-          current_user.organisations.first.org_type == "church_organisation"
-      %>
-
-        <li>
-
-          <%= t('governing_document.one_of_the_following') %>
-
-          <ul class="govuk-list govuk-list--bullet nlhf-list--dash">
-
-            <li><%= t('governing_document.church_types.baptist_church') %></li>
-            <li><%= t('governing_document.church_types.church_in_wales') %></li>
-            <li><%= t('governing_document.church_types.church_of_england') %></li>
-            <li><%= t('governing_document.church_types.church_of_scotland') %></li>
-            <li><%= t('governing_document.church_types.methodist_church') %></li>
-            <li><%= t('governing_document.church_types.roman_catholic_church') %></li>
-            <li><%= t('governing_document.church_types.scottish_episcopal_church') %></li>
-            <li><%= t('governing_document.church_types.united_reformed_church') %></li>
-
-          </ul>
-
-        </li>
-
-      <% end %>
-
-    </ul>
-
-    <p class="govuk-body">
-      <%= t('governing_document.no_signed_copy') %>
-    </p>
-
-    <div class="govuk-warning-text">
-
-      <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-
-      <strong class="govuk-warning-text__text">
-
-        <span class="govuk-warning-text__assistive"><%= t('governing_document.warning') %></span>
-
-        <%= t('governing_document.warning_text') %>
-
-      </strong>
+      </ul>
 
     </div>
 
-    <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-6">
+    <p class="govuk-body govuk-!-margin-bottom-6"><%= t('governing_document.unable_to_fund') %></p>
 
-      <div class="govuk-form-group <%= "govuk-form-group--error" if
-        model_object.errors.any? %>" id="governing_document_file-form-group" data-form-group="file">
+    <p class="govuk-body govuk-!-margin-bottom-4">
 
-        <%=
-          render(
-            partial: 'partials/form_group_errors',
-            locals: {
-              form_object: model_object
-            }
-          ) if model_object.errors.any?
-        %>
+      <%= t('governing_document.the_charity_commission') %>   
 
-        <div class="govuk-form-group">
+      <a href="https://www.gov.uk/guidance/how-to-write-your-charitys-governing-document" class="govuk-link" target="_blank">
+        
+        <%= t('governing_document.guidance') %>
 
-          <%=
-            form_object.label :governing_document_file,
-            t('governing_document.labels.add_your_governing_doc'),
-            class: "govuk-heading-m nlhf-content-highlight__title"
+      </a> 
+        
+      <%= t('governing_document.on_creating_a_governing_document') %>.
+
+    </p>
+
+    <p class="govuk-heading-s govuk-!-margin-bottom-3"><%= t('governing_document.do_not_need_to_see') %></p>
+
+    <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-4">
+
+      <li><%= t('governing_document.public_organisation') %></li>
+
+      <li><%= t('governing_document.private_owner') %></li>
+
+      <li><%= t('governing_document.charity') %></li>
+
+    </ul>
+
+    <div class="govuk-form-group nlhf-highlight-content govuk-!-margin-bottom-1">
+
+      <div class="govuk-form-group 
+      <%= "govuk-form-group--error" if model_object.errors.any? %>" 
+        id="governing_document_file-form-group" data-form-group="file"
+        >
+
+        <%= render(partial: 'partials/form_group_errors', 
+            locals: { form_object: model_object }) if model_object.errors.any? 
           %>
 
-          <div id="governing_document_file-errors"></div>
+        <div class="govuk-form-group govuk-!-margin-bottom-1">
+          <%= form_object.label :governing_document_file, 
+              t('governing_document.labels.add_your_governing_doc'), 
+              class: "govuk-heading-m nlhf-content-highlight__title" 
+            %>
 
-          <%=
-            form_object.file_field :governing_document_file,
-            multiple: false,
-            direct_upload: true,
-            class: "govuk-file-upload #{"govuk-file-upload--error" if
-              model_object.errors.any?}",
-            'data-input-identifier': 'file',
-            'data-attribute': :governing_document_file,
-            'data-model': model_object_name,
-            'autocomplete' => 'off'
-          %>
+          <div id="governing_document_file-errors" class="govuk-!-margin-bottom-3"></div>
+
+          <%= form_object.file_field :governing_document_file, 
+              multiple: false, direct_upload: true, class: 
+              "govuk-file-upload #{"govuk-file-upload--error" if model_object.errors.any?}", 
+              'data-input-identifier': 'file', 
+              'data-attribute': :governing_document_file, 
+              'data-model': model_object_name, 
+              'autocomplete' => 'off' 
+            %>
 
         </div>
 
-      
+      </div>
+
     </div>
 
   </fieldset>
 
 </div>
 
-<%= render(ButtonComponent.new(element: 'input')) %>
+<%=
+  render(
+    ButtonComponent.new(
+      text: t('buttons.labels.default'),
+      element: 'button',
+      name: "save_and_continue_button",
+      is_start_button: false
+    )
+  )
+%>
+

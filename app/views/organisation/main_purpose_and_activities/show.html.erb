@@ -22,7 +22,7 @@
   } if @organisation.errors.any? 
 %>
 
-<h1 class="govuk-heading-xl">
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
 
   <span class="govuk-caption-xl">
     <%= t('main_purpose_and_activities.org_page_heading_caption') %>
@@ -63,7 +63,7 @@
             %>
 
           <div id="main_purpose_and_activities-info"
-                class="govuk-hint govuk-character-count__message"
+                class="govuk-hint govuk-character-count__message govuk-!-margin-bottom-6"
                 aria-live="polite">
             <%= t('generic.word_count', max_words: 500) %>
           </div>

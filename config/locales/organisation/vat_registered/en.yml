@@ -1,8 +1,8 @@
 en-GB:
   vat_registered:
     page_title: "Are you VAT registered?"
-    page_heading: "Are you VAT registered?"
-    radio_no: "No, I am not VAT registered"
-    radio_yes: "Yes, I am VAT registered"
+    page_heading: "Is your organisation VAT registered?"
+    radio_no: "No, we are not VAT registered"
+    radio_yes: "Yes, we are VAT registered"
     label:
       vat_number: "VAT number"

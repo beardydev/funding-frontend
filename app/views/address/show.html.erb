@@ -27,7 +27,7 @@
 <% end %>
 
 <% if @type == "organisation" %>
-  <h1 class="govuk-heading-xl">
+  <h1 class="govuk-heading-xl govuk-!-margin-bottom-5">
     <%= t('address_details.enter_organisation_address') %>
   </h1>
 <% elsif @type == "project" %>
@@ -45,7 +45,7 @@
 <% end%>
 
 <% if @type == "organisation" || @type == 'preapplication' %>
-  <p class="govuk-hint govuk-!-margin-bottom-8"><%= t('address_details.based_in_uk_hint') %></p>
+  <p class="govuk-hint govuk-!-margin-bottom-5"><%= t('address_details.based_in_uk_hint') %></p>
 <% end %>
 
 <%= form_for @model_object, url: :address, method: :put do |f|  %>

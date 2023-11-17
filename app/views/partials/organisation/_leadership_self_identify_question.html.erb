@@ -227,7 +227,7 @@
 
         <div class="govuk-checkboxes__divider">or</div>
 
-        <div class="govuk-checkboxes__item">
+        <div class="govuk-checkboxes__item govuk-!-margin-bottom-3">
 
           <%= 
             form_object.check_box :leadership_self_identify, 
@@ -245,7 +245,7 @@
 
           <%= 
             form_object.label :leadership_self_identify, 
-            'None of the above', 
+            t('labels.none_of_the_above'), 
             for: "leadership_self_identify_none", 
             class: "govuk-label govuk-checkboxes__label" 
           %>

@@ -5,36 +5,68 @@
     <div class="govuk-radios" data-module="govuk-radios">
 
       <div class="govuk-radios__item">
-        <%= form_object.radio_button :has_company_number, "no", id: "has_company_number_no", value: "no", class: "govuk-radios__input", "data-aria-controls" => "conditional-company_number" %>
-        <%= form_object.label :has_company_number_no, t('company_number.options.no_number'), class: "govuk-label govuk-radios__label" %>
+
+        <%= 
+          form_object.radio_button :has_company_number, 
+          "no", id: "has_company_number_no", 
+          value: "no", 
+          class: "govuk-radios__input", 
+          "data-aria-controls" => "conditional-company_number" 
+        %>
+
+        <%= 
+            form_object.label :has_company_number_no, 
+            t('company_number.options.no_number'), 
+            class: "govuk-label govuk-radios__label" 
+        %>
+
       </div>
 
       <div class="govuk-radios__item">
-        <%= form_object.radio_button :has_company_number, "yes", id: "has_company_number_yes", class: "govuk-radios__input", "data-aria-controls" => "conditional-company_number" %>
-        <%= form_object.label :has_company_number_yes, t('company_number.options.yes_number'), class: "govuk-label govuk-radios__label" %>
+
+        <%= 
+          form_object.radio_button :has_company_number, 
+          "yes", id: "has_company_number_yes", 
+          class: "govuk-radios__input", 
+          "data-aria-controls" => "conditional-company_number" 
+        %>
+
+        <%= 
+          form_object.label :has_company_number_yes, 
+          t('company_number.options.yes_number'), 
+          class: "govuk-label govuk-radios__label" 
+        %>
+
       </div>
 
       <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-company_number">
 
         <div class="govuk-form-group <%= 'govuk-form-group--error' if form_object.object.errors[:company_number].any? %>">
 
-          <%= form_object.label :company_number, t('company_number.hints.tell_us'), class: "govuk-label" %>
+          <%= 
+            form_object.label :company_number, 
+            t('company_number.hints.tell_us'), 
+            class: "govuk-label" 
+          %>
 
-            <% if form_object.object.errors[:company_number].any? %>
+          <% if form_object.object.errors[:company_number].any? %>
 
-              <span id="company_number-error" class="govuk-error-message">
-                <span class="govuk-visually-hidden">Error:</span>
-                <%= form_object.object.errors[:company_number].first %>
-              </span>
+            <span id="company_number-error" class="govuk-error-message">
+
+              <span class="govuk-visually-hidden">Error:</span>
+
+              <%= form_object.object.errors[:company_number].first %>
+
+            </span>
 
           <% end %>
 
-            <%= form_object.text_field :company_number,
-                  id: "actual_company_number", 
-                  class: "govuk-input #{'govuk-input--error' if form_object.object.errors[:company_number].any?}",
-                  autocomplete: "off",
-                  spellcheck: "false" 
-              %>
+          <%= form_object.text_field :company_number,
+                id: "actual_company_number", 
+                class: "govuk-input #{'govuk-input--error' if form_object.object.errors[:company_number].any?}",
+                autocomplete: "off",
+                spellcheck: "false" %>
+                
         </div>
 
       </div>
@@ -42,5 +74,5 @@
     </div>
 
   </fieldset>
-
+  
 </div>

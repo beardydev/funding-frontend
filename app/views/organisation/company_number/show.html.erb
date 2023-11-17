@@ -21,9 +21,17 @@
 } if @organisation.errors.any?
 %>
 
-<h1 class="govuk-heading-xl">
-  <%= t('company_number.page_heading') %> 
-</h1> 
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+
+  <span class="govuk-caption-xl">
+
+    <%= t('company_number.page_title') %>
+    
+  </span>
+
+  <%= t('company_number.page_heading') %>
+
+</h1>
 
 <%= form_for @organisation, url: organisation_company_number_path(@organisation), method: :put do |f| %>
 

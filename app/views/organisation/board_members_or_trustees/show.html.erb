@@ -21,9 +21,17 @@
 } if @organisation.errors.any?
 %>
 
-<h1 class="govuk-heading-xl">
-  <%= t('board_members_or_trustees.page_heading') %> 
-</h1> 
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-5">
+
+  <span class="govuk-caption-xl">
+
+    <%= t('board_members_or_trustees.page_title') %>
+    
+  </span>
+
+  <%= t('board_members_or_trustees.page_heading') %>
+
+</h1>
 
 <%= form_for @organisation, 
     url: organisation_board_members_or_trustees_path(@organisation), 

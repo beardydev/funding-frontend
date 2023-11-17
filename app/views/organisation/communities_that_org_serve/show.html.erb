@@ -22,7 +22,7 @@
   } if @organisation.errors.any? 
 %>
 
-<h1 class="govuk-heading-xl">
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
 
   <span class="govuk-caption-xl">
     <%= t('communities.page_heading_caption') %>
@@ -30,12 +30,17 @@
 
   <%= t('communities.page_heading') %>
 
-  <span class="govuk-caption-xl">
-    <%= t('communities.page_hint') %>
-  </span>
-
 </h1>
 
+<div class= "govuk-!-margin-bottom-3">
+
+  <span class="govuk-hint ">
+
+      <%= t('communities.page_hint') %>
+      
+  </span>
+  
+</div>
   
 
 <%= 

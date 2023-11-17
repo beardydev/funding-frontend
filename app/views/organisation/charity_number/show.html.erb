@@ -17,13 +17,22 @@
 <%=
   render partial: "partials/summary_errors", locals: {
       form_object: @organisation,
-      first_form_element: :organisation_company_number
+      first_form_element: :organisation_charity_number
 } if @organisation.errors.any?
 %>
 
-<h1 class="govuk-heading-xl">
-  <%= t('charity_number.page_heading') %> 
-</h1> 
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-3">
+
+  <span class="govuk-caption-xl">
+
+    <%= t('charity_number.page_title') %>
+    
+  </span>
+
+  <%= t('charity_number.page_heading') %>
+
+</h1>
+
 
 <%= form_for @organisation, url: organisation_charity_number_path(@organisation), method: :put do |f| %>
 

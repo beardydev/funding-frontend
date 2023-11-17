@@ -34,7 +34,7 @@
 <% end %>
 
 <% if @type == "organisation" %>
-  <p class="govuk-body govuk-hint govuk-!-margin-bottom-8"><%= t('postcode.based_in_uk_hint') %></p>
+  <p class="govuk-body govuk-hint govuk-!-margin-bottom-6"><%= t('postcode.based_in_uk_hint') %></p>
 <% end %>
 
 <%= form_with(url: address_details_path, method: :put, local: true) do |p| %>

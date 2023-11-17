@@ -5,20 +5,49 @@
     <div class="govuk-radios" data-module="govuk-radios">
 
       <div class="govuk-radios__item">
-        <%= form_object.radio_button :has_charity_number, "no", id: "has_charity_number_no", value: "no", class: "govuk-radios__input", "data-aria-controls" => "conditional-charity_number" %>
-        <%= form_object.label :has_charity_number_no, t('charity_number.options.no_number'), class: "govuk-label govuk-radios__label" %>
+
+        <%= 
+          form_object.radio_button :has_charity_number, 
+          "no", id: "has_charity_number_no", 
+          value: "no", 
+          class: "govuk-radios__input", 
+          "data-aria-controls" => "conditional-charity_number" 
+        %>
+
+        <%= 
+            form_object.label :has_charity_number_no, 
+            t('charity_number.options.no_number'), 
+            class: "govuk-label govuk-radios__label" 
+        %>
+
       </div>
 
       <div class="govuk-radios__item">
-        <%= form_object.radio_button :has_charity_number, "yes", id: "has_charity_number_yes", class: "govuk-radios__input", "data-aria-controls" => "conditional-charity_number" %>
-        <%= form_object.label :has_charity_number_yes, t('charity_number.options.yes_number'), class: "govuk-label govuk-radios__label" %>
+
+        <%= 
+          form_object.radio_button :has_charity_number, 
+          "yes", id: "has_charity_number_yes", 
+          class: "govuk-radios__input", 
+          "data-aria-controls" => "conditional-charity_number" 
+        %>
+
+        <%= 
+          form_object.label :has_charity_number_yes, 
+          t('charity_number.options.yes_number'), 
+          class: "govuk-label govuk-radios__label" 
+        %>
+
       </div>
 
       <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-charity_number">
 
         <div class="govuk-form-group <%= 'govuk-form-group--error' if form_object.object.errors[:charity_number].any? %>">
 
-          <%= form_object.label :charity_number, t('charity_number.hints.tell_us'), class: "govuk-label" %>
+          <%= 
+            form_object.label :charity_number, 
+            t('charity_number.hints.tell_us'), 
+            class: "govuk-label" 
+          %>
 
           <% if form_object.object.errors[:charity_number].any? %>
 

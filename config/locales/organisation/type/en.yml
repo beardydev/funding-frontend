@@ -3,6 +3,7 @@ en-GB:
     type:
       page_title: "Which of the following options best describes your organisation's type?"
       page_heading: "Which of the following options best describes your organisation's type?"
+      page_heading_caption: "About your organisation"
       describe_type: "Describe your organisation's type"
       labels:
         registered_charity: "Registered charity"
