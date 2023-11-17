@@ -200,6 +200,7 @@ en-GB:
               blank: "Select which option best describes your organisation's type"
             custom_org_type:
               blank: "Enter your organisation's type"
+              too_long: "Organisation type must be 255 characters or fewer"
             organisation_description:
               blank: "Enter the work your organisation does"
               too_long: "Description of your organisation and the work your organisation does must be 500 words or fewer"

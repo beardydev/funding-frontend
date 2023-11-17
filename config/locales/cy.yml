@@ -200,6 +200,7 @@ cy:
                   blank: "Dewiswch y math o sefydliad a fydd yn cynnal eich prosiect"
                 custom_org_type:
                   blank: "Nodwch y math o sefydliad"
+                  too_long: "Organisation type must be 255 characters or fewer"
                 organisation_description:
                   blank: "Enter the work your organisation does"
                   too_long: "Description of your organisation and the work your organisation does must be 500 words or fewer"  

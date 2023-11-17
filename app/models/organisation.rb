@@ -56,6 +56,7 @@ class Organisation < ApplicationRecord
 
   validates :org_type, presence: true, if: :validate_org_type?
   validates :custom_org_type, presence: true, if: -> { org_type == 'other' && :validate_custom_org_type? }
+  validates :custom_org_type, length: { maximum: 255 }
   validates :name, presence: true, if: :validate_name?
   validates :name, length: { maximum: 255 }
   validates :organisation_description, presence: true, if: :validate_organisation_description?

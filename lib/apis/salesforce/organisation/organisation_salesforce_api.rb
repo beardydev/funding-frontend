@@ -188,7 +188,7 @@ module OrganisationSalesforceApi
     #
     # @return [String] salesforce_account_id A Salesforce Account Id for the Organisation
     def upsert_account_by_organisation_id(organisation)
-
+      
       @client.upsert!(
         'Account',
         'Account_External_ID__c', 
@@ -201,12 +201,13 @@ module OrganisationSalesforceApi
         Company_Number__c: organisation.company_number,
         Charity_Number__c: organisation.charity_number,
         Organisation_Type__c: get_organisation_type_for_salesforce(organisation),
+        Custom_org_type__c: organisation.custom_org_type,
         Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
         VAT_number__c: organisation.vat_number,
         Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees,
         Organisation_s_Main_Purpose_Activities__c: organisation.organisation_description,
-        Communities_that_org_serves__c: organisation.communities_that_org_serve,
-        leadership_self_identify__c: organisation.leadership_self_identify,
+        Communities_that_org_serves__c:  convert_to_salesforce_leadership_and_communities(organisation.communities_that_org_serve),
+        leadership_self_identify__c: convert_to_salesforce_leadership_and_communities(organisation.leadership_self_identify),
         NumberOfEmployees: organisation.number_of_employees,
         Number_of_volunteers__c: organisation.number_of_volunteers,
         Volunteer_work_description__c: organisation.volunteer_work_description
@@ -240,12 +241,13 @@ module OrganisationSalesforceApi
         Company_Number__c: organisation.company_number,
         Charity_Number__c: organisation.charity_number,
         Organisation_Type__c: get_organisation_type_for_salesforce(organisation),
+        Custom_org_type__c: organisation.custom_org_type,
         Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
         VAT_number__c: organisation.vat_number,
         Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees,
         Organisation_s_Main_Purpose_Activities__c: organisation.organisation_description,
-        Communities_that_org_serves__c: organisation.communities_that_org_serve,
-        leadership_self_identify__c: organisation.leadership_self_identify,
+        Communities_that_org_serves__c:  convert_to_salesforce_leadership_and_communities(organisation.communities_that_org_serve),
+        leadership_self_identify__c: convert_to_salesforce_leadership_and_communities(organisation.leadership_self_identify),
         NumberOfEmployees: organisation.number_of_employees,
         Number_of_volunteers__c: organisation.number_of_volunteers,
         Volunteer_work_description__c: organisation.volunteer_work_description

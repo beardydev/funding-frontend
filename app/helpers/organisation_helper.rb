@@ -366,6 +366,86 @@ module OrganisationHelper
     end
   end
 
+  # Method to convert salesforce leadership_and_communities values to FFE type
+  # aligning FFE with any salesforce changes.
+  #
+  # @param [String] leadership_and_communities values A string containing a collection of
+  #                              leadership_and_communities values, in the salesforce format.
+  #
+  # @return [Array<string> ] leadership_and_communities_list String array of FFE mission/objectives  
+  #                                         to add against organisation. 
+  def convert_leadership_and_communities(leadership_communities_values)
+
+    leadership_and_communities_list = []
+
+    if leadership_communities_values.present?
+
+      leadership_communities_values.each do | value |
+        case value
+        when 'communities_experiencing_ethnic_or_racial_inequity_discrimination_inequality'
+          leadership_and_communities_list.append('Communities experiencing ethnic or racial inequity, discrimination or inequality')
+        when 'faith_communities'
+          leadership_and_communities_list.append('Faith communities')
+        when 'people_who_have_migrated_and_or_have_experience_of_the_immigration_system'
+          leadership_and_communities_list.append('People who have migrated and or have experience of the immigration system')
+        when 'deaf_disabled_blind_partially_sighted_and_or_neurodivergent_people'
+          leadership_and_communities_list.append('dDeaf, Disabled, Blind, Partially Sighted and or Neurodivergent People')
+        when 'older_people_65_and_over'
+          leadership_and_communities_list.append('Older people 65 and over')
+        when 'young_people_led'
+          leadership_and_communities_list.append('Younger people under 25')
+        when 'women_and_girls'
+          leadership_and_communities_list.append('Women and girls')
+        when 'lgbt_plus_led'
+          leadership_and_communities_list.append('LGBTQplus people')
+        when 'people_who_are_educationally_or_economically_disadvantaged'
+          leadership_and_communities_list.append('People who are educationally or economically disadvantaged')
+        when 'specific_groups_that_are_not_included_already'
+          leadership_and_communities_list.append('Specific groups that are not included already')
+        when 'None of the above'
+          leadership_and_communities_list.append('None of the above')
+        end
+      end
+
+    end
+    leadership_and_communities_list
+  end
+
+ 
+    # Rails stores leadership_and_communities values as a comma delimited set of strings.
+    # Salesforce requires these to be a semi-colon delimited string.
+    #
+    # @param [Array] an array of leadership_and_communities strings for an Organisation
+    #
+    # @return [Array] A re-mapped array of leadership_and_communities strings formatted for Salesforce
+    def convert_to_salesforce_leadership_and_communities(leadership_communities_values)
+
+      salesforce_leadership_and_communities_array = leadership_communities_values.map { |values| convert_leadership_and_communities(leadership_communities_values) }
+
+      salesforce_leadership_and_communities_array.join(';')
+        
+    end
+
+
+  # Method to convert salesforce vat registered picklist value to FFE type
+  #
+  # @param [String] picklist_type A string containing a picklist value
+  #
+  # @return [String] picklist string A picklist string or nil
+  #
+  def convert_vat_registered_picklist(picklist_type)
+
+    case picklist_type
+    when 'Yes'
+      picklist = true
+    when 'No'
+      picklist = false
+    else
+      picklist = nil
+    end
+
+  end
+
   # Method to convert salesforce vat registered picklist value to FFE type
   #
   # @param [String] picklist_type A string containing a picklist value
