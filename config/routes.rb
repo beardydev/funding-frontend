@@ -112,8 +112,8 @@ Rails.application.routes.draw do
       put '/governing-documents-question', to: 'governing_documents#question_update'
       patch '/governing-documents-question', to: 'governing_documents#question_update'
       delete '/governing-documents/:id', to: 'governing_documents#destroy', as: 'remove_governing_document'
-      get '/summary', to: 'summary#show'
-      put '/summary', to: 'summary#update'
+      get '/check-your-answers', to: 'check_your_answers#show'
+      put '/check-your-answers', to: 'check_your_answers#update'
       get '/existing-organisations-error', to: 'existing_organisations_error#show', constraints: lambda { Flipper.enabled?(:import_existing_account_enabled) }
     end
 

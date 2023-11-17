@@ -1,6 +1,6 @@
 cy:
   organisation:
-    summary:
+    check_your_answers:
       page_title: "Crynodeb o'r sefydliad"
       page_heading: "Gwiriwch eich atebion"
       warning:

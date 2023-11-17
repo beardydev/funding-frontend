@@ -1,7 +1,7 @@
 en-GB:
   organisation:
-    summary:
-      page_title: "Organisation summary"
+    check_your_answers:
+      page_title: "Check your answers"
       page_heading: "Check your answers"
       warning:
         heading: ""

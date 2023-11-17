@@ -67,7 +67,7 @@ class Organisation::GoverningDocumentsController < ApplicationController
         if @organisation.wants_to_upload_document == 'yes'
           redirect_to organisation_governing_documents_path(@organisation)
         else
-          redirect_to organisation_summary_path(@organisation)
+          redirect_to organisation_check_your_answers_path(@organisation) 
         end
       else
         render :question

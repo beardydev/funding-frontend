@@ -1,5 +1,5 @@
 # Controller for a page that asks for summary information about an organisation.
-class Organisation::SummaryController < ApplicationController
+class Organisation::CheckYourAnswersController < ApplicationController
   include OrganisationContext
 
   def update
