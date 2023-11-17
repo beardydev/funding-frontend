@@ -125,18 +125,18 @@
   <div class="govuk-summary-list__row">
 
     <dt class="govuk-summary-list__key">
-      <%= t('organisation.summary.list_keys.organisation_description') %>
+      <%= t('organisation.summary.list_keys.main_purpose_and_activities') %>
     </dt>
 
     <dd class="govuk-summary-list__value">
-      <%= @organisation.organisation_description.present? ? @organisation.organisation_description : t('generic.not_answered') %>
+      <%= @organisation.main_purpose_and_activities.present? ? @organisation.main_purpose_and_activities : t('generic.not_answered') %>
     </dd>
 
     <dd class="govuk-summary-list__actions">
       <%=
         link_to "#{t('generic.change')}<span class='govuk-visually-hidden'>
-        #{t('organisation.summary.change_links.organisation_description')}</span>".html_safe,
-                organisation_organisation_description_path(organisation_id: @organisation.id),
+        #{t('organisation.summary.change_links.main_purpose_and_activities')}</span>".html_safe,
+         organisation_organisation_description_path(organisation_id: @organisation.id),
         class: "govuk-link govuk-link--no-visited-state"
       %>
     </dd>

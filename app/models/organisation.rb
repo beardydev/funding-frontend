@@ -39,7 +39,7 @@ class Organisation < ApplicationRecord
   attr_accessor :validate_vat_number
   attr_accessor :validate_company_number
   attr_accessor :validate_charity_number
-  attr_accessor :validate_organisation_description
+  attr_accessor :validate_main_purpose_and_activities
   attr_accessor :validate_communities_that_org_serve
   attr_accessor :validate_leadership_self_identify
   attr_accessor :validate_number_of_employees
@@ -59,7 +59,7 @@ class Organisation < ApplicationRecord
   validates :custom_org_type, length: { maximum: 255 }
   validates :name, presence: true, if: :validate_name?
   validates :name, length: { maximum: 255 }
-  validates :organisation_description, presence: true, if: :validate_organisation_description?
+  validates :main_purpose_and_activities, presence: true, if: :validate_main_purpose_and_activities?
   validates :communities_that_org_serve, presence: true, if: :validate_communities_that_org_serve?
   validates :leadership_self_identify, presence: true, if: :validate_leadership_self_identify?
   validates :line1, presence: true, if: :validate_address?
@@ -86,10 +86,10 @@ class Organisation < ApplicationRecord
   validate do
 
     validate_length(
-      :organisation_description,
+      :main_purpose_and_activities,
       500,
-      I18n.t('activerecord.errors.models.organisation.attributes.organisation_description.too_long', word_count: 500)
-    ) if validate_organisation_description?
+      I18n.t('activerecord.errors.models.organisation.attributes.main_purpose_and_activities.too_long', word_count: 500)
+    ) if validate_main_purpose_and_activities?
 
     validate_length(
       :volunteer_work_description,
@@ -161,8 +161,8 @@ class Organisation < ApplicationRecord
     validate_vat_registered == true
   end
 
-  def validate_organisation_description? 
-    validate_organisation_description == true
+  def validate_main_purpose_and_activities? 
+    validate_main_purpose_and_activities == true
   end
 
   def validate_communities_that_org_serve?

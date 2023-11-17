@@ -201,9 +201,6 @@ en-GB:
             custom_org_type:
               blank: "Enter your organisation's type"
               too_long: "Organisation type must be 255 characters or fewer"
-            organisation_description:
-              blank: "Enter the work your organisation does"
-              too_long: "Description of your organisation and the work your organisation does must be 500 words or fewer"
             communities_that_org_serve:
               blank: "Select the community that your organisation is dedicated to serving"
               none_of_the_above: "Cannot select 'None of the above' with other options"  
@@ -223,8 +220,8 @@ en-GB:
             postcode:
               blank: "Enter the postcode where your organisation is located"
             main_purpose_and_activities:
-              blank: "Enter your organisation's main purpose or activities"
-              too_long: "Description of your organisation's main purpose or activities must be %{word_count} words or fewer"
+              blank: "Enter the work your organisation does"
+              too_long: "Description of your organisation and the work your organisation does must be 500 words or fewer"
             governing_documents_question:
               text_field_blank: "Please choose whether to upload a document"  
             board_members_or_trustees:

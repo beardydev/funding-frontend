@@ -52,7 +52,7 @@ class AddressController < ApplicationController
           end
 
         else
-          redirect_to organisation_description_path(params['id'])
+          redirect_to main_purpose_and_activities_path(params['id'])
         end
 
       elsif @type == 'preapplication'

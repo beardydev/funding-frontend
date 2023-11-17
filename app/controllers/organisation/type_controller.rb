@@ -4,7 +4,7 @@ class Organisation::TypeController < ApplicationController
   include ObjectErrorsLogger
 
   # This method updates the org_type attribute of an organisation,
-  # redirecting to :organisation_description if successful and re-rendering
+  # redirecting to :main_purpose_and_activities if successful and re-rendering
   # :show method if unsuccessful
   def update
 

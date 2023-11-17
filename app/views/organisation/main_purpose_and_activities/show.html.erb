@@ -2,7 +2,7 @@
   render partial: "partials/page_title",
          locals: {
              model_object: @organisation,
-             page_title: t('organisation_description.org_page_title')
+             page_title: t('main_purpose_and_activities.org_page_title')
          }
 %>
 
@@ -18,17 +18,17 @@
   render partial: "partials/summary_errors",
   locals: {
     form_object: @organisation,
-    first_form_element: :organisation_description
+    first_form_element: :main_purpose_and_activities
   } if @organisation.errors.any? 
 %>
 
 <h1 class="govuk-heading-xl">
 
   <span class="govuk-caption-xl">
-    <%= t('organisation_description.org_page_heading_caption') %>
+    <%= t('main_purpose_and_activities.org_page_heading_caption') %>
   </span>
 
-  <%= t('organisation_description.org_page_heading') %>
+  <%= t('main_purpose_and_activities.org_page_heading') %>
 
 </h1>
 
@@ -44,25 +44,25 @@
     %>
 
       <div class="govuk-form-group <%= "#{'govuk-form-group--error' if 
-        @organisation.errors[:organisation_description].any?}" %>">
+        @organisation.errors[:main_purpose_and_activities].any?}" %>">
 
           <%= 
             render partial: "partials/form_input_errors",
                   locals: {
                     form_object: @organisation,
-                    input_field_id: :organisation_description
-                    } if @organisation.errors[:organisation_description].any? 
+                    input_field_id: :main_purpose_and_activities
+                    } if @organisation.errors[:main_purpose_and_activities].any? 
           %>
           
-          <%= f.text_area :organisation_description, 
+          <%= f.text_area :main_purpose_and_activities, 
                 rows: 10, 
-                id: 'organisation_description', 
+                id: 'main_purpose_and_activities', 
                 class: "govuk-textarea #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
-                "#{'govuk-input--error' if @organisation.errors[:organisation_description].any?}", 
-                "aria-describedby" => "organisation_description-info" 
+                "#{'govuk-input--error' if @organisation.errors[:main_purpose_and_activities].any?}", 
+                "aria-describedby" => "main_purpose_and_activities-info" 
             %>
 
-          <div id="organisation_description-info"
+          <div id="main_purpose_and_activities-info"
                 class="govuk-hint govuk-character-count__message"
                 aria-live="polite">
             <%= t('generic.word_count', max_words: 500) %>

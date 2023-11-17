@@ -45,7 +45,7 @@
 #           townCity: "London",
 #           county: "LONDON",
 #           postcode: "SW1A 2AA",
-#           organisation_description: "We do charity based projects",
+#           main_purpose_and_activities: "We do charity based projects",
 #       )
 
 #       @project.user.organisations.append(organisation)

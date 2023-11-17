@@ -466,7 +466,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_145958) do
     t.integer "board_members_or_trustees"
     t.boolean "vat_registered"
     t.string "vat_number"
-    t.string "organisation_description"
+    t.string "main_purpose_and_activities"
     t.text "communities_that_org_serve", array: true
     t.text "leadership_self_identify", array: true
     t.integer "number_of_employees"

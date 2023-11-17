@@ -25,7 +25,7 @@ FactoryBot.define do
     board_members_or_trustees { 5 }
     vat_registered { true }
     vat_number { "GB123456789" }
-    organisation_description { "Sample Description" }
+    main_purpose_and_activities { "Sample Description" }
     communities_that_org_serve { ["Community A", "Community B"] }
     leadership_self_identify { ["Leader A", "Leader B"] }
     number_of_employees { 10 }
@@ -40,7 +40,7 @@ FactoryBot.define do
       org.validate_name = true
       org.validate_address = true
       org.validate_org_type = true
-      org.validate_organisation_description = true
+      org.validate_main_purpose_and_activities = true
       org.validate_communities_that_org_serve = true
       org.validate_leadership_self_identify = true
       org.validate_board_members_or_trustees = true
@@ -56,7 +56,7 @@ FactoryBot.define do
       end
 
       org_type { nil }
-      organisation_description { nil }
+      main_purpose_and_activities { nil }
       custom_org_type { nil }
       name { nil }
       line1 { nil }
@@ -74,7 +74,7 @@ FactoryBot.define do
 
     trait :valid_organisation do
       name { 'A' * 255 }
-      organisation_description { 'A' * 255 }
+      main_purpose_and_activities { 'A' * 255 }
     end
 
     trait :invalid_organisation do

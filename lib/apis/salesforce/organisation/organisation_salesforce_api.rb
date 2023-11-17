@@ -48,7 +48,7 @@ module OrganisationSalesforceApi
 
       query_string = "SELECT " \
         "Name, BillingStreet, BillingCity, BillingState, BillingPostalCode, " \
-          "Company_Number__c, Charity_Number__c, organisation_description__c, "\
+          "Company_Number__c, Charity_Number__c, Organisation_s_Main_Purpose_Activities__c, "\
             "Organisation_Type__c, Communities_that_org_serves__c, " \
               "Are_you_VAT_registered_picklist__c, VAT_number__c, "\
                 "leadership_self_identify__c, " \
@@ -205,7 +205,7 @@ module OrganisationSalesforceApi
         Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
         VAT_number__c: organisation.vat_number,
         Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees,
-        Organisation_s_Main_Purpose_Activities__c: organisation.organisation_description,
+        Organisation_s_Main_Purpose_Activities__c: organisation.main_purpose_and_activities,
         Communities_that_org_serves__c:  convert_to_salesforce_leadership_and_communities(organisation.communities_that_org_serve),
         leadership_self_identify__c: convert_to_salesforce_leadership_and_communities(organisation.leadership_self_identify),
         NumberOfEmployees: organisation.number_of_employees,
@@ -245,7 +245,7 @@ module OrganisationSalesforceApi
         Are_you_VAT_registered_picklist__c: translate_vat_registered_for_salesforce(organisation.vat_registered),
         VAT_number__c: organisation.vat_number,
         Number_Of_Board_members_or_Trustees__c: organisation.board_members_or_trustees,
-        Organisation_s_Main_Purpose_Activities__c: organisation.organisation_description,
+        Organisation_s_Main_Purpose_Activities__c: organisation.main_purpose_and_activities,
         Communities_that_org_serves__c:  convert_to_salesforce_leadership_and_communities(organisation.communities_that_org_serve),
         leadership_self_identify__c: convert_to_salesforce_leadership_and_communities(organisation.leadership_self_identify),
         NumberOfEmployees: organisation.number_of_employees,

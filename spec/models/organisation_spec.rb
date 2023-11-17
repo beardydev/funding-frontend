@@ -115,9 +115,9 @@ RSpec.describe Organisation, type: :model do
 
   describe 'new organisation strategy attributes' do
 
-    it 'allows organisation_description' do
-      organisation.organisation_description = 'Sample Description'
-      expect(organisation.organisation_description).to eq('Sample Description')
+    it 'allows main_purpose_and_activities' do
+      organisation.main_purpose_and_activities = 'Sample Description'
+      expect(organisation.main_purpose_and_activities).to eq('Sample Description')
     end
 
     it 'allows communities_that_org_serve' do
@@ -208,7 +208,7 @@ RSpec.describe Organisation, type: :model do
     end
   end  
 
-  # tests for board_members_or_trustees,organisation_description
+  # tests for board_members_or_trustees,main_purpose_and_activities
   # and volunteer_work_description
   # Iterate through each set of test data for different attributes.
   # Each set of test data consists of an attribute and an array of test cases.
@@ -223,7 +223,7 @@ RSpec.describe Organisation, type: :model do
         ]
       },
       {
-        attribute: :organisation_description,
+        attribute: :main_purpose_and_activities,
         cases: [
           { value: nil, error: "Enter the work your organisation does" },
           { value: "Some work", error: nil },
@@ -247,7 +247,7 @@ RSpec.describe Organisation, type: :model do
         before do
           allow(subject).to receive(:validate_board_members_or_trustees?).and_return(true)
           allow(subject).to receive(:board_members_or_trustees_required?).and_return(true)
-          allow(subject).to receive(:validate_organisation_description?).and_return(true)
+          allow(subject).to receive(:validate_main_purpose_and_activities?).and_return(true)
           allow(subject).to receive(:validate_volunteer_work_description?).and_return(true)
           subject.valid? 
         end
@@ -318,7 +318,7 @@ RSpec.describe Organisation, type: :model do
       :vat_number,
       :company_number,
       :charity_number,
-      :organisation_description,
+      :main_purpose_and_activities,
       :communities_that_org_serve,
       :leadership_self_identify,
       :number_of_employees,
