@@ -9,7 +9,9 @@ en-GB:
       list_keys:
         type: "Organisation managing your project is a"
         company_number: "Organisation's company number"
+        no_company_number: "No company number"
         charity_number: "Organisation's charity number"
+        no_charity_number: "No charity number"
         name: "Organisation's name"
         location: "Your organisation is based in"
         mission: "Your organisation's mission, or objectives include"
@@ -18,9 +20,13 @@ en-GB:
         communities_org_serve: "Specific community that your organisation is dedicated to serving"
         leadership_self_identify: "More than 75% of your organisation’s leadership and staff self-identify as the following"
         vat_number: "Organisation’s VAT number"
+        no_vat_number: "No VAT number"
         board_members_or_trustees: "Organisation’s Board members or Trustees"
+        no_board_members_or_trustees: "No Board members or Trustees"
         number_of_employees: "Organisation’s staff"
+        no_employees: "No employees"
         number_of_volunteers: "Organisation’s volunteers"
+        no_volunteers: "No volunteers"
         volunteer_work_description: "Work your volunteers do"
         governing_document: "Your organisation's governing document"
       change_links:

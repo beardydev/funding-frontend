@@ -1,4 +1,4 @@
-# Controller for a page that asks an how an organisations leadership self idenifies.
+# Controller for a page that asks an how an organisations leadership self identifies.
 class Organisation::LeadershipSelfIdentifyController < ApplicationController
   include OrganisationContext
   include ObjectErrorsLogger
@@ -11,9 +11,10 @@ class Organisation::LeadershipSelfIdentifyController < ApplicationController
 
     @organisation.validate_leadership_self_identify = true
 
-    @organisation.update(organisation_params)
+    leadership_params = organisation_params[:leadership_self_identify] || []
+    @organisation.leadership_self_identify = leadership_params.reject(&:blank?)
 
-    if @organisation.valid?
+    if @organisation.save
       logger.info "Finished updating leadership_self_identify for organisation ID: #{@organisation.id}"
       redirect_to organisation_charity_number_path
     else
@@ -27,5 +28,4 @@ class Organisation::LeadershipSelfIdentifyController < ApplicationController
   def organisation_params
     params.fetch(:organisation, {}).permit(leadership_self_identify: [])
   end
-
 end

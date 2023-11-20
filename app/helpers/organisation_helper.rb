@@ -420,11 +420,14 @@ module OrganisationHelper
     # @return [Array] A re-mapped array of leadership_and_communities strings formatted for Salesforce
     def convert_to_salesforce_leadership_and_communities(leadership_communities_values)
 
-      salesforce_leadership_and_communities_array = leadership_communities_values.map { |values| convert_leadership_and_communities(leadership_communities_values) }
+      salesforce_leadership_and_communities_array = leadership_communities_values.map { |value| convert_leadership_and_communities([value]) }
 
       salesforce_leadership_and_communities_array.join(';')
-        
+      
     end
+
+
+    
 
 
   # Method to convert salesforce vat registered picklist value to FFE type

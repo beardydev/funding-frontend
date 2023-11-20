@@ -98,17 +98,33 @@
   <div class="govuk-summary-list__row">
 
     <dt class="govuk-summary-list__key">
+
       <%= t('organisation.check_your_answers.list_keys.type') %>
+
     </dt>
 
     <dd class="govuk-summary-list__value">
-      <%=
-        @organisation.org_type.present? ?
-          t("organisation.type.labels.#{@organisation.org_type}") : t('generic.not_answered')
-      %>
+
+      <% if @organisation.org_type.present? %>
+
+        <%= t("organisation.type.labels.#{@organisation.org_type}") %>
+
+        <% if @organisation.org_type == 'other' && @organisation.custom_org_type.present? %>
+
+          <%= @organisation.custom_org_type %>
+
+        <% end %>
+
+      <% else %>
+
+        <%= t('generic.not_answered') %>
+
+      <% end %>
+
     </dd>
 
     <dd class="govuk-summary-list__actions">
+
       <%=
         link_to "#{t('generic.change')}<span class='govuk-visually-hidden'>
         #{t('organisation.check_your_answers.change_links.type')}</span>".html_safe,
@@ -116,10 +132,10 @@
                 organisation_id: @organisation.id,
                 class: "govuk-link govuk-link--no-visited-state"
       %>
+
     </dd>
 
   </div>
-
   
   <div class="govuk-summary-list__row">
 
@@ -150,7 +166,7 @@
     </dt>
 
     <dd class="govuk-summary-list__value">
-      <%= @organisation.communities_that_org_serve.present? ? @organisation.communities_that_org_serve.map { |str| str.gsub('_', ' ') }.join(', ') : t('generic.not_answered') %>
+      <%= @organisation.communities_that_org_serve.present? ? @organisation.communities_that_org_serve.map { |str| str.gsub('_', ' ') }.join(', ') : t('generic.none') %>
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -172,7 +188,7 @@
     </dt>
 
     <dd class="govuk-summary-list__value">
-      <%= @organisation.leadership_self_identify.present? ? @organisation.leadership_self_identify.map { |str| str.gsub('_', ' ') }.join(', ') : t('generic.not_answered') %>
+      <%= @organisation.leadership_self_identify.present? ? @organisation.leadership_self_identify.map { |str| str.gsub('_', ' ') }.join(', ') : t('generic.none') %>
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -190,12 +206,12 @@
   <div class="govuk-summary-list__row">
 
     <dt class="govuk-summary-list__key">
-      <%= t('organisation.summary.list_keys.charity_number') %>
+      <%= t('organisation.check_your_answers.list_keys.charity_number') %>
     </dt>
 
     <dd class="govuk-summary-list__value">
       <%= @organisation.charity_number.present? ?
-              @organisation.charity_number : t('generic.not_answered') %>
+              @organisation.charity_number : t('organisation.check_your_answers.list_keys.no_charity_number') %>
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -218,7 +234,7 @@
 
     <dd class="govuk-summary-list__value">
       <%= @organisation.company_number.present? ?
-              @organisation.company_number : t('generic.not_answered') %>
+              @organisation.company_number : t('organisation.check_your_answers.list_keys.no_company_number') %>
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -241,7 +257,7 @@
 
     <dd class="govuk-summary-list__value">
       <%= @organisation.vat_number.present? ?
-              @organisation.vat_number : t('generic.not_answered') %>
+              @organisation.vat_number : t('organisation.check_your_answers.list_keys.no_vat_number') %>
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -264,7 +280,7 @@
 
     <dd class="govuk-summary-list__value">
       <%= @organisation.board_members_or_trustees.present? ?
-              @organisation.board_members_or_trustees : t('generic.not_answered') %>
+              @organisation.board_members_or_trustees : t('organisation.check_your_answers.list_keys.no_board_members_or_trustees') %>
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -287,7 +303,7 @@
 
     <dd class="govuk-summary-list__value">
       <%= @organisation.number_of_employees.present? ?
-              @organisation.number_of_employees : t('generic.not_answered') %>
+              @organisation.number_of_employees : t('organisation.check_your_answers.list_keys.no_employees') %>
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -310,7 +326,7 @@
 
     <dd class="govuk-summary-list__value">
       <%= @organisation.number_of_volunteers.present? ?
-              @organisation.number_of_volunteers : t('generic.not_answered') %>
+              @organisation.number_of_volunteers : t('organisation.check_your_answers.list_keys.no_volunteers') %>
     </dd>
 
     <dd class="govuk-summary-list__actions">
@@ -365,7 +381,7 @@
         <% end %>
 
         <% else %>
-          <%= t('generic.not_answered')%> 
+          <%= t('generic.none')%> 
         <% end %>
 
     </dd> 

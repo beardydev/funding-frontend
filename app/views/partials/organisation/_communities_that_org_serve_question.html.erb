@@ -15,6 +15,10 @@
 
       <div class="govuk-checkboxes">
 
+        <%# This hidden field ensures blank validation for pre-existing answers 
+        when a user deselects all checkboxes %>
+        <%= form_object.hidden_field :communities_that_org_serve, multiple: true, value: [] %>
+
         <div class="govuk-checkboxes__item">
 
           <%=
