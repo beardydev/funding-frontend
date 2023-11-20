@@ -133,16 +133,19 @@
     </dt>
     <dd class="govuk-summary-list__value">
       <%= @organisation&.org_type&.titleize %>
+      (<%= @organisation&.custom_org_type&.titleize %>)
     </dd>
   </div>
-   <div class="govuk-summary-list__row">
+  <div class="govuk-summary-list__row">
     <dt class="govuk-summary-list__key">
-      Organisation Mission
+      Communities that organisation serves
     </dt>
     <dd class="govuk-summary-list__value">
-      <%@organisation.mission.each do | miss |%>
-        <%= miss.titleize %>
-      <%end%>
+      <% if @organisation.communities_that_org_serve.present? %>
+        <%= @organisation.communities_that_org_serve.map { |str| str.gsub('_', ' ') }.join(', ') %>
+      <% else %>
+        <%= t('generic.none') %>
+      <% end %>
     </dd>
   </div>
   <div class="govuk-summary-list__row">
