@@ -7,10 +7,10 @@
 %>
 
 <%= content_for :secondarycontent do %>
-  <%= 
+  <%=
     render partial: "partials/summary/summary_link", locals: {
       summary_link: pre_application_project_enquiry_summary_path
-    } 
+    }
   %>
 <% end %>
 
@@ -25,66 +25,58 @@
   method: :put do |f| 
 %>
 
-<div class="govuk-character-count" data-module="govuk-character-count"
-      data-maxwords="200">
-  <div class="govuk-form-group <%= "govuk-form-group--error" if
-    @pre_application.pa_project_enquiry.errors[:programme_outcomes].any? %>">
+  <div class="govuk-character-count" data-module="govuk-character-count" data-maxwords="200">
+    <div class="govuk-form-group <%= "govuk-form-group--error" if
+      @pre_application.pa_project_enquiry.errors[:programme_outcomes].any? %>">
 
-    <h1 class="govuk-label-wrapper">
+      <h1 class="govuk-label-wrapper">
 
-      <%= 
-        f.label :programme_outcomes,
-        t('pa_project_enquiry.programme_outcomes.page_heading'),
-        class: "govuk-label govuk-label--xl govuk-!-margin-bottom-4"
-      %>
+        <%= 
+          f.label :programme_outcomes,
+          t('pa_project_enquiry.programme_outcomes.page_heading'),
+          class: "govuk-label govuk-label--xl govuk-!-margin-bottom-4"
+        %>
 
-    </h1>
+      </h1>
 
-    <span id="programme_outcomes-hint" class="govuk-hint">
+      <span id="programme_outcomes-hint" class="govuk-hint">
+        <%=
+          t(
+            'pa_project_enquiry.programme_outcomes.page_hint_html',
+            href:
+              link_to(
+                t('pa_project_enquiry.programme_outcomes.page_hint_href'),
+                "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110862' : 'https://www.heritagefund.org.uk/funding/outcomes'}", 
+              )
+          )
+        %>
+      </span>
+
       <%=
-        t(
-          'pa_project_enquiry.programme_outcomes.page_hint_html',
-          href:
-            link_to(
-              t('pa_project_enquiry.programme_outcomes.page_hint_href'),
-              "#{I18n.locale == :cy ? 'https://www.heritagefund.org.uk/cy/node/110862' : 'https://www.heritagefund.org.uk/funding/outcomes'}", 
-            )
-        )
+        render partial: "partials/form_input_errors",
+                locals: {form_object: @pre_application.pa_project_enquiry,
+                          input_field_id: :programme_outcomes} if 
+                            @pre_application.pa_project_enquiry.errors[:programme_outcomes].any?
       %>
-    </span>
 
-    <%=
-      render partial: "partials/form_input_errors",
-               locals: {form_object: @pre_application.pa_project_enquiry,
-                        input_field_id: :programme_outcomes} if 
-                          @pre_application.pa_project_enquiry.errors[:programme_outcomes].any?
-    %>
+      <%=
+        f.text_area :programme_outcomes,
+                    rows: 10,
+                    id: "pa_project_enquiry_programme_outcomes",
+                    class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+                            "#{' govuk-textarea--error' if
+                        @pre_application.pa_project_enquiry.errors[:programme_outcomes].any?}",
+                    "aria-describedby" => "programme_outcomes-hint pa_project_enquiry_programme_outcomes-info" 
+      %>
 
-    <%=
-      f.text_area :programme_outcomes,
-                  rows: 10,
-                  id: "pa_project_enquiry_programme_outcomes",
-                  class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
-                          "#{' govuk-textarea--error' if
-                      @pre_application.pa_project_enquiry.errors[:programme_outcomes].any?}",
-                  "aria-describedby" => "programme_outcomes-hint pa_project_enquiry_programme_outcomes-info" 
-    %>
+      <span id="pa_project_enquiry_programme_outcomes-info"
+            class="govuk-hint govuk-character-count__message"
+            aria-live="polite">
+        <%= t('generic.word_count', max_words: 200) %>
+      </span>
 
-    <span id="pa_project_enquiry_programme_outcomes-info"
-          class="govuk-hint govuk-character-count__message"
-          aria-live="polite">
-      <%= t('generic.word_count', max_words: 200) %>
-    </span>
-
+    </div>
   </div>
-</div>
 
-  <%= 
-    render(
-      ButtonComponent.new(
-        element: "button"
-      )
-    ) 
-  %>
-
+  <%= render(ButtonComponent.new(element: "button")) %>
 <% end %>
