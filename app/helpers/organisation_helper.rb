@@ -15,7 +15,8 @@ module OrganisationHelper
         organisation.line1.present?,
         organisation.townCity.present?,
         organisation.postcode.present?,
-        organisation.org_type.present?
+        organisation.org_type.present?,
+        organisation.communities_that_org_serve
     ].all?
 
   end
@@ -27,7 +28,8 @@ module OrganisationHelper
         organisation.line1.present?,
         organisation.townCity.present?,
         organisation.postcode.present?,
-        organisation.org_type.present?
+        organisation.org_type.present?,
+        organisation.communities_that_org_serve
     ].all?
 
   end

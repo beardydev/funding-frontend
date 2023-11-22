@@ -26,7 +26,8 @@ RSpec.describe PreApplication::ExpressionOfInterest::PreviousContactNameControll
         townCity: 'London',
         county: 'London',
         postcode: 'SW1A 2AA',
-        org_type: 1
+        org_type: 1,
+        communities_that_org_serve: 'Faith Communities'
       )
 
       get :show,

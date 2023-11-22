@@ -10,11 +10,11 @@ class PreApplication::ProjectEnquiry::StartController < ApplicationController
 
     organisation = current_user.organisations.first
 
-    if complete_organisation_details?(organisation)
+    if complete_organisation_details_for_pre_application?(organisation)
 
       logger.info "Organisation details complete for #{organisation.id}"
 
-      create_pre_application_and_project_enquiry(current_user,  organisation)
+      create_pre_application_and_project_enquiry(current_user, organisation)
 
       redirect_to(
         pre_application_project_enquiry_previous_contact_path(
