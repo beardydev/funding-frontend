@@ -10,7 +10,7 @@ class PreApplication::ExpressionOfInterest::StartController < ApplicationControl
 
     organisation = current_user.organisations.first
 
-    if complete_organisation_details_for_pre_application?(organisation)
+    if complete_organisation_details?(organisation)
 
       logger.info "Organisation details complete for #{organisation.id}"
 

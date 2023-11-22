@@ -9,7 +9,7 @@ RSpec.describe PreApplication::ExpressionOfInterest::StartController, type: :con
 
       before do
         subject.current_user.organisations << organisation
-        allow_any_instance_of(OrganisationHelper).to receive(:complete_organisation_details_for_pre_application?).and_return(true)
+        allow_any_instance_of(OrganisationHelper).to receive(:complete_organisation_details?).and_return(true)
       end
 
       it 'creates a pre_application and redirects to the expression of interest previous contact path' do
@@ -48,8 +48,7 @@ RSpec.describe PreApplication::ExpressionOfInterest::StartController, type: :con
         townCity: 'London',
         county: 'London',
         postcode: 'SW1A 2AA',
-        org_type: 1,
-        communities_that_org_serve: 'Faith Communities'
+        org_type: 1
       )
 
       put :update
@@ -82,8 +81,7 @@ RSpec.describe PreApplication::ExpressionOfInterest::StartController, type: :con
         townCity: 'London',
         county: 'London',
         postcode: 'SW1A 2AA',
-        org_type: 1,
-        communities_that_org_serve: 'Faith Communities'
+        org_type: 1
       )
 
       put :update
