@@ -41,6 +41,17 @@ RSpec.feature 'LegalAgreements', type: :feature do
     @funding_application.project.project_title = 'agreement test project'
     @funding_application.project.save!
 
+    #setup users organisation details
+    user.organisations.first.update(
+      name: 'Test Organisation',
+      line1: '10 Downing Street',
+      line2: 'Westminster',
+      townCity: 'London',
+      county: 'London',
+      postcode: 'SW1A 2AA',
+      org_type: 1
+    )
+
     # Set up relationships between org and funding
     @funding_application.organisation = user.organisations.first
     @funding_application.save!

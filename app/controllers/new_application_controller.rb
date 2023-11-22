@@ -10,7 +10,6 @@ class NewApplicationController < ApplicationController
   def show
 
     redirect_based_on_organisation_presence_and_completeness(current_user)
-
     @application = NewApplication.new
 
   end
@@ -65,7 +64,7 @@ class NewApplicationController < ApplicationController
 
     unless user.organisations.any? &&
            helpers.complete_organisation_details?(user.organisations.first)
-      redirect_to :orchestrate_dashboard_journey
+      redirect_to :orchestrate_application_journey
     end
 
   end

@@ -18,11 +18,7 @@ class Organisation::OrganisationNameController < ApplicationController
 
       logger.info "Finished updating org_description for organisation ID: #{@organisation.id}"
 
-      if Flipper.enabled?(:import_existing_account_enabled)
-        redirect_to postcode_path(type: 'organisation', id: current_user.organisations.first.id)
-      else
-        redirect_to organisation_path
-      end
+      redirect_to postcode_path(type: 'organisation', id: current_user.organisations.first.id)
 
     else
 

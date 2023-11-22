@@ -18,14 +18,6 @@
 %>
 
 <dl class="govuk-summary-list">
-
-  <%unless @pre_application.organisation.unknown?%>
-    <%= render 'pre_application/project_enquiry/summary/organisation_type' %>
-  <%end%>
- 
-  <%= render 'pre_application/project_enquiry/summary/organisation_name' %>
-  <%= render 'pre_application/project_enquiry/summary/organisation_address' %>
-  <%= render 'pre_application/project_enquiry/summary/organisation_mission' %>
   <%= render 'pre_application/project_enquiry/summary/previous_contact' %> 
   <%= render 'pre_application/project_enquiry/summary/project_reasons' %> 
   <%= render 'pre_application/project_enquiry/summary/what_project_does' %> 

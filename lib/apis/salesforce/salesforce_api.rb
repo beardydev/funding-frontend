@@ -340,7 +340,7 @@
 
       begin
 
-        salesforce_contact_id = upsert_contact_in_salesforce(user, organisation)
+        salesforce_contact_id = upsert_contact_in_salesforce(user, organisation, organisation.salesforce_account_id)
 
         salesforce_expression_of_interest_id = @client.upsert!(
           'Expression_Of_Interest__c',
@@ -431,9 +431,8 @@
       retry_number = 0
 
       begin
-        
 
-        salesforce_contact_id = upsert_contact_in_salesforce(user, organisation)
+        salesforce_contact_id = upsert_contact_in_salesforce(user, organisation, organisation.salesforce_account_id)
 
         salesforce_project_enquiry_id = @client.upsert!(
           'Project_Enquiry__c',

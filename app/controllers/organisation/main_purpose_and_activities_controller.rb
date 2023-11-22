@@ -22,12 +22,8 @@ class Organisation::MainPurposeAndActivitiesController < ApplicationController
 
       logger.info "Finished updating main_purpose_and_activities for organisation ID: #{@organisation.id}"
 
-      if Flipper.enabled?(:import_existing_account_enabled)
-        redirect_to organisation_communities_that_org_serve_path
-      else
-        redirect_to organisation_path
-      end
-
+      redirect_to organisation_communities_that_org_serve_path
+      
     else
 
       logger.info 'Validation failed when attempting to update main_purpose_and_activities' \

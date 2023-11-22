@@ -5,8 +5,18 @@ RSpec.describe DashboardController do
   describe 'GET #show' do
     login_user
 
-    it 'should render the :show template if all user properties ' \
+    it 'should render the :show template if all user and organisation properties ' \
        'are populated' do
+
+      subject.current_user.organisations.first.update(
+        name: 'Test Organisation',
+        line1: '10 Downing Street',
+        line2: 'Westminster',
+        townCity: 'London',
+        county: 'London',
+        postcode: 'SW1A 2AA',
+        org_type: 1
+      )
 
       expect(subject.gon).to receive(:push)
 
@@ -53,15 +63,15 @@ RSpec.describe DashboardController do
   describe 'GET #orchestrate_dashboard_journey' do
     login_user
 
-    it 'should create an empty organisation and redirect to :organisation_type ' \
+    it 'should create an empty organisation and redirect to :organisation_name ' \
     'when the current_user has no organisation when import_existing_account disabled' do
 
       subject.current_user.organisations.delete_all
-      get :orchestrate_dashboard_journey
+      get :orchestrate_application_journey
 
       expect(response).to have_http_status(:redirect)
       expect(response).to redirect_to(
-        organisation_type_path(
+        organisation_organisation_name_path(
           organisation_id: subject.current_user.organisations.first.id
         )
       )
@@ -69,7 +79,7 @@ RSpec.describe DashboardController do
     end
 
     it 'should not create an empty organisation. It should find the organisation is ' \
-       'missing detail(s) and so redirect to :organisation_type when import_existing_account disabled' do
+       'missing detail(s) and so redirect to :organisation_name when import_existing_account disabled' do
 
         expect(subject).not_to receive(:create_organisation)
         subject.current_user.organisations.append(
@@ -77,11 +87,11 @@ RSpec.describe DashboardController do
             :organisation
           )
         )
-        get :orchestrate_dashboard_journey
+        get :orchestrate_application_journey
 
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(
-          organisation_type_path(
+          organisation_organisation_name_path(
             organisation_id: subject.current_user.organisations.first.id
           )
         )
@@ -98,7 +108,7 @@ RSpec.describe DashboardController do
 
         subject.current_user.organisations.delete_all
 
-        get :orchestrate_dashboard_journey
+        get :orchestrate_application_journey
 
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(
@@ -131,7 +141,7 @@ RSpec.describe DashboardController do
           )
         )
 
-        get :orchestrate_dashboard_journey
+        get :orchestrate_application_journey
 
         expect(response).to have_http_status(:redirect)
         expect(response).to redirect_to(
@@ -146,7 +156,7 @@ RSpec.describe DashboardController do
       end      
     end
 
-    it 'should find the organisation is present and redirect to :start_an_application' do
+    it 'should find the organisation is present and the show the dashboard' do
 
       subject.current_user.organisations.first.update(
         name: 'Test Organisation',
@@ -160,10 +170,9 @@ RSpec.describe DashboardController do
 
       expect(subject).not_to receive(:create_organisation)
 
-      get :orchestrate_dashboard_journey
+      get :show
 
-      expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(:start_an_application)
+      expect(response).to have_http_status(:success)
 
     end
 

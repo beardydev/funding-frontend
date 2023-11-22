@@ -70,6 +70,19 @@ FactoryBot.define do
       number_of_volunteers { nil }
       vat_registered { nil }
     end
+
+    trait :complete_details do
+      line1 { "123 Main Street" }
+      townCity { "Plymouth" }
+      county { "Devon" }
+      postcode { "PL1 3TT" }
+      org_type { 0 }
+      name { "Organisation Name" }
+    end
+
+    trait :without_validations do
+      to_create {|instance| instance.save(validate: false) }
+    end
     
 
     trait :valid_organisation do

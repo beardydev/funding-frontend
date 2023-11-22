@@ -341,6 +341,17 @@ RSpec.feature 'SfxPtsPayment', type: :feature do
 
     user = create(:user)
 
+    #setup users organisation details
+    user.organisations.first.update(
+      name: 'Test Organisation',
+      line1: '10 Downing Street',
+      line2: 'Westminster',
+      townCity: 'London',
+      county: 'London',
+      postcode: 'SW1A 2AA',
+      org_type: 1
+    )
+
     @sfx_application = create(:sfx_pts_payment)
 
     login_as(user, scope: :user)

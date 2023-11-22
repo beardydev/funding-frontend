@@ -7,33 +7,33 @@ class PreApplication::ProjectEnquiry::StartController < ApplicationController
   # Method used to manage the creation and orchestration of the
   # PaProjectEnquiry journey
   def update
-  
-    orchestrate_project_enquiry_start_journey(current_user)
+
+    organisation = current_user.organisations.first
+
+    if complete_organisation_details?(organisation)
+
+      logger.info "Organisation details complete for #{organisation.id}"
+
+      create_pre_application_and_project_enquiry(current_user,  organisation)
+
+      redirect_to(
+        pre_application_project_enquiry_previous_contact_path(
+          @pre_application.id
+        )
+      )
+
+    else
+
+      logger.info "Organisation details not complete for #{organisation.id}"
+
+      redirect_to organisation_organisation_name_path(organisation.id)
+
+    end
   
   end
 
   private
   
-  # Method to orchestrate the project enquiry journey based on whether
-  # they have an associated Organisation object with mandatory details
-  # (for this journey type) populated.
-  #
-  # If no associated Organisation object exists, one is created.
-  #
-  # @param [User] user An instance of a User
-  def orchestrate_project_enquiry_start_journey(user)
-
-    organisation = create_organisation_if_none_exists(user)
-
-    create_pre_application_and_project_enquiry(user, organisation)
-
-    redirect_based_on_organisation_completeness(
-      organisation,
-      'pa_project_enquiry'
-    )
-
-  end
-
   # Method responsible for creating a PreApplication object and
   # an associated PaProjectEnquiry object
   #

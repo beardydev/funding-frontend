@@ -12,7 +12,7 @@ RSpec.describe NewApplicationController do
             get :show
 
             expect(response).to have_http_status(:redirect)
-            expect(response).to redirect_to(:orchestrate_dashboard_journey)
+            expect(response).to redirect_to(:orchestrate_application_journey)
 
         end
 
@@ -24,7 +24,7 @@ RSpec.describe NewApplicationController do
             get :show
 
             expect(response).to have_http_status(:redirect)
-            expect(response).to redirect_to(:orchestrate_dashboard_journey)
+            expect(response).to redirect_to(:orchestrate_application_journey)
 
         end
 

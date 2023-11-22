@@ -45,8 +45,9 @@ Rails.application.routes.draw do
   end
 
   # Dashboard section of the service
-  get '/orchestrate-dashboard-journey', to: 'dashboard#orchestrate_dashboard_journey', constraints: lambda { Flipper.enabled?(:new_applications_enabled) }
-  get '/orchestrate-dashboard-journey', to: redirect('/', status: 302), constraints: lambda { !Flipper.enabled?(:new_applications_enabled) }
+  get '/orchestrate-application-journey', to: 'dashboard#orchestrate_application_journey', constraints: lambda { Flipper.enabled?(:new_applications_enabled) }
+  get '/orchestrate-application-journey', to: redirect('/', status: 302), constraints: lambda { !Flipper.enabled?(:new_applications_enabled) }
+  
 
   # Start an Application section of the service
   get 'start-an-application', to: 'new_application#show', constraints: lambda { Flipper.enabled?(:new_applications_enabled) }
