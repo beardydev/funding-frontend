@@ -109,6 +109,8 @@ Rails.application.configure do
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
+  RemoteSyslogLogger.send(:include, ActiveSupport::LoggerSilence)
+  
   config.logger = ActiveSupport::TaggedLogging.new(
     RemoteSyslogLogger.new(
       ENV["PAPERTRAIL_DESTINATION_URI"], 
