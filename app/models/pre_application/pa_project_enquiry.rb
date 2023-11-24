@@ -6,7 +6,7 @@ class PaProjectEnquiry < ApplicationRecord
 
   attr_accessor :validate_heritage_focus
   attr_accessor :validate_what_project_does
-  attr_accessor :validate_programme_outcomes
+  attr_accessor :validate_investment_principles
   attr_accessor :validate_project_reasons
   attr_accessor :validate_project_participants
   attr_accessor :validate_project_timescales
@@ -31,10 +31,10 @@ class PaProjectEnquiry < ApplicationRecord
     ) if validate_what_project_does?
 
     validate_length(
-      :programme_outcomes,
+      :investment_principles,
       200,
-      I18n.t('activerecord.errors.models.pa_project_enquiry.attributes.programme_outcomes.too_long', word_count: 200)
-    ) if validate_programme_outcomes?
+      I18n.t('activerecord.errors.models.pa_project_enquiry.attributes.investment_principles.too_long', word_count: 300)
+    ) if validate_investment_principles?
 
     validate_length(
       :heritage_focus,
@@ -76,8 +76,8 @@ class PaProjectEnquiry < ApplicationRecord
     validate_what_project_does == true
   end
 
-  def validate_programme_outcomes?
-    validate_programme_outcomes == true
+  def validate_investment_principles?
+    validate_investment_principles == true
   end
 
   def validate_project_reasons?
