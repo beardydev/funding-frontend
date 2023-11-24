@@ -224,7 +224,7 @@ module OrganisationHelper
       sf_details.Number_Of_Board_members_or_Trustees__c
 
       organisation.vat_registered =
-        convert_vat_registered_picklist(sf_details.Are_you_VAT_registered_picklist__c)
+        convert_vat_registered(sf_details.Are_you_VAT_registered_picklist__c)
 
       organisation.vat_number =
         sf_details.VAT_number__c
@@ -334,138 +334,6 @@ module OrganisationHelper
     when "N/A"
       return nil
     end
-  end
-
-  # Currently not used as org_types in SF and FFE do not align
-  # This will be enhanced and used in future work
-  def convert_org_type(org_type_string)
-
-    case org_type_string
-    when "Registered charity"
-      return "registered_charity"
-    when "Local authority'"
-      return "local_authority"
-    when "Registered company or Community Interest Company (CIC)" 
-      return "registered_company"
-    # when "community interest company"
-    #   return "community_interest_company"
-    when "Faith based or church organisation"
-      return "faith_based_organisation"
-    # when "church organisation"
-    #   return "church_organisation"
-    when "Community of Voluntary group"
-      return "community_group"
-    # when " voluntary group"
-    #   return "voluntary_group"
-    when "Private owner of heritage"
-      return "individual_private_owner_of_heritage"
-    when "Other organisation type"
-      return "other"
-    when "Other public sector organisation"
-      return "other_public_sector_organisation"
-    end
-  end
-
-  # Method to convert salesforce leadership_and_communities values to FFE type
-  # aligning FFE with any salesforce changes.
-  #
-  # @param [String] leadership_and_communities values A string containing a collection of
-  #                              leadership_and_communities values, in the salesforce format.
-  #
-  # @return [Array<string> ] leadership_and_communities_list String array of FFE mission/objectives  
-  #                                         to add against organisation. 
-  def convert_leadership_and_communities(leadership_communities_values)
-
-    leadership_and_communities_list = []
-
-    if leadership_communities_values.present?
-
-      leadership_communities_values.each do | value |
-        case value
-        when 'communities_experiencing_ethnic_or_racial_inequity_discrimination_inequality'
-          leadership_and_communities_list.append('Communities experiencing ethnic or racial inequity, discrimination or inequality')
-        when 'faith_communities'
-          leadership_and_communities_list.append('Faith communities')
-        when 'people_who_have_migrated_and_or_have_experience_of_the_immigration_system'
-          leadership_and_communities_list.append('People who have migrated and or have experience of the immigration system')
-        when 'deaf_disabled_blind_partially_sighted_and_or_neurodivergent_people'
-          leadership_and_communities_list.append('dDeaf, Disabled, Blind, Partially Sighted and or Neurodivergent People')
-        when 'older_people_65_and_over'
-          leadership_and_communities_list.append('Older people 65 and over')
-        when 'young_people_led'
-          leadership_and_communities_list.append('Younger people under 25')
-        when 'women_and_girls'
-          leadership_and_communities_list.append('Women and girls')
-        when 'lgbt_plus_led'
-          leadership_and_communities_list.append('LGBTQplus people')
-        when 'people_who_are_educationally_or_economically_disadvantaged'
-          leadership_and_communities_list.append('People who are educationally or economically disadvantaged')
-        when 'specific_groups_that_are_not_included_already'
-          leadership_and_communities_list.append('Specific groups that are not included already')
-        when 'None of the above'
-          leadership_and_communities_list.append('None of the above')
-        end
-      end
-
-    end
-    leadership_and_communities_list
-  end
-
- 
-    # Rails stores leadership_and_communities values as a comma delimited set of strings.
-    # Salesforce requires these to be a semi-colon delimited string.
-    #
-    # @param [Array] an array of leadership_and_communities strings for an Organisation
-    #
-    # @return [Array] A re-mapped array of leadership_and_communities strings formatted for Salesforce
-    def convert_to_salesforce_leadership_and_communities(leadership_communities_values)
-
-      salesforce_leadership_and_communities_array = leadership_communities_values.map { |value| convert_leadership_and_communities([value]) }
-
-      salesforce_leadership_and_communities_array.join(';')
-      
-    end
-
-
-    
-
-
-  # Method to convert salesforce vat registered picklist value to FFE type
-  #
-  # @param [String] picklist_type A string containing a picklist value
-  #
-  # @return [String] picklist string A picklist string or nil
-  #
-  def convert_vat_registered_picklist(picklist_type)
-
-    case picklist_type
-    when 'Yes'
-      picklist = true
-    when 'No'
-      picklist = false
-    else
-      picklist = nil
-    end
-
-  end
-
-  # Method to convert salesforce vat registered picklist value to FFE type
-  #
-  # @param [String] picklist_type A string containing a picklist value
-  #
-  # @return [String] picklist string A picklist string or nil
-  #
-  def convert_vat_registered_picklist(picklist_type)
-
-    case picklist_type
-    when 'Yes'
-      picklist = true
-    when 'No'
-      picklist = false
-    else
-      picklist = nil
-    end
-
   end
 
   # upserts organisation to salesforce

@@ -78,6 +78,7 @@ FactoryBot.define do
       postcode { "PL1 3TT" }
       org_type { 0 }
       name { "Organisation Name" }
+      communities_that_org_serve {"Faith Communities"}
     end
 
     trait :without_validations do

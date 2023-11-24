@@ -77,9 +77,9 @@ class AddressController < ApplicationController
           else
 
             redirect_to(
-              pre_application_organisation_type_path(
+              organisation_organisation_name_path(
                 params['id'],
-                @model_object.id
+                @model_object.organisation.id
               )
             )
 

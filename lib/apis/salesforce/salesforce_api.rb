@@ -514,7 +514,7 @@
 
       begin
 
-        salesforce_account_id = create_organisation_in_salesforce(organisation)
+        salesforce_account_id = organisation.salesforce_account_id
 
         salesforce_contact_id = upsert_contact_in_salesforce(
           user,

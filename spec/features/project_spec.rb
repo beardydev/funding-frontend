@@ -31,7 +31,8 @@ RSpec.feature 'Project', type: :feature do
           townCity: "London",
           county: "London",
           postcode: "SW1A 2AA", 
-          main_purpose_and_activities: "Sample Description"
+          main_purpose_and_activities: "Sample Description",
+          communities_that_org_serve: "Faith Communities"
 
       )
 

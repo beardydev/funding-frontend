@@ -1,5 +1,6 @@
 module FundingApplicationHelper
   include SalesforceApi
+  include OrganisationSalesforceApi
 
   DELETED_TEXT = 'deleted by system'
   DELETED_EMAIL = 'deleted@deleted.com'
@@ -18,6 +19,15 @@ module FundingApplicationHelper
   )
 
     salesforce_api_client = SalesforceApiClient.new
+
+    organisation_api_client = OrganisationSalesforceApiClient.new
+    
+    organisation.update(
+      salesforce_account_id: 
+      organisation_api_client.create_organisation_in_salesforce(
+        organisation
+      )
+    )
 
     salesforce_references = salesforce_api_client.create_project(
       funding_application,
@@ -38,9 +48,6 @@ module FundingApplicationHelper
       salesforce_contact_id: salesforce_references[:salesforce_contact_id]
     ) if user.salesforce_contact_id.nil?
 
-    organisation.update(
-      salesforce_account_id: salesforce_references[:salesforce_account_id]
-    ) if organisation.salesforce_account_id.nil?
 
   end
 

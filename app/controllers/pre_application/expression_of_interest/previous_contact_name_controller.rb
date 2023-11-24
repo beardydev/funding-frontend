@@ -16,12 +16,7 @@ class PreApplication::ExpressionOfInterest::PreviousContactNameController < Appl
       if Flipper.enabled?(:import_existing_account_enabled)
         redirect_to postcode_path 'preapplication', @pre_application.id
       else
-        redirect_to(
-          pre_application_organisation_type_path(
-            @pre_application.id,
-            @pre_application.organisation.id
-          )
-        )
+        redirect_to redirect_to organisation_organisation_name_path(@pre_application.organisation.id)
       end
 
     end

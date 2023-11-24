@@ -425,13 +425,6 @@ class Project < ApplicationRecord
                     ) if self.user.organisations.first.salesforce_account_id
                 json.set!('organisationId', self.user.organisations.first.id)
                 json.set!('organisationName', self.user.organisations.first.name)
-
-                json.set!('organisationMission',
-                    self.user.organisations.first.mission.map!(&:dasherize).map {
-                        |m| m == 'lgbt-plus-led' ? 'lgbt+-led' : m
-                    }
-                ) if self.user.organisations.first.mission.present?
-
                 json.set!('organisationType',
                     get_organisation_type_for_salesforce_json)
                 json.set!('companyNumber', self.user.organisations.first.company_number)
@@ -447,28 +440,41 @@ class Project < ApplicationRecord
     end
 
     private
-    def get_organisation_type_for_salesforce_json
 
-        formatted_org_type_value = case self.user.organisations.first.org_type
-        when 'registered_company', 'community_interest_company'
-            'registered-company-or-community-interest-company'
-        when 'faith_based_organisation', 'church_organisation'
-            'faith-based-or-church-organisation'
-        when 'community_group', 'voluntary_group'
-            'community-or-voluntary-group'
-        when 'individual_private_owner_of_heritage'
-            'private-owner-of-heritage'
-        when 'other_public_sector_organisation'
+        def get_organisation_type_for_salesforce_json
+            formatted_org_type_value = case self.user.organisations.first.org_type
+            when 'Registered charity'
+            'registered-charity'
+            when 'Local authority'
+            'local-authority'
+            when 'Other public sector organisation'
             'other-public-sector-organisation'
-        when 'other'
-            'other-org-type'
-        else
+            when 'Public Private Company'
+            'public-private-company'
+            when 'Community Interest Company CIC'
+            'community-interest-company'
+            when 'Charitable Incorporated Organisation CIO'
+            'charitable-incorporated-organisation'
+            when 'Partnership or Limited Liability Partnership LLP'
+            'partnership-or-llp'
+            when 'Private owner of heritage'
+            'private-owner-of-heritage'
+            when 'Co-operative Society', 'Industrial and Provident Society', 'Registered Societies'
+            'cooperative-industrial-provident-registered-society'
+            when 'Trust'
+            'trust'
+            when 'Other constituted group', 'unincorporated club or society'
+            'other-constituted-uncorporated-group-or-society'
+            when 'None of the above'
+            'none-of-the-above'
+            else
             self.user.organisations.first.org_type&.dasherize
+            end
+        
+            formatted_org_type_value
         end
+      
 
-        formatted_org_type_value
-
-    end
 
     # Formats the secured value of a cash contribution for Salesforce.
     #
