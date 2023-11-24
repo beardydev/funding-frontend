@@ -69,39 +69,38 @@ class PaProjectEnquiry < ApplicationRecord
   end
 
   def validate_heritage_focus?
-    validate_heritage_focus == true
+    validate_heritage_focus
   end
 
   def validate_what_project_does?
-    validate_what_project_does == true
+    validate_what_project_does
   end
 
   def validate_investment_principles?
-    validate_investment_principles == true
+    validate_investment_principles
   end
 
   def validate_project_reasons?
-    validate_project_reasons == true
+    validate_project_reasons
   end
 
   def validate_project_participants?
-    validate_project_participants == true
+    validate_project_participants
   end
 
   def validate_project_timescales?
-    validate_project_timescales == true
+    validate_project_timescales
   end
 
   def validate_project_likely_cost?
-    validate_project_likely_cost == true
+    validate_project_likely_cost
   end
 
   def validate_potential_funding_amount?
-    validate_potential_funding_amount == true
+    validate_potential_funding_amount
   end
 
   def validate_working_title?
-    validate_working_title == true
+    validate_working_title
   end
-
 end

@@ -7,7 +7,6 @@ class PaExpressionOfInterest < ApplicationRecord
   attr_accessor :validate_heritage_focus
   attr_accessor :validate_what_project_does
   attr_accessor :validate_working_title
-  attr_accessor :validate_programme_outcomes
   attr_accessor :validate_investment_principles
   attr_accessor :validate_project_reasons
   attr_accessor :validate_project_timescales
@@ -29,12 +28,6 @@ class PaExpressionOfInterest < ApplicationRecord
       200,
       I18n.t('activerecord.errors.models.pa_expression_of_interest.attributes.what_project_does.too_long', word_count: 200)
     ) if validate_what_project_does?
-
-    validate_length(
-      :programme_outcomes,
-      200,
-      I18n.t('activerecord.errors.models.pa_expression_of_interest.attributes.programme_outcomes.too_long', word_count: 200)
-    ) if validate_programme_outcomes?
 
     validate_length(
       :investment_principles,
@@ -75,43 +68,38 @@ class PaExpressionOfInterest < ApplicationRecord
   end
 
   def validate_heritage_focus?
-    validate_heritage_focus == true
+    validate_heritage_focus
   end
 
   def validate_what_project_does?
-    validate_what_project_does == true
+    validate_what_project_does
   end
 
   def validate_working_title?
-    validate_working_title == true
-  end
-
-  def validate_programme_outcomes?
-    validate_programme_outcomes == true
+    validate_working_title
   end
 
   def validate_investment_principles?
-    validate_investment_principles == true
+    validate_investment_principles
   end
 
   def validate_project_reasons?
-    validate_project_reasons == true
+    validate_project_reasons
   end
 
   def validate_project_timescales?
-    validate_project_timescales == true
+    validate_project_timescales
   end
 
   def validate_overall_cost?
-    validate_overall_cost == true
+    validate_overall_cost
   end
 
   def validate_likely_submission_description?
-    validate_likely_submission_description == true
+    validate_likely_submission_description
   end
 
   def validate_potential_funding_amount?
-    validate_potential_funding_amount == true
+    validate_potential_funding_amount
   end
-
 end

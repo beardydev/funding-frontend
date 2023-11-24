@@ -586,7 +586,7 @@ cy:
             what_project_does:
               blank: "Nodwch beth mae'r prosiect yn ei wneud"
               too_long: "Mae'n rhaid i ddisgrifiad o'r hyn y byddwch yn ei wneud yn ystod eich prosiect fod yn %{word_count} gair neu lai"
-            programme_outcomes:
+            investment_principles:
               blank: "Nodwch ganlyniadau'r rhaglen rydych chi'n gobeithio eu cyflawni"
               too_long: "Mae'r rhaid i'r disgrifiad o ddeilliannau'r rhaglen fod yn %{word_count} gair neu lai"
             project_reasons:

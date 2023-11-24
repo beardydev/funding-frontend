@@ -18,10 +18,9 @@
 %>
 
 <dl class="govuk-summary-list">
-
-  <%unless @pre_application.organisation.unknown?%>
+  <% unless @pre_application.organisation.unknown? %>
     <%= render 'pre_application/project_enquiry/summary/organisation_type' %>
-  <%end%>
+  <% end %>
  
   <%= render 'pre_application/project_enquiry/summary/organisation_name' %>
   <%= render 'pre_application/project_enquiry/summary/organisation_address' %>
@@ -31,14 +30,11 @@
   <%= render 'pre_application/project_enquiry/summary/what_project_does' %> 
   <%= render 'pre_application/project_enquiry/summary/working_title' %> 
   <%= render 'pre_application/project_enquiry/summary/heritage_focus' %> 
-  <%= render 'pre_application/project_enquiry/summary/programme_outcomes' %> 
+  <%= render 'pre_application/project_enquiry/summary/investment_principles' %> 
   <%= render 'pre_application/project_enquiry/summary/project_participants' %>
   <%= render 'pre_application/project_enquiry/summary/project_timescales' %>
   <%= render 'pre_application/project_enquiry/summary/project_likely_cost' %>
   <%= render 'pre_application/project_enquiry/summary/potential_funding_amount' %>
-
 </dl>
 
 <%= render 'partials/summary/return_to_question_button' %>
-
-

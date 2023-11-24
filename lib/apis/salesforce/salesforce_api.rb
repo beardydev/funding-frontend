@@ -433,9 +433,8 @@
       retry_number = 0
 
       begin
-        
-        salesforce_account_id = create_organisation_in_salesforce(organisation)
 
+        salesforce_account_id = create_organisation_in_salesforce(organisation)
         salesforce_contact_id = upsert_contact_in_salesforce(user, organisation, salesforce_account_id)
 
         salesforce_project_enquiry_id = @client.upsert!(
@@ -448,13 +447,14 @@
           Potential_Funding_Amount__c: project_enquiry.potential_funding_amount,
           Previous_Fund_Contact__c: project_enquiry.previous_contact_name,
           What_Project_Does__c: project_enquiry.what_project_does,
-          Programme_Outcomes__c: project_enquiry.programme_outcomes,
+          Investment_Principles__c: project_enquiry.investment_principles,
           Project_Reasons__c: project_enquiry.project_reasons,
           Project_Participants__c: project_enquiry.project_participants,
           Timescales__c: project_enquiry.project_timescales, 
           Project_Title__c: project_enquiry.working_title,
           Contact__c: salesforce_contact_id,
-          Name_of_your_organisation__c: salesforce_account_id
+          Name_of_your_organisation__c: salesforce_account_id,
+          RecordTypeId: get_salesforce_record_type_id('H33_PEF_v1', 'Project_Enquiry__c')
         )
  
         Rails.logger.info(
@@ -482,9 +482,7 @@
       rescue Timeout::Error, Faraday::ClientError => e
 
         if retry_number < MAX_RETRIES
-
           retry_number += 1
-
           max_sleep_seconds = Float(2 ** retry_number)
 
           Rails.logger.info(
@@ -495,15 +493,10 @@
           sleep rand(0..max_sleep_seconds)
 
           retry
-
         else
-
           raise
-
-        end  
-
+        end
       end
-
     end
 
     def create_project(funding_application, user, organisation)
@@ -626,7 +619,8 @@
           Grade_II_listed_park_or_garden_Inventory__c: funding_application.open_medium.hd_grade_2_park_description,
           Grade_II_listed_parkgarden_Inventory_ast__c: funding_application.open_medium.hd_grade_2_star_park_description,
           ContactId: salesforce_contact_id, 
-          RecordTypeId: get_salesforce_record_type_id('Medium', 'Case'))
+          RecordTypeId: get_salesforce_record_type_id('Medium', 'Case')
+        )
 
         Rails.logger.info(
           'Created a project record in Salesforce with reference: ' \
@@ -669,9 +663,7 @@
       rescue Timeout::Error, Faraday::ClientError => e
 
         if retry_number < MAX_RETRIES
-
           retry_number += 1
-
           max_sleep_seconds = Float(2 ** retry_number)
 
           Rails.logger.info(
@@ -682,15 +674,10 @@
           sleep rand(0..max_sleep_seconds)
 
           retry
-
         else
-
           raise
-
         end
-
       end
-
     end
 
     # Method to retrieve the external reference number (e.g. HG-12-34567) for

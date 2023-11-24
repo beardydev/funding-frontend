@@ -29,13 +29,9 @@ class PreApplication::ProjectEnquiry::WorkingTitleController < ApplicationContro
       render(:show)
 
     end
-  
   end
 
   def pa_project_enquiry_params
-
     params.require(:pa_project_enquiry).permit(:working_title)
-
   end
-  
 end

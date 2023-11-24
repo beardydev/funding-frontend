@@ -1,0 +1,103 @@
+<%=
+  render partial: "partials/page_title",
+         locals: {
+             model_object: @pre_application.pa_expression_of_interest,
+      page_title: t('pa_project_enquiry.investment_principles.page_title')
+         }
+%>
+
+<%= content_for :secondarycontent do %>
+  <%= 
+    render partial: "partials/summary/summary_link", locals: {
+      summary_link: pre_application_expression_of_interest_summary_path
+    } 
+  %>
+<% end %>
+
+<%= render partial: "partials/summary_errors", locals: {
+    form_object: @pre_application.pa_project_enquiry,
+    first_form_element: :pa_project_enquiry_investment_principles
+} if @pre_application.pa_project_enquiry.errors.any? %>
+
+<%=
+  form_for @pre_application.pa_project_enquiry,
+  url: :pre_application_expression_of_interest_investment_principles,
+  method: :put do |f| 
+%>
+
+  <div class="govuk-character-count" data-module="govuk-character-count"
+       data-maxwords="300">
+
+    <div class="govuk-form-group <%= "govuk-form-group--error" if
+      @pre_application.pa_project_enquiry.errors[:investment_principles].any? %>">
+
+      <h1 class="govuk-label-wrapper">
+
+        <%= 
+          f.label :investment_principles,
+          t('pa_project_enquiry.investment_principles.page_heading'),
+          class: "govuk-label govuk-label--xl govuk-!-margin-bottom-4"
+        %>
+
+      </h1>
+
+    <div id="investment_principles-hint" class="govuk-hint">
+          <div class= "govuk-!-margin-bottom-5">
+            <%= 
+              t(
+                'pa_project_enquiry.investment_principles.page_hint_html_description_1'
+              )
+            %>
+          </div>
+        <div class= "govuk-!-margin-bottom-5">
+          <%=t( 'pa_project_enquiry.investment_principles.page_hint_html_description_2')%>
+        </div>
+      <div class= "govuk-!-margin-bottom-5">
+          <%= t('pa_project_enquiry.investment_principles.page_hint_html_description_3')%>
+      </div>
+      <div class= "govuk-!-margin-bottom-5">
+        <%=t('pa_project_enquiry.investment_principles.page_hint_investment_principles_sub_heading')%>
+      </div>
+          <ul class="govuk-list govuk-list--bullet govuk-hint">
+            <li><%=t('pa_project_enquiry.investment_principles.investment_principle_item_1')%></li>
+            <li> <%=t('pa_project_enquiry.investment_principles.investment_principle_item_2')%></li>
+            <li> <%=t('pa_project_enquiry.investment_principles.investment_principle_item_3')%></li>
+            <li> <%=t('pa_project_enquiry.investment_principles.investment_principle_item_4')%></li>
+          </ul>
+      <div class= "govuk-!-margin-bottom-5">
+          <%=t('pa_project_enquiry.investment_principles.page_hint_html_description_4')%>
+      </div>
+          <%=t('pa_project_enquiry.investment_principles.page_hint_html_strategy_pre_link')%> 
+          <a class="govuk-link govuk-!-margin-right-1" href="https://www.heritagefund.org.uk/about/heritage-2033-our-10-year-strategy" target="_blank">
+            <%=t('pa_project_enquiry.investment_principles.page_hint_html_strategy_link')%>
+          </a>  
+          <%=t('pa_project_enquiry.investment_principles.page_hint_html_strategy_post_link')%> 
+    </div>
+
+      <%=
+        render partial: "partials/form_input_errors",
+                locals: {
+                  form_object: @pre_application.pa_project_enquiry,
+                  input_field_id: :investment_principles\
+                  } if @pre_application.pa_project_enquiry.errors[:investment_principles].any?
+      %>
+
+      <%=
+        f.text_area :investment_principles,
+                    rows: 10,
+                    class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+                            "#{' govuk-textarea--error' if
+                        @pre_application.pa_project_enquiry.errors[:investment_principles].any?}",
+                    "aria-describedby" => "investment_principles-hint pa_project_enquiry_investment_principles-info"
+      %>
+
+      <div id="pa_project_enquiry_investment_principles-info"
+            class="govuk-hint govuk-character-count__message"
+            aria-live="polite">
+        <%= t('generic.word_count', max_words: 300) %>
+      </div>
+    </div>
+  </div>
+
+  <%= render(ButtonComponent.new(element: "button")) %>
+<% end %>

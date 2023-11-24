@@ -1,0 +1,9 @@
+<div class="govuk-summary-list__row">
+  <dt class="govuk-summary-list__key govuk-!-width-one-third">
+    <%= t('pa_project_enquiry.check_answers.table.row_headings.invesment_principles') %>
+  </dt>
+
+  <dd class="govuk-summary-list__value">
+    <%= @pre_application.pa_project_enquiry.invesment_principles? ? @pre_application.pa_project_enquiry.invesment_principles : t('generic.not_answered') %>
+  </dd>
+</div>

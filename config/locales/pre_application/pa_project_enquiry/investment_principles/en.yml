@@ -1,0 +1,17 @@
+en-GB:
+  pa_project_enquiry:
+    investment_principles:
+      page_title: "Please outline how your project will respond to our four investment principles."
+      page_heading: "Please outline how your project will respond to our four investment principles."
+      page_hint_html_description_1: "In March 2023, we launched our new strategy Heritage 2033, which set out our vision for heritage which is valued, cared for and sustained for everyone’s future."
+      page_hint_html_description_2: "We are in the process of developing the new open programme and guidance. We will ask the projects we fund to take all four investment principles into account in their applications. The strength of focus, and emphasis on each principle, will be for applicants to demonstrate."
+      page_hint_html_description_3: "We would like you to tell us about how your project will respond to the Heritage 2023 Investment principles."
+      page_hint_investment_principles_sub_heading: "The investment principles are:"
+      investment_principle_item_1: "saving heritage"
+      investment_principle_item_2: "protecting the environment"
+      investment_principle_item_3: "inclusion, access and participation"
+      investment_principle_item_4: "organisational sustainability"
+      page_hint_html_description_4: "In the strategy there is more information on the investment principles and the impact we want to achieve with our funding."
+      page_hint_html_strategy_pre_link: "Read the strategy here: "
+      page_hint_html_strategy_link: "https://www.heritagefund.org.uk/about/heritage-2033-our-10-year-strategy"
+      page_hint_html_strategy_post_link: "(opens in a new tab)."
