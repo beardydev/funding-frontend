@@ -1,6 +1,7 @@
-en-GB:
-  name:
-    page_title: "About your organisation"
-    page_heading: "Tell us your organisation's name"
-    page_heading_caption: "About your organisation"
-  
+cy:
+  main_purpose_and_activities:
+    org_page_title: "Ynglŷn â’ch sefydliad"
+    org_page_heading: "Disgrifiwch eich sefydliad a’r gwaith y mae’n ei wneud"
+    org_page_heading_caption: "Ynglŷn â’ch sefydliad"
+    error_too_many: "Mae’n rhaid i’r disgrifiad o’ch sefydliad a’r gwaith y mae’n ei wneud fod yn 500 o eiriau neu lai"
+    error_blank: "Nodwch ba fath o waith y mae eich sefydliad yn ei wneud" 

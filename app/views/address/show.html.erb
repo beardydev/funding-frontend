@@ -108,6 +108,15 @@
                        class: "govuk-input govuk-input--width-10 #{'govuk-input--error' if @model_object.errors[:postcode].any?}" %>
     </div>
 
-    <%= f.save_and_continue %>
+    <%=
+          render(
+            ButtonComponent.new(
+              element: 'button',
+              is_start_button: false,
+              text: t('buttons.labels.default'),
+              name: "save_and_continue_button"
+            )
+          )
+        %>
 
 <% end %>

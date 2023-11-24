@@ -1,4 +1,6 @@
 en-GB:
+  errors:
+    invalid_postcode: "%{postcode} is not a valid postcode format"
   address:
     hints:
       1: "This must be the same as your organisation's bank account. It must also be the same as your governing document unless you are a public body. If the name is not the same your organisation may not be able to receive funding from us."

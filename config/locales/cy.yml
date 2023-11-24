@@ -65,7 +65,6 @@ cy:
     not_sure: "Ddim yn siŵr" 
     hours: "Oriau" 
     for_example: "er enghraifft"
-    description: "Disgrifiad"
     sort_code: "Cod didoli" 
     account_number: "Rhif y cyfrif" 
     if_you_have_one: "os oes gennych un" 
@@ -197,16 +196,14 @@ cy:
         organisation:
             attributes:
                 org_type:
-                  blank: "Dewiswch y math o sefydliad a fydd yn cynnal eich prosiect"
+                  blank: "Dewiswch yr opsiwn sy’n disgrifio’r math o sefydliad orau"
                 custom_org_type:
-                  blank: "Nodwch y math o sefydliad"
-                  too_long: "Organisation type must be 255 characters or fewer" 
+                  blank: "Nodwch ba fath o sefydliad ydyw"
+                  too_long: "Rhaid i'r math o sefydliad fod yn 255 nod neu lai" 
                 communities_that_org_serve:
-                  blank: "Select the community that your organisation is dedicated to serving"  
+                  blank: "Dewiswch y gymuned y mae eich sefydliad wedi ymrwymo i’w gwasanaethu"  
                 leadership_self_identify: 
-                  blank: "Select the community that more that 75% of your organisation's leadership and staff self-identify as" 
-                company_number:
-                  not_a_number: "Mae'n rhaid i rif cwmni fod yn rhif, fel 12345678"
+                  blank: "Dewiswch y gymuned y mae mwy na 75% o arweinwyr a staff eich sefydliad yn hunanadnabod eu bod yn perthyn iddi" 
                 name:
                   blank: "Rhowch enw eich sefydliad"
                   too_long: "Rhaid i Enw Sefydliad fod yn 225 nod neu lai"
@@ -219,32 +216,34 @@ cy:
                 postcode:
                   blank: "Rhowch god post lle mae eich sefydliad wedi'i leoli"
                 main_purpose_and_activities:
-                  blank: "Nodwch brif ddiben neu weithgareddau eich sefydliad" 
-                  too_long: "Rhaid i ddisgrifiad o brif ddiben neu weithgareddau eich sefydliad fod yn 500 gair neu lai" 
+                  blank: "Nodwch ba fath o waith y mae eich sefydliad yn ei wneud"
+                  too_long: "Mae’n rhaid i’r disgrifiad o’ch sefydliad a’r gwaith y mae’n ei wneud fod yn 500 o eiriau neu lai"
                 governing_documents_question:
                   text_field_blank: "Please choose whether to upload a document" 
                 board_members_or_trustees:
-                  blank: "Select if your organisation has any Board members or Trustees"
-                  not_a_number: "Mae'n rhaid i nifer aelodau'r bwrdd neu ymddiriedolwyr fod yn rif" 
-                  greater_than: "Rhowch swm sy'n fwy na -1" 
-                  less_than: "Nodwch swm sy'n llai na 2147483648" 
+                  blank: "Dewiswch os oes gan eich sefydliad unrhyw aelodau Bwrdd neu Ymddiriedolwyr"
+                  not_a_number: "Mae’n rhaid i nifer yr aelodau bwrdd neu ymddiriedolwyr fod yn rhif" 
+                  greater_than: "Nodwch swm sy’n fwy na -1" 
+                  less_than: "Nodwch swm sy’n llai na 2147483648" 
                 vat_registered:
                   inclusion: "Dewiswch opsiwn i ddweud wrthym a yw eich sefydliad wedi'i gofrestru ar gyfer TAW" 
                 vat_number:
-                  too_short: "Rhowch rif TAW eich sefydliad yn y fformat cywir" 
-                  too_long: "Rhowch rif TAW eich sefydliad yn y fformat cywir" 
+                  blank: "Nodwch rif TAW eich sefydliad"
+                  too_short: "Nodwch rif TAW eich sefydliad yn y fformat cywir"
+                  too_long: "Nodwch rif TAW eich sefydliad yn y fformat cywir"
                 company_number:
-                   too_long: "Mae'n rhaid i rif y cwmni fod yn 20 nod neu'n llai"
+                  not_a_number: "Mae’n rhaid i’r rhif cwmni fod yn rhif, fel 12345678"
+                  too_long: "Mae’n rhaid i’r rhif cwmni gynnwys 20 o nodau neu lai"
+                  blank: "Dewiswch os oes gan eich sefydliad rif cwmni"
+                  text_field_blank: "Nodwch rif elusen eich sefydliad"
                 charity_number:
-                  too_long: "Mae'n rhaid i rif elusen fod yn 20 nod neu lai. Er enghraifft 1234567 yng Nghymru a Lloegr, SC000123 yn yr Alban, neu 10000-0 yng Ngogledd Iwerddon"
-                social_media_info:
-                  too_long: "Rhaid i ddisgrifiad o gyfryngau cymdeithasol eich sefydliad fod yn %{word_count} gair neu lai" 
-                unrestricted_funds:
-                  not_a_number: "Rhaid i lefel y cronfeydd anghyfyngedig fod yn rif" 
-                  greater_than: "Rhowch swm sy'n fwy na 0"
-                spend_in_last_financial_year:
-                  not_a_number: "Rhaid bod yn rhif, fel 500" 
-                  greater_than: "Rhowch swm sy'n fwy na 0" 
+                  blank: "Dewiswch os oes gan eich sefydliad rif elusen"
+                  text_field_blank: "Nodwch rif elusen eich sefydliad"
+                  too_long: "Mae’n rhaid i’r rhif elusen gynnwys 20 o nodau neu lai. Er enghraifft 1234567 yng Nghymru a Lloegr, SC000123 yn yr Alban, neu 10000-0 yng Ngogledd Iwerddon"
+                volunteer_work_description:
+                  blank: "Nodwch ba fath o waith y mae eich gwirfoddolwyr yn ei wneud"
+                  too_long: "Mae’n rhaid i’r gwaith y mae eich gwirfoddolwyr yn ei wneud fod yn 500 o eiriau neu lai" 
+
         legal_signatory:
           attributes:
             role:
@@ -705,10 +704,6 @@ cy:
               blank: "Dewiswch a fyddwch yn darparu strwythur rheoli prosiect"
             project_management_structure_files:
               inclusion: "Dewiswch ffeil strwythur rheoli prosiect"
-            property_ownership_evidence_question:
-              blank: "Dewiswch a fyddwch yn darparu tystiolaeth o berchnogaeth"
-            property_ownership_evidence_files:
-              inclusion: "Dewiswch dystiolaeth o ffeil perchnogaeth"
             property_ownership_evidence_question:
               blank: "Dewiswch a fyddwch yn darparu tystiolaeth o berchnogaeth"
             property_ownership_evidence_files:

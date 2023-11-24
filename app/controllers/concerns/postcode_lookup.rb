@@ -54,8 +54,8 @@ module PostcodeLookup
         lookup_postcode_and_render_results(postcode)
       else
         logger.error 'Invalid postcode format entered'
-        redirect_with_errors "#{postcode} is not a valid " \
-          'postcode format'
+        redirect_with_errors t('errors.invalid_postcode', postcode: postcode)
+
       end
     else
       logger.error 'No postcode entered when searching for an address'

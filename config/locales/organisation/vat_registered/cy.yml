@@ -1,8 +1,8 @@
 cy:
   vat_registered:
     page_title: "Ydych chi wedi cofrestru ar gyfer TAW?"
-    page_heading: "Ydych chi wedi cofrestru ar gyfer TAW?"
-    radio_no: "Na, nid wyf wedi cofrestru ar gyfer TAW"
-    radio_yes: "Ydw, rwyf wedi cofrestru ar gyfer TAW"
+    page_heading: "A yw eich sefydliad wedi'i gofrestru ar gyfer TAW?"
+    radio_no: "Na, nid ydym wedi cofrestru ar gyfer TAW"
+    radio_yes: "Ydym, rydym wedi cofrestru ar gyfer TAW"
     label:
       vat_number: "Rhif TAW"

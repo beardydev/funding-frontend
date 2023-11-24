@@ -1,12 +1,12 @@
 cy:
   number_of_employees:
-    page_title: "About your organisation"
-    page_heading: "Does your organisation employ any staff?"
+    page_title: "Ynglŷn â’ch sefydliad"
+    page_heading: "A yw’ch sefydliad yn cyflogi unrhyw staff?"
     options:
-      no_number: 'No, we do not employ any staff.'
-      yes_number: 'Yes, we do employ staff.'
+      no_number: 'Na, nid ydym yn cyflogi unrhyw staff.'
+      yes_number: 'Ie, rydym yn cyflogi staff.'
     hints:
-      tell_us: 'Tell us how many staff your organisation employs'
+      tell_us: 'Dywedwch wrthym sawl aelod o staff y mae eich sefydliad yn ei gyflogi'
     errors:
-      blank: "Select if your organisation employs any staff"
-      text_field_blank: "Enter your how many staff your organisation employs"
+      blank: "Dewiswch os yw’ch sefydliad yn cyflogi unrhyw staff"
+      text_field_blank: "Nodwch sawl aelod o staff y mae eich sefydliad yn ei gyflogi"

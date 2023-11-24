@@ -11,5 +11,5 @@ en-GB:
     hints:
       tell_us: 'Tell us how many staff your organisation employs'
     errors:
-      blank: "Select if your organisation employs any staff"
+      blank: "Choose if you want to upload a document"
       text_field_blank: "Choose if you want to upload a document"

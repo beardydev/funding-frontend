@@ -1,4 +1,12 @@
 cy:
   board_members_or_trustees:
-    page_title: "Faint o aelodau bwrdd neu ymddiriedolwyr sydd gan eich sefydliad?"
-    page_heading: "Faint o aelodau bwrdd neu ymddiriedolwyr sydd gan eich sefydliad?"
+    page_title: "Ynglŷn â’ch sefydliad"
+    page_heading: "A oes gan eich sefydliad unrhyw aelodau Bwrdd neu Ymddiriedolwyr?"
+    options:
+      no_number: 'Na, nid oes gennym unrhyw aelodau Bwrdd nac Ymddiriedolwyr.'
+      yes_number: 'Oes, mae gennym aelodau Bwrdd neu Ymddiriedolwyr.'
+    hints:
+      tell_us: 'Dywedwch wrthym faint o aelodau Bwrdd neu Ymddiriedolwyr sydd gan eich sefydliad'
+    errors:
+      blank: "Dewiswch os oes gan eich sefydliad unrhyw aelodau Bwrdd neu Ymddiriedolwyr "
+      text_field_blank: "Nodwch faint o aelodau Bwrdd neu Ymddiriedolwyr sydd gan eich sefydliad"

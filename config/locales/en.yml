@@ -65,7 +65,6 @@ en-GB:
     not_sure: "Not sure"
     hours: "Hours"
     for_example: "for example"
-    description: "description"
     sort_code: "Sort code"
     account_number: "Account number"
     if_you_have_one: "if you have one"
@@ -206,8 +205,6 @@ en-GB:
               none_of_the_above: "Cannot select 'None of the above' with other options"  
             leadership_self_identify: 
               blank: "Select the community that more that 75% of your organisation's leadership and staff self-identify as" 
-            company_number:
-              not_a_number: "Company number must be a number, like 12345678"
             name:
               blank: "Please enter your organisation's name"
               too_long: "Organisation name must be 255 characters or fewer"
@@ -239,6 +236,7 @@ en-GB:
               too_long: "Company number must be 20 characters or fewer"
               blank: "Select if your organisation has a company number"
               text_field_blank: "Enter your organisation's charity number"
+              not_a_number: "Company number must be a number, like 12345678"
             charity_number:
               too_long: "Charity number must be 20 characters or fewer. For example 1234567 in England and Wales, SC000123 in Scotland, or 10000-0 in Northern Ireland"
               blank: "Select if your organisation has a charity number"
@@ -714,10 +712,6 @@ en-GB:
               blank: "Select if you will provide a project management structure"
             project_management_structure_files:
               inclusion: "Select project management structure file"
-            property_ownership_evidence_question:
-              blank: "Select if you will provide evidence of ownership"
-            property_ownership_evidence_files:
-              inclusion: "Select evidence of ownership file"
             property_ownership_evidence_question:
               blank: "Select if you will provide evidence of ownership"
             property_ownership_evidence_files:

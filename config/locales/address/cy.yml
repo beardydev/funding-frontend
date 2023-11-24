@@ -1,4 +1,6 @@
 cy:
+  errors:
+    invalid_postcode: "%{postcode} nid yw'n fformat cod post dilys"
   address:
     hints:
       1: "Mae'n rhaid i hyn fod yr un fath â chyfrif banc eich sefydliad. Mae'n rhaid iddo hefyd fod yr un fath â'ch dogfen lywodraethu oni bai eich bod yn gorff cyhoeddus. Os nad yw'r enw'r un fath, efallai na fydd eich sefydliad yn gallu derbyn cyllid gennym ni."
