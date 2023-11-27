@@ -1,16 +1,13 @@
-<%=
-  render partial: "partials/page_title",
-         locals: {
-             model_object: @pre_application.pa_project_enquiry,
-      page_title: t('pa_project_enquiry.project_likely_cost.page_title')
-         }
+<%= render partial: "partials/page_title", locals: {
+    model_object: @pre_application.pa_project_enquiry,
+    page_title: t('pa_project_enquiry.project_likely_cost.page_title')
+  }
 %>
 
 <%= content_for :secondarycontent do %>
-  <%= 
-    render partial: "partials/summary/summary_link", locals: {
+  <%= render partial: "partials/summary/summary_link", locals: {
       summary_link: pre_application_project_enquiry_summary_path
-    } 
+    }
   %>
 <% end %>
 
@@ -25,57 +22,40 @@
   method: :put do |f| 
 %>
 
-<div class="govuk-character-count" data-module="govuk-character-count"
-      data-maxwords="200">
-  <div class="govuk-form-group <%= "govuk-form-group--error" if
-    @pre_application.pa_project_enquiry.errors[:project_likely_cost].any? %>">
+  <div class="govuk-character-count" data-module="govuk-character-count" data-maxwords="200">
+    <div class="govuk-form-group <%= "govuk-form-group--error" if
+      @pre_application.pa_project_enquiry.errors[:project_likely_cost].any? %>">
 
-    <h1 class="govuk-label-wrapper">
+      <h1 class="govuk-label-wrapper">
+        <%= f.label :project_likely_cost,
+          t('pa_project_enquiry.project_likely_cost.page_heading'),
+          class: "govuk-label govuk-label--xl govuk-!-margin-bottom-4" %>
+      </h1>
 
-      <%= 
-        f.label :project_likely_cost,
-        t('pa_project_enquiry.project_likely_cost.page_heading'),
-        class: "govuk-label govuk-label--xl govuk-!-margin-bottom-4"
+      <span id="project_likely_cost-hint" class="govuk-hint">
+        <%= t('pa_project_enquiry.project_likely_cost.page_hint') %>
+      </span>
+
+      <%= render partial: "partials/form_input_errors", locals: {
+          form_object: @pre_application.pa_project_enquiry,
+          input_field_id: :project_likely_cost
+        } if @pre_application.pa_project_enquiry.errors[:project_likely_cost].any?
       %>
 
-    </h1>
+      <%= f.text_area :project_likely_cost, rows: 10,
+        id: "pa_project_enquiry_project_likely_cost",
+        class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
+          "#{' govuk-textarea--error' if
+            @pre_application.pa_project_enquiry.errors[:project_likely_cost].any?}",
+        "aria-describedby" => "project_likely_cost-hint pa_project_enquiry_project_likely_cost-info" 
+      %>
 
-
-    <span id="project_likely_cost-hint" class="govuk-hint">
-      <%= t('pa_project_enquiry.project_likely_cost.page_hint') %>
-    </span>
-
-
-    <%=
-      render partial: "partials/form_input_errors",
-               locals: {form_object: @pre_application.pa_project_enquiry,
-                        input_field_id: :project_likely_cost} if 
-                          @pre_application.pa_project_enquiry.errors[:project_likely_cost].any?
-    %>
-
-    <%=
-      f.text_area :project_likely_cost,
-                  rows: 10,
-                  id: "pa_project_enquiry_project_likely_cost",
-                  class: "govuk-textarea  #{'govuk-js-character-count' if I18n.locale == :"en-GB"} " \
-                          "#{' govuk-textarea--error' if
-                      @pre_application.pa_project_enquiry.errors[:project_likely_cost].any?}",
-                  "aria-describedby" => "project_likely_cost-hint pa_project_enquiry_project_likely_cost-info" 
-    %>
-        <span id="pa_project_enquiry_project_likely_cost-info"
-          class="govuk-hint govuk-character-count__message"
-          aria-live="polite">
-      <%= t('generic.word_count', max_words: 200) %>
-    </span>
-
+      <span id="pa_project_enquiry_project_likely_cost-info"
+        class="govuk-hint govuk-character-count__message" aria-live="polite">
+        <%= t('generic.word_count', max_words: 200) %>
+      </span>
+    </div>
   </div>
 
-  <%= 
-    render(
-      ButtonComponent.new(
-        element: "button"
-      )
-    ) 
-  %>
-
+  <%= render(ButtonComponent.new(element: "button")) %>
 <% end %>
