@@ -42,11 +42,16 @@
 
             <span class="nlhf-tag-name">
 
+              <% 
+                link_path = Flipper[:grant_programme_sff_small].enabled? ?
+                  funding_application_gp_project_title_path(application_id: funding_application.id) :
+                  funding_application_gp_project_summary_path(application_id: funding_application.id)
+              %>
               <%=
                 link_to_unless(
                   funding_application.submitted_on.present?,
                   funding_application.project&.project_title.present? ? funding_application.project&.project_title : t('dashboard.funding_applications.untitled'),
-                  funding_application_gp_project_title_path(application_id: funding_application.id),
+                  link_path,
                   class: 'govuk-link govuk-link--no-visited-state',
                   aria: {describedby: funding_application.id}
                 ) do |name|

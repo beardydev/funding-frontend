@@ -93,7 +93,7 @@ RSpec.describe DashboardController do
 
       
       begin
-        
+
         Flipper[:import_existing_account_enabled].enable
 
         subject.current_user.organisations.delete_all
@@ -110,8 +110,8 @@ RSpec.describe DashboardController do
 
       ensure
         Flipper[:import_existing_account_enabled].disable
-      end      
-    
+      end
+
 
     end
 
@@ -119,9 +119,8 @@ RSpec.describe DashboardController do
        'missing detail(s) and so redirect to :postcode_path when import_existing_account enabled' do
 
       begin
-        
-        Flipper[:import_existing_account_enabled].enable
 
+        Flipper[:import_existing_account_enabled].enable
 
         expect(subject).not_to receive(:create_organisation)
 
@@ -143,30 +142,32 @@ RSpec.describe DashboardController do
 
       ensure
         Flipper[:import_existing_account_enabled].disable
-      end      
+      end
     end
 
     it 'should find the organisation is present and redirect to :start_an_application' do
+      begin
+        Flipper[:grant_programme_sff_small].enable
 
-      subject.current_user.organisations.first.update(
-        name: 'Test Organisation',
-        line1: '10 Downing Street',
-        line2: 'Westminster',
-        townCity: 'London',
-        county: 'London',
-        postcode: 'SW1A 2AA',
-        org_type: 1
-      )
+        subject.current_user.organisations.first.update(
+          name: 'Test Organisation',
+          line1: '10 Downing Street',
+          line2: 'Westminster',
+          townCity: 'London',
+          county: 'London',
+          postcode: 'SW1A 2AA',
+          org_type: 1
+        )
 
-      expect(subject).not_to receive(:create_organisation)
+        expect(subject).not_to receive(:create_organisation)
 
-      get :orchestrate_dashboard_journey
+        get :orchestrate_dashboard_journey
 
-      expect(response).to have_http_status(:redirect)
-      expect(response).to redirect_to(:start_an_application)
-
+        expect(response).to have_http_status(:redirect)
+        expect(response).to redirect_to(:start_an_application)
+      ensure
+        Flipper[:grant_programme_sff_small].disable
+      end
     end
-
   end
-
 end

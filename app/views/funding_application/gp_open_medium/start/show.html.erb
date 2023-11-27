@@ -8,6 +8,10 @@
   )
 %>
 
+<% unless Flipper.enabled?(:grant_programme_sff_small) %>
+  <%= render partial: "partials/login_banner" %>
+<% end %>
+
 <h1 class="govuk-heading-xl nlhf-!-line-height-1-3">
   <%= t('gp_open_medium.start.page_heading_html') %>
 </h1>

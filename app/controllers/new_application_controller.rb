@@ -8,11 +8,14 @@ class NewApplicationController < ApplicationController
   # does not contain all mandatory details, then redirect to the dashboard
   # orchestration path. Otherwise, proceed to create a NewApplication object
   def show
+    unless Flipper.enabled?(:grant_programme_sff_small)
+      redirect_to :funding_application_gp_open_medium_start
+      return
+    end
 
     redirect_based_on_organisation_presence_and_completeness(current_user)
 
     @application = NewApplication.new
-
   end
 
   # This method creates a new NewApplication object and then uses this to
@@ -75,19 +78,14 @@ class NewApplicationController < ApplicationController
   #
   # @param [NewApplication] application An instance of NewApplication
   def redirect_to_application_start_page(application)
-
     case application.application_type
-
     when 'sff_small'
-
+      # small grants are disabled as of 1Dec23
       logger.info "Redirecting to SFF Small form for user ID: #{current_user.id}"
-
       redirect_to :funding_application_gp_project_start
 
     when 'sff_medium'
-
       logger.info "Redirecting to SFF Medium form for user ID: #{current_user.id}"
-
       redirect_to :funding_application_gp_open_medium_start
 
     else
@@ -98,9 +96,6 @@ class NewApplicationController < ApplicationController
       # If the user has managed to hit this route with an invalid
       # application_type, then we should redirect them back to root
       redirect_to :authenticated_root
-
     end
-
   end
-
 end

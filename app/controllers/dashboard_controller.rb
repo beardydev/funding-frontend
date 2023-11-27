@@ -169,11 +169,9 @@ class DashboardController < ApplicationController
   def redirect_based_on_organisation_completeness(organisation)
 
     if helpers.complete_organisation_details?(organisation)
-
       logger.info "Organisation details complete for #{organisation.id}"
 
-      redirect_to(:start_an_application)
-
+      redirect_to :start_an_application
     else
 
       logger.info "Organisation details not complete for #{organisation.id}"

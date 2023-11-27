@@ -76,6 +76,7 @@ cy:
     submitted: "Cyflwynwyd"
     awarded: "dyfarnwyd"
     applying: "Ymgeisio" 
+    closed: "Ar gau" 
     projects: "prosiectau"
     not_started: "Heb ddechrau"
     in_progress: "Ar y gweill" 

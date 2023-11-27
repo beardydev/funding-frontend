@@ -7,18 +7,24 @@
 %>
 
 <span class="govuk-caption-xl">
-  <%= t('gp_project.summary.sub_heading') %>
+  <% if Flipper[:grant_programme_sff_small].enabled? %>
+    <%= t('gp_project.summary.sub_heading') %>
+  <% else %>
+    <%= render partial: "partials/summary/important_notice_banner" %>
+  <% end %>
   <%= render 'partials/summary/print_link' %>
 </span>
 
-<%= 
-  render(
-      partial: 'partials/summary/header_and_hint',
-      locals: {
-        hint_suffix: t('gp_project.summary.hint_suffix')
-      }
-    )
-%>
+<h1 class="govuk-label govuk-label--xl govuk-!-margin-bottom-4">
+  <%= t('views.summary.page_heading') %>
+</h1>
+
+<p id="summary_page_heading-hint" class="govuk-hint">
+  <% if Flipper[:grant_programme_sff_small].enabled? %>
+    <%= t('views.summary.page_hint') %>
+    <%= t('gp_project.summary.hint_suffix') %>
+  <% end %>
+</p>
 
 <dl class="govuk-summary-list">
 
@@ -226,4 +232,6 @@
 
 </dl>
 
-<%= render 'partials/summary/return_to_question_button' %>
+<% if Flipper[:grant_programme_sff_small].enabled? %>
+  <%= render 'partials/summary/return_to_question_button' %>
+<% end %>

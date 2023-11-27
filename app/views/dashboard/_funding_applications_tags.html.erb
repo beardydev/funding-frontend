@@ -1,14 +1,16 @@
 <% if funding_application.submitted_on.nil? %>
 
-  <%=
-    render(
-      partial: 'partials/tag_component',
-      locals: {
-        colour: 'blue',
-        tag_text: t('generic.applying'),
-        tag_id: funding_application.id
-      }
-    )
+  <% closed_application = funding_application.project.present? && !Flipper[:grant_programme_sff_small].enabled? %>
+  <% tag_colour = closed_application ? 'grey' : 'blue' %>
+  <% tag_text = closed_application ? t('generic.closed') : t('generic.applying') %>
+  <%= render(
+        partial: 'partials/tag_component',
+        locals: {
+          colour: tag_colour,
+          tag_text: tag_text,
+          tag_id: funding_application.id
+        }
+      )
   %>
 
 <% end %>
